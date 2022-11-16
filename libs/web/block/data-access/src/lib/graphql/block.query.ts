@@ -6,11 +6,22 @@ type BlockWithLatestVersion = BlockModel & {
 };
 
 export interface BlockQueryVariables {
-  slug: string;
+  blockId: string;
 }
 
 export interface BlockQueryResult {
   readonly block: BlockWithLatestVersion;
 }
 
-export const BlockQuery = gql<BlockQueryResult, BlockQueryVariables>``;
+export const BlockQuery = gql<BlockQueryResult, BlockQueryVariables>`
+  query BlockQuery($blockId: String!) {
+    block: block(blockId: $blockId) {
+      id
+      latest {
+        type
+        content
+        createdAt
+      }
+    }
+  }
+`;

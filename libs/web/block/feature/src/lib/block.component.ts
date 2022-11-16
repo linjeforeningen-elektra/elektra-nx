@@ -1,5 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Apollo } from 'apollo-angular';
+import { ApolloQueryResult } from '@apollo/client/core';
+import { BlockQueryResult, BlockService } from '@elektra-nx/web/block/data-access';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'elektra-nx-block',
@@ -7,9 +9,15 @@ import { Apollo } from 'apollo-angular';
   styleUrls: ['./block.component.scss'],
 })
 export class BlockComponent implements OnInit {
-  constructor(private apollo: Apollo) {}
+  constructor(private block: BlockService) {}
 
   @Input() id: string;
 
-  ngOnInit(): void {}
+  query$?: Observable<ApolloQueryResult<BlockQueryResult>>;
+
+  ngOnInit(): void {
+    if (this.id) {
+      this.query$ = this.block.loadBlock(this.id);
+    }
+  }
 }

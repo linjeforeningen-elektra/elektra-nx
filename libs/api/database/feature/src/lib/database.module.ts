@@ -4,6 +4,7 @@ import { DatabaseService } from './database.service';
 
 import { DatabaseConfigModule, DatabaseConfigService } from '@elektra-nx/api/database/config';
 import { ApiShellConfigModule, ApiShellConfigService } from '@elektra-nx/api/shell/config';
+import { join } from 'path';
 
 @Module({
   imports: [
@@ -19,7 +20,11 @@ import { ApiShellConfigModule, ApiShellConfigService } from '@elektra-nx/api/she
         migrationsTableName: 'migrations',
         migrationsRun: apiconf.ENV === 'production',
         // migrations: ['libs/api/database/cli/src/lib/migrations/*.ts'],
-        migrations: [apiconf.ENV == 'CLI' ? 'libs/api/database/cli/src/lib/migrations/*.ts' : '**/migrations/*.js'],
+        migrations: [
+          apiconf.ENV == 'CLI'
+            ? 'libs/api/database/cli/src/lib/migrations/*.ts'
+            : join(__dirname, '**/migrations/*.js'),
+        ],
         username: dbconf.USERNAME,
         password: dbconf.PASSWORD,
         database: dbconf.DATABASE,

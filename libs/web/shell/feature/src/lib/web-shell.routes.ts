@@ -19,6 +19,10 @@ export const WEB_SHELL_ROUTES: Route[] = [
         loadChildren: async () => (await import('@elektra-nx/web/account/feature/shell')).AccountShellModule,
       },
       {
+        path: 'admin',
+        loadChildren: async () => (await import('@elektra-nx/web/admin/feature/shell')).AdminShellModule,
+      },
+      {
         path: '',
         pathMatch: 'full',
         redirectTo: 'home',

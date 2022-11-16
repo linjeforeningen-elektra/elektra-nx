@@ -45,7 +45,7 @@ export class BlockRevisionService {
 
   public async create(blockId: string, dto: CreateBlockRevisionDto, userId: string) {
     const { max } = await this.getBlockMaxVersion(blockId);
-    return this.blockRevision.create({
+    return this.blockRevision.save({
       ...dto,
       blockId,
       createdById: userId,
