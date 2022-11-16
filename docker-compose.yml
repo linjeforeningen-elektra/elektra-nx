@@ -6,7 +6,7 @@ services:
     build:
       context: .
       dockerfile: apps/api/Dockerfile
-    image: registry.gitlab.com/elektra-ntnu/elektra-nx/api
+    image: ghcr.io/linjeforeningen-elektra/elektra-nx-api
     restart: always
     ports:
       - 3000:3000
@@ -19,7 +19,7 @@ services:
     build:
       context: .
       dockerfile: apps/web/Dockerfile
-    image: registry.gitlab.com/elektra-ntnu/elektra-nx/web
+    image: ghcr.io/linjeforeningen-elektra/elektra-nx-web
     restart: always
     ports:
       - 4000:4000
