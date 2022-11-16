@@ -17,24 +17,30 @@ export class LoginWithAuthLocalDto implements LoginWithAuthLocalModel {
   password: string;
 }
 
+@InputType()
 export class CreateAuthLocalDto implements CreateAuthLocalModel {
   @IsNotEmpty()
   @IsEmail()
+  @Field(() => String)
   email: string;
 
   @IsNotEmpty()
   @IsString()
+  @Field(() => String)
   password: string;
 }
 
+@InputType()
 export class RegisterWithAuthLocalDto implements RegisterWithAuthLocalModel {
   @Type(() => CreateUserDto)
   @ValidateNested()
   @IsNotEmpty()
+  @Field(() => CreateUserDto)
   user: CreateUserDto;
 
   @Type(() => CreateAuthLocalDto)
   @ValidateNested()
   @IsNotEmpty()
+  @Field(() => CreateAuthLocalDto)
   auth: CreateAuthLocalDto;
 }

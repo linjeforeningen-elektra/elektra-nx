@@ -13,6 +13,7 @@ export class CreateUserDto implements Pick<UserModel, 'name' | 'slug'> {
   @IsOptional()
   @IsString()
   @IsLowercase()
+  @Field(() => String, { nullable: true })
   slug?: string;
 }
 
