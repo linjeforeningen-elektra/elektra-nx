@@ -19,7 +19,7 @@ import { ApiShellConfigModule, ApiShellConfigService } from '@elektra-nx/api/she
         migrationsTableName: 'migrations',
         migrationsRun: apiconf.ENV === 'production',
         // migrations: ['libs/api/database/cli/src/lib/migrations/*.ts'],
-        migrations: [apiconf.ENV == 'CLI' ? 'libs/api/database/cli/src/lib/migrations/*.ts' : ''],
+        migrations: [apiconf.ENV == 'CLI' ? 'libs/api/database/cli/src/lib/migrations/*.ts' : '**/migrations/*.js'],
         username: dbconf.USERNAME,
         password: dbconf.PASSWORD,
         database: dbconf.DATABASE,

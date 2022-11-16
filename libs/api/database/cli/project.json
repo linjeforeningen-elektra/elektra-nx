@@ -40,6 +40,12 @@
         "command": "ts-node --project libs/api/database/cli/tsconfig.json -r tsconfig-paths/register libs/api/database/cli/src/lib/scripts/{args.script}.ts"
       }
     },
+    "deploy": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "tsc libs/api/database/cli/src/lib/migrations/*.ts --module commonjs --skipLibCheck --moduleResolution node --outDir dist/apps/api/migrations"
+      }
+    },
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],
