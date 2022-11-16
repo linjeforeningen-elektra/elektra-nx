@@ -1,0 +1,17 @@
+<section class="elektra-nx-expandable-section">
+  <div class="wrapper" (click)="toggle()">
+    <div class="header">
+      <h3 class="title">
+        <ng-content select="[enx-title]"></ng-content>
+      </h3>
+      <button class="expand" mat-icon-button>
+        <mat-icon>{{ expanded ? 'expand_less' : 'expand_more' }}</mat-icon>
+      </button>
+    </div>
+    <p class="description"><ng-content select="[enx-description]"></ng-content></p>
+  </div>
+  <div class="content" [@expand]="expanded">
+    <ng-content select="[enx-content]"></ng-content>
+  </div>
+  <mat-divider></mat-divider>
+</section>

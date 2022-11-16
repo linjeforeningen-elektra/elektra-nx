@@ -1,0 +1,37 @@
+// @import 'grid.mixin';
+.elektra-nx-signin {
+  min-height: 100vh;
+  position: relative;
+  box-sizing: border-box;
+  padding: 100px 8px 16px;
+  background-color: var(--primary);
+  color: var(--default-contrast);
+  h2 {
+    text-align: center;
+  }
+  .wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 300px;
+    margin: 0 auto;
+    box-sizing: border-box;
+    padding: 24px 16px;
+    align-items: center;
+  }
+  form {
+    display: flex;
+    flex-direction: column;
+    button {
+      background-color: var(--primary-darker);
+      color: #FFF;
+    }
+
+    a {
+      display: block;
+      color: unset;
+      text-align: center;
+      padding: 12px 0;
+    }
+  }
+}

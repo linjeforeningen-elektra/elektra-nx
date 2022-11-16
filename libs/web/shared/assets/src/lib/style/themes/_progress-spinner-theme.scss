@@ -1,0 +1,19 @@
+@use '@angular/material/theming' as mat;
+@use 'SASS:map';
+
+@mixin progress-spinner-on-primary($theme) {
+  $primary: map.get($theme, primary);
+
+  $color: map.get($primary, default-contrast);
+  $color-darker: rgba($color, 0.8);
+
+  .mat-progress-spinner, .mat-spinner {
+    circle {
+      stroke: $color-darker;
+    }
+
+    // &.mat-warn circle {
+    //   stroke: theming.get-color-from-palette($warn);
+    // }
+  }
+}

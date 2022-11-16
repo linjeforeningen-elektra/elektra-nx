@@ -1,0 +1,42 @@
+.elektra-nx-account-membership-edit {
+  position: relative;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0 0 16px;
+  .psa {
+    background-color: var(--warn);
+    padding: 16px;
+    color: #FFF;
+    h3 {
+      margin: 0;
+    }
+  }
+
+  form {
+    position: relative;
+    padding: 0 16px;
+    box-sizing: border-box;
+
+    display: flex;
+    flex-direction: column;
+
+    .form-section-header {
+      //
+    }
+
+    .address {
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1fr .5fr;
+      gap: 8px;
+      mat-form-field {
+        width: 100%;
+        min-width: 0;
+        font-size: 14px;
+      }
+      mat-divider {
+        grid-column: 1 / -1;
+      }
+    }
+  }
+}

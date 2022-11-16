@@ -1,0 +1,10 @@
+@forward 'mixins' as mixin-*;
+@forward 'breakpoints';
+
+
+@mixin core() {
+  body * {
+    position: relative;
+    box-sizing: border-box;
+  }
+}

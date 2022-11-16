@@ -1,0 +1,42 @@
+# default:
+#   image: node:alpine3.16
+#   before_script:
+#     - alias nx="node node_modules/nx/bin/nx.js"
+
+# cache:
+#   key: ${CI_COMMIT_REF_SLUG}
+#   paths:
+#     - node_modules/
+#     - dist/
+
+# stages:
+#   - install
+#   - build
+#   - test
+
+# install_dependencies:
+#   stage: install
+#   script:
+#     - npm ci
+
+# build_web:
+#   stage: build
+#   script:
+#     - nx run web:build
+
+# build_api:
+#   stage: build
+#   script:
+#     - nx run api:build
+
+# test_web:
+#   stage: test
+#   script:
+#     - nx run web:test
+
+# test_api:
+#   stage: test
+#   script:
+#     - nx run api:test
+
+#     # nx affected --target=test --base=main --head=HEAD

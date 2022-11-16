@@ -1,0 +1,39 @@
+<ng-template #loggedin>
+  <ng-container *ngIf="(user$ | async) as user">
+    <div class="text">
+      <h1>Logged in</h1>
+      <h4>{{ user?.email }}</h4>
+    </div>
+    <div class="button">
+      <a mat-icon-button routerLink="/account">
+        <mat-icon>account_circle</mat-icon>
+      </a>
+      <button mat-icon-button disabled (click)="logout()">
+        <mat-icon>logout</mat-icon>
+      </button>
+    </div>
+  </ng-container>
+</ng-template>
+
+<mat-sidenav-container (backdropClick)="close()">
+  <mat-sidenav [opened]="opened$ | async" [mode]="mode">
+    <div class="toolbar">
+      <ng-container *ngIf="(id$ | async) === undefined; else loggedin">
+        <div class="text">
+          <h1>Not logged in</h1>
+          <h4>Please log in</h4>
+        </div>
+        <div class="button">
+          <a mat-icon-button routerLink="/auth">
+            <mat-icon>login</mat-icon>
+          </a>
+        </div>
+      </ng-container>
+    </div>
+
+    <elektra-nx-navdrawer-links></elektra-nx-navdrawer-links>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <ng-content></ng-content>
+  </mat-sidenav-content>
+</mat-sidenav-container>

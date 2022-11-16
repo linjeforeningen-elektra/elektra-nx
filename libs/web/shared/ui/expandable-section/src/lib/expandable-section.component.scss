@@ -1,0 +1,27 @@
+.elektra-nx-expandable-section {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 0px 16px 8px;
+  box-sizing: border-box;
+  .header {
+    display: flex;
+    align-items: flex-start;
+    box-sizing: border-box;
+    .title {
+      font-weight: 600;
+      margin: 10px 0 0;
+      flex: 1 1 auto;
+    }
+  }
+  .description {
+    margin: 8px 0 0;
+  }
+  .content {
+    // height: 0;
+    overflow: hidden;
+    margin: 0 0 8px;
+    // transition: height 100ms ease;
+  }
+}

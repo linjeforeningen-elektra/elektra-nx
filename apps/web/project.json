@@ -1,0 +1,198 @@
+{
+  "name": "web",
+  "projectType": "application",
+  "sourceRoot": "apps/web/src",
+  "prefix": "elektra-nx",
+  "targets": {
+    "build": {
+      "executor": "@angular-devkit/build-angular:browser",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/web/browser",
+        "index": "apps/web/src/index.html",
+        "main": "apps/web/src/main.ts",
+        "polyfills": "apps/web/src/polyfills.ts",
+        "tsConfig": "apps/web/tsconfig.app.json",
+        "inlineStyleLanguage": "scss",
+        "assets": [
+          "apps/web/src/favicon.ico",
+          "apps/web/src/assets",
+          {
+            "glob": "**/*",
+            "input": "libs/web/shared/assets/src/lib/assets",
+            "output": "assets"
+          },
+          {
+            "glob": "**/*",
+            "input": "libs/web/shared/assets/src/lib/style",
+            "output": "assets/style"
+          }
+        ],
+        "styles": ["apps/web/src/styles.scss"],
+        "scripts": [],
+        "stylePreprocessorOptions": {
+          "includePaths": ["libs/web/shared/assets/src/lib/style"]
+        },
+        "allowedCommonJsDependencies": ["class-validator", "class-transformer"]
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "1mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "2kb",
+              "maximumError": "4kb"
+            }
+          ],
+          "fileReplacements": [
+            {
+              "replace": "apps/web/src/environments/environment.ts",
+              "with": "apps/web/src/environments/environment.prod.ts"
+            }
+          ],
+          "outputHashing": "all"
+        },
+        "development": {
+          "buildOptimizer": false,
+          "optimization": false,
+          "vendorChunk": true,
+          "extractLicenses": false,
+          "sourceMap": true,
+          "namedChunks": true
+        },
+        "sourcemap": {
+          "sourceMap": true,
+          "namedChunks": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "executor": "@angular-devkit/build-angular:dev-server",
+      "configurations": {
+        "production": {
+          "browserTarget": "web:build:production"
+        },
+        "development": {
+          "browserTarget": "web:build:development"
+        }
+      },
+      "defaultConfiguration": "development",
+      "options": {
+        "proxyConfig": "apps/web/proxy.conf.json"
+      }
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "browserTarget": "web:build"
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["apps/web/**/*.ts", "apps/web/**/*.html"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/apps/web"],
+      "options": {
+        "jestConfig": "apps/web/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "server": {
+      "executor": "@angular-devkit/build-angular:server",
+      "options": {
+        "outputPath": "dist/apps/web/server",
+        "main": "apps/web/server.ts",
+        "tsConfig": "apps/web/tsconfig.server.json",
+        "inlineStyleLanguage": "scss",
+        "stylePreprocessorOptions": {
+          "includePaths": ["libs/web/shared/assets/src/lib/style"]
+        }
+      },
+      "configurations": {
+        "production": {
+          "outputHashing": "media",
+          "fileReplacements": [
+            {
+              "replace": "apps/web/src/environments/environment.ts",
+              "with": "apps/web/src/environments/environment.prod.ts"
+            }
+          ]
+        },
+        "development": {
+          "optimization": false,
+          "sourceMap": true,
+          "extractLicenses": false
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve-ssr": {
+      "executor": "@nguniversal/builders:ssr-dev-server",
+      "configurations": {
+        "development": {
+          "browserTarget": "web:build:development",
+          "serverTarget": "web:server:development"
+        },
+        "production": {
+          "browserTarget": "web:build:production",
+          "serverTarget": "web:server:production"
+        }
+      },
+      "defaultConfiguration": "development"
+    },
+    "prerender": {
+      "executor": "@nguniversal/builders:prerender",
+      "options": {
+        "routes": ["/"]
+      },
+      "configurations": {
+        "production": {
+          "browserTarget": "web:build:production",
+          "serverTarget": "web:server:production"
+        },
+        "development": {
+          "browserTarget": "web:build:development",
+          "serverTarget": "web:server:development"
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "build-ssr": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": ["nx run web:build:production", "nx run web:server:production"],
+        "parallel": true
+      }
+    },
+    "deploy": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": ["nx run web:build-ssr", "nx run web:gulp"],
+        "parallel": false
+      }
+    },
+    "sourcemap": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "source-map-explorer dist/apps/web/browser/**/*.js --html | firefox \"data:text/html;base64, $(base64 -w 0 <&0)\""
+      }
+    },
+    "gulp": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "gulp --gulpfile apps/web/gulpfile.js compress"
+      }
+    }
+  },
+  "tags": ["type:app", "scope:web"]
+}

@@ -1,0 +1,14 @@
+@use '@angular/material/theming' as mat;
+@use 'SASS:map';
+
+@mixin input-on-primary-theme($theme) {
+  $primary: map.get($theme, primary);
+  $accent: map.get($theme, accent);
+  $is-dark-theme: map.get($theme, is-dark);
+
+
+  .mat-input-element {
+    caret-color: #FFF;
+  }
+
+}

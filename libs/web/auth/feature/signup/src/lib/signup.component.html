@@ -1,0 +1,69 @@
+<div class="elektra-nx-signup">
+  <div class="wrapper">
+
+    <ng-container [ngSwitch]="state">
+
+      <mat-vertical-stepper [linear]="true" #stepper>
+        <mat-step [stepControl]="personaliaFG">
+          <ng-template matStepLabel>Personalia</ng-template>
+          <form (submit)="nextStep($event, stepper)" [formGroup]="personaliaFG">
+            <mat-form-field>
+              <mat-label>First name</mat-label>
+              <input type="text" matInput formControlName="fname" autocomplete="given-name">
+              <mat-error *ngIf="personaliaFG.controls.fname.errors?.['required']">Required.</mat-error>
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>Last name</mat-label>
+              <input type="text" matInput formControlName="lname" autocomplete="family-name">
+              <mat-error *ngIf="personaliaFG.controls.lname.errors?.['required']">Required.</mat-error>
+            </mat-form-field>
+            <div>
+              <button type="submit" mat-button matStepperNext>Next</button>
+            </div>
+          </form>
+        </mat-step>
+
+        <mat-step [stepControl]="authFG">
+          <ng-template matStepLabel>Authentication</ng-template>
+          <form [formGroup]="authFG" (ngSubmit)="nextStep($event, stepper)">
+            <mat-form-field>
+              <mat-label>E-mail</mat-label>
+              <input type="text" matInput formControlName="email" autocomplete="email">
+              <mat-error *ngIf="authFG.controls.email.errors?.['required']">Required.</mat-error>
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>Password</mat-label>
+              <input type="password" matInput formControlName="pass" autocomplete="new-password">
+              <mat-error *ngIf="authFG.controls.pass.errors?.['required']">Required.</mat-error>
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>Repeat password</mat-label>
+              <input type="password" matInput formControlName="pass_c" autocomplete="new-password">
+              <mat-error *ngIf="authFG.controls.pass_c.errors?.['required']">Required.</mat-error>
+              <mat-error *ngIf="authFG.controls.pass_c.errors?.['password_match']">Passwords must match.</mat-error>
+            </mat-form-field>
+            <div>
+              <button mat-button matStepperNext>Next</button>
+              <button mat-button matStepperNext>Previous</button>
+            </div>
+          </form>
+        </mat-step>
+
+        <mat-step [stepControl]="gdprFG">
+          <ng-template matStepLabel>Privacy</ng-template>
+          <form [formGroup]="gdprFG" (ngSubmit)="submit($event)">
+            <div class="checkbox">
+              <mat-checkbox color="primary" formControlName="consent"></mat-checkbox>
+              <span>I have read and agree with our <a routerLink="/privacy">Privacy Policy</a></span>
+            </div>
+            <button [disabled]="!valid" mat-flat-button color="primary">
+              Register
+            </button>
+          </form>
+        </mat-step>
+      </mat-vertical-stepper>
+
+    </ng-container>
+
+  </div>
+</div>

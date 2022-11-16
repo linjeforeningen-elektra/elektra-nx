@@ -1,0 +1,38 @@
+<ng-template #nocard>
+  <div class="not-found">
+    <b>No card created.</b>
+    <button (click)="resetError()" mat-flat-button color="primary">Create card</button>
+  </div>
+</ng-template>
+
+<section class="elektra-nx-account-card">
+  <!-- <ng-container [ngSwitch]="state"> -->
+
+    <!-- <div class="error" *ngSwitchCase="'error'">
+      <ng-container *ngIf="(error$ | async) as err">
+        <ng-container [ngSwitch]="err?.status">
+          <div class="not-found" *ngSwitchCase="404">
+            <ng-container *ngTemplateOutlet="nocard"></ng-container>
+          </div>
+          <div *ngSwitchDefault>
+            <b>Error:</b>
+            <p>{{ err?.error?.message }}</p>
+          </div>
+        </ng-container>
+      </ng-container>
+    </div> -->
+    <!-- <div class="removed error">
+      <p>Card removed.</p>
+      <button mat-flat-button color="primary" (click)="resetError()">Create</button>
+    </div> -->
+    <form  [formGroup]="formGroup" (ngSubmit)="submit($event)">
+      <mat-form-field appearance="outline" floatLabel="always">
+        <mat-label>Student number</mat-label>
+        <input type="text" matInput formControlName="student_number" placeholder="XXXXXX">
+        <mat-hint>Wrong number? Remove and create a new card.</mat-hint>
+      </mat-form-field>
+      <button [disabled]="!valid" mat-flat-button color="primary">Save</button>
+      <button (click)="removeCard()" type="button" mat-flat-button color="warn" *ngIf="student_number.disabled">Remove</button>
+    </form>
+  <!-- </ng-container> -->
+</section>

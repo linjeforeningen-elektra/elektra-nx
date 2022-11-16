@@ -1,0 +1,13 @@
+@use 'layout/mixins' as mixins;
+
+.elektra-nx-dashboard {
+  // display: grid;
+  // @include mixins.grid();
+  display: flex;
+  flex-direction: column;
+
+  // .item {
+  //   grid-column: span 4;
+  // }
+  // grid-template-columns: repeat();
+}

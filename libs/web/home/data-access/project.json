@@ -1,0 +1,23 @@
+{
+  "name": "web-home-data-access",
+  "projectType": "library",
+  "sourceRoot": "libs/web/home/data-access/src",
+  "prefix": "elektra-nx",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/libs/web/home/data-access"],
+      "options": {
+        "jestConfig": "libs/web/home/data-access/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["libs/web/home/data-access/**/*.ts", "libs/web/home/data-access/**/*.html"]
+      }
+    }
+  },
+  "tags": ["type:data-access", "scope:web"]
+}

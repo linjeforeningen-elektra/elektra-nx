@@ -1,0 +1,30 @@
+<div class="elektra-nx-signin on-primary">
+  <div class="wrapper">
+    <ng-container [ngSwitch]="state">
+
+      <div class="error" *ngSwitchCase="'error'">
+        <h3>
+          {{ error }}
+        </h3>
+        <button mat-raised-button (click)="state = 'input'">Retry</button>
+      </div>
+
+      <elektra-nx-spinner *ngSwitchCase="'processing'"></elektra-nx-spinner>
+
+      <form *ngSwitchCase="'input'" [formGroup]="formGroup" (ngSubmit)="submit($event)">
+        <mat-form-field color="primary" appearance="outline">
+          <mat-label>E-mail</mat-label>
+          <input type="text" matInput autocomplete="email" formControlName="email">
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Password</mat-label>
+          <input type="password" matInput autocomplete="current-password" formControlName="password">
+        </mat-form-field>
+        <button mat-raised-button [disabled]="!valid">Sign in</button>
+
+        <a [routerLink]="['/', 'auth', 'register']">No account? Sign up</a>
+      </form>
+
+    </ng-container>
+  </div>
+</div>

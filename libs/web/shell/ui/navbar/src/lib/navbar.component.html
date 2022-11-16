@@ -1,0 +1,27 @@
+<nav
+  class="elektra-navbar mat-typography"
+  [style.backgroundColor]="(theme$ | async)?.value?.background"
+  [style.color]="(theme$ | async)?.value?.color"
+  [class.border]="(theme$ | async)?.value?.border"
+  [class.floating]="floating$ | async"
+>
+  <div class="button">
+    <elektra-nx-spin-button
+      *ngIf="button$ | async as button"
+      [value]="button.value"
+      (click)="buttonClicked(button.id)"
+    ></elektra-nx-spin-button>
+  </div>
+  <div class="title" *ngIf="title$ | async as title">
+    <h2>
+      <elektra-nx-fade-text
+        [disable]="(noTitleTransition$ | async)?.value"
+        type="h2"
+        [value]="title.value"
+      ></elektra-nx-fade-text>
+    </h2>
+  </div>
+  <div class="actions">
+    <!-- <elektra-action-list></elektra-action-list> -->
+  </div>
+</nav>

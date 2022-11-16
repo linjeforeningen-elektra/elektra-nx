@@ -1,0 +1,23 @@
+{
+  "name": "web-shell-ui-navbar",
+  "projectType": "library",
+  "sourceRoot": "libs/web/shell/ui/navbar/src",
+  "prefix": "elektra-nx",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/libs/web/shell/ui/navbar"],
+      "options": {
+        "jestConfig": "libs/web/shell/ui/navbar/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["libs/web/shell/ui/navbar/**/*.ts", "libs/web/shell/ui/navbar/**/*.html"]
+      }
+    }
+  },
+  "tags": ["type:ui", "scope:web"]
+}

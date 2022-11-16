@@ -1,0 +1,12 @@
+.elektra-fade-text {
+  span {
+    position: absolute;
+    top: 0;
+    left: 0;
+    &.old {
+      opacity: 0;
+      display: none;
+    }
+    white-space: nowrap;
+  }
+}

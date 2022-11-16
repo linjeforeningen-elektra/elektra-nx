@@ -1,0 +1,22 @@
+.elektra-nx-account-card {
+  position: relative;
+  width: 100%;
+  padding: 8px 0;
+  .error {
+    position: relative;
+    b {
+      display: block;
+    }
+    button {
+      margin: 8px 0;
+    }
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    button {
+      margin: 4px 0;
+    }
+  }
+}

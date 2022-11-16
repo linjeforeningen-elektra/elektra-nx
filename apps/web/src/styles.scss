@@ -1,0 +1,68 @@
+
+// Custom Theming for Angular Material
+@use '@angular/material' as mat;
+@use 'SASS:map';
+
+// @use 'grid.mixin';
+@use 'themes';
+@import 'palette';
+
+@include mat.core();
+
+$web-light-primary: mat.define-palette($md-primary, 800);
+$web-light-accent: mat.define-palette($md-accent, 500);
+$web-warn: mat.define-palette(mat.$red-palette);
+
+$web-light-theme: mat.define-light-theme((
+  color: (
+    primary: $web-light-primary,
+    accent: $web-light-accent,
+    warn: $web-warn,
+  )
+));
+
+$web-dark-theme: mat.define-dark-theme((
+  color: (
+    primary: $web-light-primary,
+    accent: $web-light-accent,
+    warn: $web-warn,
+  )
+));
+
+
+
+@include mat.all-component-themes($web-light-theme);
+
+:root {
+  --primary: #{map.get($web-light-theme, primary, 600)};
+  --primary-darker: #{map.get($web-light-theme, primary, 800)};
+  --foreground-text: #{map.get($web-light-theme, foreground, text)};
+  --default-contrast: #{map.get($web-light-theme, primary, default-contrast)};
+  // --primary-text: #{map-get($web-light-theme, 'primary', 'default-contrast')};
+  --accent: #{map-get($web-light-theme, 'accent', '500')};
+  --warn: #{map.get($web-light-theme, 'warn', 500)};
+}
+
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.on-primary {
+  @include themes.form-field-on-primary-theme($web-light-theme);
+  @include themes.input-on-primary-theme($web-light-theme);
+  @include themes.progress-spinner-on-primary($web-light-theme);
+}
+
+.dark-theme {
+  @include mat.all-component-colors($web-dark-theme);
+}
+
+.snackbar {
+  button {
+    color: var(--primary);
+  }
+}
+
+.mat-grid {
+  // @include grid();
+}

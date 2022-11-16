@@ -1,0 +1,42 @@
+version: '3.6'
+
+services:
+  api:
+    container_name: "elektra-nx-api"
+    build:
+      context: .
+      dockerfile: apps/api/Dockerfile
+    image: registry.gitlab.com/elektra-ntnu/elektra-nx/api
+    restart: always
+    ports:
+      - 3000:3000
+    env_file:
+      - .env
+
+
+  web:
+    container_name: elektra-nx-web
+    build:
+      context: .
+      dockerfile: apps/web/Dockerfile
+    image: registry.gitlab.com/elektra-ntnu/elektra-nx/web
+    restart: always
+    ports:
+      - 4000:4000
+
+  postgres:
+    container_name: 'postgres'
+    image: postgres:13
+    restart: unless-stopped
+    ports:
+      - ${POSTGRES_PORT}:${POSTGRES_PORT}
+    expose:
+      - ${POSTGRES_PORT}/tcp
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    command: -p ${POSTGRES_PORT}
+    volumes:
+      - ./database/data:/var/lib/postgresql/data # persist data
+      - ./database/backups:/usr/src/backups # store backups

@@ -1,0 +1,17 @@
+.elektra-nx-account-card-status {
+  form {
+    display: flex;
+    flex-direction: column;
+    button {
+      margin: 8px 0;
+    }
+    .status {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      p {
+        margin: 0;
+      }
+    }
+  }
+}

@@ -1,0 +1,23 @@
+<div class="elektra-nx-account-user" *ngIf="user as _user">
+  <!-- <ng-container [ngSwitch]="state"> -->
+    <!-- <div class="error" *ngSwitchCase="'error'">
+      <b>Error:</b>
+      <p>{{ (error$ | async).message }}</p>
+      <button mat-flat-button color="warn" (click)="reset()">Retry</button>
+    </div>
+    <div class="loading" *ngSwitchCase="'loading'">
+      <mat-spinner color="primary" diameter="64"></mat-spinner>
+    </div> -->
+    <form [formGroup]="formGroup" (ngSubmit)="submit($event)" >
+      <mat-form-field appearance="outline">
+        <mat-label>Name</mat-label>
+        <input type="text" matInput formControlName="name">
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Slug</mat-label>
+        <input type="text" matInput formControlName="slug">
+      </mat-form-field>
+      <button mat-flat-button color="primary">Save</button>
+    </form>
+  <!-- </ng-container> -->
+</div>

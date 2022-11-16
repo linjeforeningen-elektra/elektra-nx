@@ -1,0 +1,86 @@
+<div class="elektra-nx-account-membership-edit" *ngIf="membership$ | async as membership">
+  <div class="psa">
+    <h3>Important!</h3>
+    <p>To speed up the confirmation process, it's important to keep these values as accurate as possible.</p>
+  </div>
+
+  <!-- <ng-container [ngSwitch]="state"> -->
+    <!-- <div class="error" *ngSwitchCase="'error'">
+      <p>{{ (error$ | async)?.message }}</p>
+    </div> -->
+    <!-- <div class="loading" *ngSwitchCase="'loading'">
+      <elektra-nx-spinner></elektra-nx-spinner>
+    </div> -->
+    <form [formGroup]="formGroup" (ngSubmit)="submit($event)">
+      <h4 class="form-section-header">Personal</h4>
+      <div class="address">
+        <mat-form-field appearance="fill">
+          <mat-label>Street address</mat-label>
+          <input type="text" matInput autocomplete="street-address" formControlName="address">
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Postal code</mat-label>
+          <input type="text" matInput autocomplete="postal-code" formControlName="postal_code">
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Phone</mat-label>
+          <input type="text" matInput autocomplete="tel-national" formControlName="phone">
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Sex</mat-label>
+          <input type="text" matInput autocomplete="sex" [matAutocomplete]="auto" formControlName="gender">
+          <mat-hint>Optional</mat-hint>
+          <mat-autocomplete #auto="matAutocomplete">
+            <mat-option value="Male">Male</mat-option>
+            <mat-option value="Female">Female</mat-option>
+            <mat-option value="Other">Other</mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+        <mat-divider></mat-divider>
+      </div>
+      <h4 class="form-section-header">School</h4>
+      <mat-form-field appearance="fill">
+        <mat-label>Membership semester</mat-label>
+        <mat-select formControlName="memberyear">
+          <mat-option>-- none --</mat-option>
+          <mat-optgroup *ngFor="let group of memberYears"
+            [label]="group.year"
+          >
+            <mat-option *ngFor="let semester of group.semesters" [value]="semester.value">{{ semester.viewValue }}</mat-option>
+          </mat-optgroup>
+        </mat-select>
+        <mat-hint>Important!</mat-hint>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Immatriculation semester</mat-label>
+        <mat-select formControlName="immatriculation">
+          <mat-option>-- none --</mat-option>
+          <mat-optgroup *ngFor="let group of immatriculationYears"
+            [label]="group.year"
+          >
+            <mat-option *ngFor="let semester of group.semesters" [value]="semester.value">{{ semester.viewValue }}</mat-option>
+          </mat-optgroup>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Graduation semester</mat-label>
+        <mat-select formControlName="graduation">
+          <mat-option>-- none --</mat-option>
+          <mat-optgroup *ngFor="let group of graduationYears"
+            [label]="group.year"
+          >
+            <mat-option *ngFor="let semester of group.semesters" [value]="semester.value">{{ semester.viewValue }}</mat-option>
+          </mat-optgroup>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Specialisation</mat-label>
+        <mat-select formControlName="specialisation">
+          <mat-option>-- None --</mat-option>
+          <mat-option *ngFor="let s of specialisations" [value]="s">{{ s }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <button [disabled]="!valid" mat-raised-button color="primary">Submit</button>
+    </form>
+  <!-- </ng-container> -->
+</div>

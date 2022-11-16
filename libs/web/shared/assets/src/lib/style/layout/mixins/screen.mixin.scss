@@ -1,0 +1,11 @@
+@import '../breakpoints';
+
+@mixin screen($target) {
+  @if map-has-key($breakpoints, $target) {
+    @media screen and (min-width: map-get($breakpoints, $target)) {
+      @content
+    }
+  } @else {
+    @error No breakpoint with name '#{$target}'
+  }
+}

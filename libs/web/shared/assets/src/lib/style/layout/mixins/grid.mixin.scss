@@ -1,0 +1,36 @@
+@use '../breakpoints.scss' as brk;
+@use 'SASS:map';
+
+// brk.$breakpoints;
+
+@mixin grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+
+  box-sizing: border-box;
+  padding: 0 16px;
+  width: 100%;
+
+  @media screen and (min-width: #{map-get(brk.$breakpoints, 'tablet')}) {
+    padding: 0 32px;
+    gap: 32px;
+    grid-template-columns: repeat(8, 1fr);
+  }
+
+  @media screen and (min-width: #{map-get(brk.$breakpoints, 'tablet-md')}) {
+    margin: 0 auto;
+    grid-template-columns: repeat(12, 1fr);
+    width: 840px;
+  }
+
+  @media screen and (min-width: #{map-get(brk.$breakpoints, 'desktop')}) {
+    width: calc(100vw - 400px);
+  }
+
+  @media screen and (min-width: #{map-get(brk.$breakpoints, 'desktop-l')}) {
+    width: 100%;
+    // width: 1040px;
+    margin: 0 auto;
+  }
+}

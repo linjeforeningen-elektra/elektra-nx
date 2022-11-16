@@ -1,0 +1,60 @@
+{
+  "name": "api-database-cli",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/api/database/cli/src",
+  "projectType": "library",
+  "targets": {
+    "typeorm": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "ts-node --project libs/api/database/cli/tsconfig.json -r tsconfig-paths/register ./node_modules/.bin/typeorm -d libs/api/database/cli/src/lib/datasource.ts"
+      }
+    },
+    "migration-generate": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "ts-node --project libs/api/database/cli/tsconfig.json -r tsconfig-paths/register ./node_modules/.bin/typeorm migration:generate -d libs/api/database/cli/src/lib/datasource.ts libs/api/database/cli/src/lib/migrations/{args.name}"
+        ]
+      }
+    },
+    "migration-create": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "ts-node --project libs/api/database/cli/tsconfig.json -r tsconfig-paths/register ./node_modules/.bin/typeorm migration:create libs/api/database/cli/src/lib/migrations/{args.name}"
+        ]
+      }
+    },
+    "migration-run": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "ts-node --project libs/api/database/cli/tsconfig.json -r tsconfig-paths/register ./node_modules/.bin/typeorm migration:run -d libs/api/database/cli/src/lib/datasource.ts"
+        ]
+      }
+    },
+    "run": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "ts-node --project libs/api/database/cli/tsconfig.json -r tsconfig-paths/register libs/api/database/cli/src/lib/scripts/{args.script}.ts"
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/api/database/cli/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/libs/api/database/cli"],
+      "options": {
+        "jestConfig": "libs/api/database/cli/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}

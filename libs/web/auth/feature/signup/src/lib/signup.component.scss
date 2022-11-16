@@ -1,0 +1,32 @@
+.elektra-nx-signup {
+  min-height: 100vh;
+  background: var(--primary);
+  position: relative;
+  display: block;
+  box-sizing: border-box;
+  padding: 64px 8px 32px;
+
+  .wrapper {
+    width: 100%;
+    max-width: 300px;
+    margin: 32px auto 0;
+
+    form {
+      overflow: visible;
+      .checkbox {
+        overflow: visible;
+        padding: 8px 0;
+        display: flex;
+        align-items: flex-start;
+        gap: 16px;
+        .mat-checkbox {
+          overflow: visible;
+          margin: 4px 0 0;
+        }
+      }
+      button {
+        margin-top: 8px;
+      }
+    }
+  }
+}

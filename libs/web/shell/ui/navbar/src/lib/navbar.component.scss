@@ -1,0 +1,50 @@
+:host {
+  position: relative;
+  top: 0;
+  left: 0;
+}
+.elektra-navbar {
+  position: absolute;
+  z-index: 16;
+  width: 100%;
+  height: 56px;
+  box-sizing: border-box;
+  padding: 0 8px;
+  display: flex;
+  align-items: center;
+  top: 0;
+  left: 0;
+
+  transition: background 150ms ease, color 150ms ease;
+
+  .button {
+    flex: 0 0 40px;
+    button {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+  .title {
+    margin-left: 24px;
+    flex: 1 1 190px;
+    position: relative;
+    h2 {
+      margin: 0;
+      content: '';
+    }
+    h2:before {
+      content: ' ';
+      display: inline-block;
+      width: 1em;
+      white-space: nowrap;
+    }
+  }
+  .actions {
+    flex: 2 0 40px;
+    position: relative;
+    height: 40px;
+    position: relative;
+  }
+}

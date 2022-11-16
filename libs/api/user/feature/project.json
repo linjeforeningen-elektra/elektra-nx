@@ -1,0 +1,39 @@
+{
+  "name": "api-user-feature",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/api/user/feature/src",
+  "projectType": "library",
+  "targets": {
+    "typeorm": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "libs/api/user/feature"
+      },
+      "configurations": {
+        "cli": {
+          "command": "ts-node -P tsconfig.lib.json --transpile-only -r tsconfig-paths/register ../../../../node_modules/typeorm/cli.js -d src/datasource.ts"
+        },
+        "up": {
+          "command": "ts-node -P tsconfig.lib.json --transpile-only -r tsconfig-paths/register ../../../../node_modules/typeorm/cli.js -d src/datasource.ts migration:run"
+        }
+      },
+      "defaultConfiguration": "cli"
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/api/user/feature/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/libs/api/user/feature"],
+      "options": {
+        "jestConfig": "libs/api/user/feature/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": ["type:feature", "scope:api"]
+}

@@ -1,0 +1,24 @@
+{
+  "name": "web-account-ui-card-access",
+  "$schema": "../../../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "libs/web/account/ui/card-access/src",
+  "prefix": "elektra-nx",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/libs/web/account/ui/card-access"],
+      "options": {
+        "jestConfig": "libs/web/account/ui/card-access/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["libs/web/account/ui/card-access/**/*.ts", "libs/web/account/ui/card-access/**/*.html"]
+      }
+    }
+  },
+  "tags": ["type:ui", "scope:web"]
+}

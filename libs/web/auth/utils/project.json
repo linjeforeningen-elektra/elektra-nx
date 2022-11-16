@@ -1,0 +1,23 @@
+{
+  "name": "web-auth-utils",
+  "projectType": "library",
+  "sourceRoot": "libs/web/auth/utils/src",
+  "prefix": "elektra-nx",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/libs/web/auth/utils"],
+      "options": {
+        "jestConfig": "libs/web/auth/utils/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["libs/web/auth/utils/**/*.ts", "libs/web/auth/utils/**/*.html"]
+      }
+    }
+  },
+  "tags": ["type:util", "scope:web"]
+}

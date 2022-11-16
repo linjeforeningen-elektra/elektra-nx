@@ -1,0 +1,50 @@
+@use '@angular/material/theming' as mat;
+@use 'SASS:map';
+
+@mixin form-field-on-primary-theme($theme) {
+
+  // @debug $theme;
+
+  $primary: map.get($theme, primary);
+  $accent: map.get($theme, accent);
+  $is-dark-theme: map.get($theme, is-dark);
+
+  $label-color: map.get($theme, primary, default-contrast);
+  $primary-darker: map.get($theme, primary, darker);
+
+  .mat-form-field {
+    color: #FFF;
+  }
+
+  .mat-form-field-appearance-outline .mat-form-field-outline {
+    color: white;
+  }
+
+  .mat-form-field {
+      .mat-hint, input, ::placeholder, .mat-form-field-label {
+        color: white;
+      }
+  }
+
+  .mat-form-field-outline {
+    color: #FFF;
+  }
+
+  .mat-form-field-outline-thick {
+    color: #FFF;
+  }
+
+  &.mat-focused {
+    .mat-form-field-outline-thick {
+      color: #FFF;
+    }
+  }
+
+  .mat-form-field-label {
+    color: #FFF;
+  }
+
+  .mat-hint {
+    color: #FFF;
+  }
+}

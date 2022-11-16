@@ -1,0 +1,24 @@
+{
+  "name": "web-account-utils",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "libs/web/account/utils/src",
+  "prefix": "elektra-nx",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/libs/web/account/utils"],
+      "options": {
+        "jestConfig": "libs/web/account/utils/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["libs/web/account/utils/**/*.ts", "libs/web/account/utils/**/*.html"]
+      }
+    }
+  },
+  "tags": ["type:util", "scope:web"]
+}

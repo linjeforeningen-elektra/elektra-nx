@@ -1,0 +1,22 @@
+<section class="elektra-nx-account-card-status">
+  <!-- <ng-container [ngSwitch]="state"> -->
+    <!-- <div class="error">
+      <ng-container *ngIf="(error$ | async) as err">
+        <ng-container [ngSwitch]="err.status">
+          <div class="not-found" *ngSwitchCase="404"></div>
+          <p *ngSwitchDefault>{{ err?.error?.message }}</p>
+        </ng-container>
+      </ng-container>
+    </div> -->
+    <form (submit)="submit($event)" *ngIf="status">
+      <!-- <ng-container *ngIf="(data$ | async) as data"> -->
+        <h3>Access</h3>
+        <div class="status">
+          <b>Status</b>
+          <p>{{ status }}</p>
+        </div>
+        <button [disabled]="!(status === 'RENEWABLE' || status === 'EXPIRED' || status=== 'NONE')" mat-flat-button color="primary">Renew</button>
+      <!-- </ng-container> -->
+    </form>
+  <!-- </ng-container> -->
+</section>

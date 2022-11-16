@@ -1,0 +1,16 @@
+.elektra-nx-home {
+  height: 100vh;
+  background: #009A44;
+  h3 {
+    margin: 0;
+  }
+
+  .wrapper {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+}
