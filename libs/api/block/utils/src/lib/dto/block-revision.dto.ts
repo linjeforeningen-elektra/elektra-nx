@@ -1,6 +1,6 @@
-import { CreateBlockRevisionModel } from '@elektra-nx/shared/models';
+import { BlockRevisionType, CreateBlockRevisionModel } from '@elektra-nx/shared/models';
 import { Field, InputType } from '@nestjs/graphql';
-import { IsNotEmpty, IsString } from 'class-validator';
+import { IsEnum, IsNotEmpty, IsString } from 'class-validator';
 
 @InputType()
 export class CreateBlockRevisionDto implements CreateBlockRevisionModel {
@@ -8,4 +8,9 @@ export class CreateBlockRevisionDto implements CreateBlockRevisionModel {
   @IsString()
   @Field(() => String)
   content: string;
+
+  @IsNotEmpty()
+  @IsEnum(BlockRevisionType)
+  @Field(() => String)
+  type: BlockRevisionType;
 }

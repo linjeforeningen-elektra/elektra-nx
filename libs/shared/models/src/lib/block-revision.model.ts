@@ -13,4 +13,5 @@ export interface BlockRevisionModel extends CoreModel {
 
 export interface CreateBlockRevisionModel {
   content: string;
+  type: BlockRevisionType;
 }
