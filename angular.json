@@ -62,6 +62,8 @@
     "web-auth-feature-signin": "libs/web/auth/feature/signin",
     "web-auth-feature-signup": "libs/web/auth/feature/signup",
     "web-auth-utils": "libs/web/auth/utils",
+    "web-block-data-access": "libs/web/block/data-access",
+    "web-block-feature": "libs/web/block/feature",
     "web-e2e": "apps/web-e2e",
     "web-home-data-access": "libs/web/home/data-access",
     "web-home-feature": "libs/web/home/feature",

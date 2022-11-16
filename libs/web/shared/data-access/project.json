@@ -1,6 +1,6 @@
 {
-  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
   "name": "web-shared-data-access",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
   "sourceRoot": "libs/web/shared/data-access/src",
   "prefix": "elektra-nx",
