@@ -55,7 +55,10 @@
     "deploy": {
       "executor": "nx:run-commands",
       "options": {
-        "commands": ["nx run api:build:production"],
+        "commands": [
+          "nx run api:build:production",
+          "tsc libs/api/database/cli/src/lib/migrations/*.ts --module commonjs --skipLibCheck --moduleResolution node --outDir dist/apps/api/migrations"
+        ],
         "parallel": false
       }
     }
