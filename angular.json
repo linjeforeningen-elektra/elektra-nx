@@ -79,6 +79,7 @@
     "web-shell-feature": "libs/web/shell/feature",
     "web-shell-ui-dialog": "libs/web/shell/ui/dialog",
     "web-shell-ui-fade-text": "libs/web/shell/ui/fade-text",
+    "web-shell-ui-footer": "libs/web/shell/ui/footer",
     "web-shell-ui-layout": "libs/web/shell/ui/layout",
     "web-shell-ui-navbar": "libs/web/shell/ui/navbar",
     "web-shell-ui-navdrawer": "libs/web/shell/ui/navdrawer",

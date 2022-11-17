@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MatDrawerMode } from '@angular/material/sidenav';
+import { NavigationEnd, Router } from '@angular/router';
 import { AuthStore } from '@elektra-nx/web/auth/data-access';
 import {
   LayoutService,
@@ -7,7 +8,7 @@ import {
   NavbarService,
   NavdrawerService,
 } from '@elektra-nx/web/shared/data-access';
-import { map } from 'rxjs';
+import { filter, map } from 'rxjs';
 
 const OPENED_LAYER = { button: 'arrow_back' };
 const CLOSED_LAYER = { button: 'menu' };
@@ -17,13 +18,16 @@ const CLOSED_LAYER = { button: 'menu' };
   templateUrl: './navdrawer.component.html',
   styleUrls: ['./navdrawer.component.scss'],
 })
-export class NavdrawerComponent {
+export class NavdrawerComponent implements OnInit {
   constructor(
     private layout: LayoutService,
     private readonly navdrawer: NavdrawerService,
     private readonly navbar: NavbarService,
     private auth: AuthStore,
+    private router: Router,
   ) {}
+
+  @ViewChild('wrapper', { static: true, read: ElementRef }) private wrapper: ElementRef<HTMLElement>;
 
   opened$ = this.navdrawer.state$;
   mode: MatDrawerMode = 'over';
@@ -78,5 +82,11 @@ export class NavdrawerComponent {
 
   logout(): void {
     this.auth.logout();
+  }
+
+  ngOnInit(): void {
+    this.router.events.pipe(filter((e): e is NavigationEnd => e instanceof NavigationEnd)).subscribe(() => {
+      this.wrapper.nativeElement.scroll({ top: 0 });
+    });
   }
 }

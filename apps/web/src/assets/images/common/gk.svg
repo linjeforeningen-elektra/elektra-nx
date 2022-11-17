@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   viewBox="0 0 499.16 287.88492"
+   version="1.1"
+   id="svg29"
+   sodipodi:docname="gk.svg"
+   width="499.16"
+   height="287.88492"
+   inkscape:version="1.2.1 (8a69933317, 2022-10-28, custom)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview31"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     showgrid="false"
+     inkscape:zoom="0.41741837"
+     inkscape:cx="-50.309238"
+     inkscape:cy="144.93852"
+     inkscape:window-width="1846"
+     inkscape:window-height="1136"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg29" />
+  <defs
+     id="defs20">
+    <style
+       id="style18">
+      .cls-1 {
+        fill: #888888;
+      }
+
+    </style>
+  </defs>
+  <g
+     id="Design"
+     transform="translate(-138.84,-138.82507)">
+    <path
+       class="cls-1"
+       d="M 638,149.38 H 573.83 L 435.16,288 573.83,426.71 H 638 L 499.32,288 Z"
+       id="path22" />
+    <polygon
+       class="cls-1"
+       points="346.68,426.71 346.68,333.38 253.35,333.38 253.35,288.05 392.01,288.05 392.01,426.71 "
+       id="polygon24" />
+    <path
+       class="cls-1"
+       d="m 184.15,288.05 a 104,104 0 0 1 175.31,-75.7 l 32,-32 A 149.3,149.3 0 0 0 138.84,288.07 h 45.31 z"
+       id="path26" />
+  </g>
+</svg>

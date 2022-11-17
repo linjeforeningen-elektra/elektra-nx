@@ -1,8 +1,8 @@
-import { ChangeDetectionStrategy, Component, HostBinding } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, HostBinding, ViewChild } from '@angular/core';
 import { map } from 'rxjs';
 
 import { PaddingAnimation } from './animations/padding.animation';
-import { DialogService, NavbarService } from '@elektra-nx/web/shared/data-access';
+import { NavbarService } from '@elektra-nx/web/shared/data-access';
 
 @Component({
   selector: 'elektra-nx-layout',
@@ -12,7 +12,9 @@ import { DialogService, NavbarService } from '@elektra-nx/web/shared/data-access
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LayoutComponent {
-  constructor(private navbar: NavbarService, private dialog: DialogService) {}
+  constructor(private navbar: NavbarService) {}
+
+  @ViewChild('wrapper', { static: true, read: ElementRef }) private wrapper: ElementRef<HTMLElement>;
 
   @HostBinding('class.dark-theme') dark = false;
 

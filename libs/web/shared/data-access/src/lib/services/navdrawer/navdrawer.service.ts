@@ -5,6 +5,7 @@ import { NavdrawerLink } from '../../interfaces';
 
 export const LINKS: NavdrawerLink[] = [
   { title: 'Hjem', icon: 'home', path: '/hjem', group: '' },
+  { title: 'Stillingsannonser', path: '/stillingsannonser', icon: 'work', group: '' },
   // { title: 'News', icon: 'feed', path: '/feed', group: '' },
 ];
 

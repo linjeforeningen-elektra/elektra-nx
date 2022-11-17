@@ -8,12 +8,13 @@
 
 
 <elektra-nx-navdrawer>
-  <div class="wrapper">
+  <div class="wrapper" #wrapper>
     <elektra-nx-navbar></elektra-nx-navbar>
     <div id="page" [@Padding]="padding$ | async">
       <router-outlet></router-outlet>
     </div>
   </div>
+  <elektra-nx-footer></elektra-nx-footer>
 </elektra-nx-navdrawer>
 
 <!-- <div class="elektra-layout">

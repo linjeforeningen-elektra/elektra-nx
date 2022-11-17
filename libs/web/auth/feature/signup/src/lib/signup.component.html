@@ -54,7 +54,7 @@
           <form [formGroup]="gdprFG" (ngSubmit)="submit($event)">
             <div class="checkbox">
               <mat-checkbox color="primary" formControlName="consent"></mat-checkbox>
-              <span>Jeg har lest og akspeterer vår <a routerLink="/privacy">Personvernerklæring</a></span>
+              <span>Jeg har lest og akspeterer vår <a target="_blank" href="/assets/privacy/v0.1.html">Personvernerklæring</a></span>
             </div>
             <button [disabled]="!valid" mat-flat-button color="primary">
               Registrer

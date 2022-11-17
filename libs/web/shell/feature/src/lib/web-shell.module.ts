@@ -16,8 +16,6 @@ import { WEB_SHELL_ROUTES } from './web-shell.routes';
 import { HttpClientModule } from '@angular/common/http';
 import { AuthStore } from '@elektra-nx/web/auth/data-access';
 // import { AuthEffects, AuthFeatureKey, AuthReducer } from '@elektra-nx/web/auth/data-access';
-import { StoreModule } from '@ngrx/store';
-import { EffectsModule } from '@ngrx/effects';
 import { PortalModule } from '@angular/cdk/portal';
 import { OverlayModule } from '@angular/cdk/overlay';
 
@@ -35,9 +33,7 @@ import { lastValueFrom, take } from 'rxjs';
     ApolloModule,
     PortalModule,
     OverlayModule,
-    RouterModule.forRoot(WEB_SHELL_ROUTES),
-    StoreModule.forRoot({}),
-    EffectsModule.forRoot([]),
+    RouterModule.forRoot(WEB_SHELL_ROUTES, { scrollPositionRestoration: 'top', onSameUrlNavigation: 'reload' }),
   ],
   providers: [
     NavbarService,

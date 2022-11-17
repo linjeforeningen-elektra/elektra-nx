@@ -17,7 +17,7 @@ export class HomeComponent implements OnDestroy {
       { name: 'og:title', content: _title },
       { name: 'description', content: _description },
       { name: 'og:description', content: _description },
-      { name: 'og:image', content: '/assets/common/elektra_og.png' },
+      { name: 'og:image', content: '/assets/images/common/elektra_og.png' },
       { name: 'og:url', content: 'https://elektra.io/' },
     ]);
   }
