@@ -8,6 +8,7 @@
       "executor": "@angular-devkit/build-angular:browser",
       "outputs": ["{options.outputPath}"],
       "options": {
+        "baseHref": "/",
         "outputPath": "dist/apps/web/browser",
         "index": "apps/web/src/index.html",
         "main": "apps/web/src/main.ts",
@@ -20,12 +21,8 @@
           {
             "glob": "**/*",
             "input": "libs/web/shared/assets/src/lib/assets",
-            "output": "assets"
-          },
-          {
-            "glob": "**/*",
-            "input": "libs/web/shared/assets/src/lib/style",
-            "output": "assets/style"
+            "output": "assets",
+            "followSymlinks": true
           }
         ],
         "styles": ["apps/web/src/styles.scss"],
