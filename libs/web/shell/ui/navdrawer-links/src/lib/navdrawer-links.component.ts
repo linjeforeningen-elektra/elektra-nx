@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
+import { MatDrawerMode } from '@angular/material/sidenav';
 
 import { Router } from '@angular/router';
-import { NavdrawerLink, NavdrawerService } from '@elektra-nx/web/shared/data-access';
+import { LayoutService, NavdrawerLink, NavdrawerService } from '@elektra-nx/web/shared/data-access';
+import { map } from 'rxjs';
 
 @Component({
   selector: 'elektra-nx-navdrawer-links',
@@ -10,9 +12,14 @@ import { NavdrawerLink, NavdrawerService } from '@elektra-nx/web/shared/data-acc
   animations: [],
 })
 export class NavdrawerLinksComponent {
-  constructor(private router: Router, private navdrawer: NavdrawerService) {}
+  constructor(private router: Router, private navdrawer: NavdrawerService, private layout: LayoutService) {}
 
   groups$ = this.navdrawer.groups$;
+
+  mode: MatDrawerMode = 'over';
+  modeSub = this.layout.breakpoints$
+    .pipe(map((bp) => (bp[this.layout.breakpoints.TABLET] ? 'side' : 'over')))
+    .subscribe((mode) => (this.mode = mode));
 
   public isLinkActive(link: NavdrawerLink): boolean {
     const url = this.router.url.match(/^\/[^/]+/);
@@ -20,6 +27,7 @@ export class NavdrawerLinksComponent {
   }
 
   public handleRouteClicked(): void {
-    //
+    if (this.mode !== 'over') return;
+    this.navdrawer.close();
   }
 }

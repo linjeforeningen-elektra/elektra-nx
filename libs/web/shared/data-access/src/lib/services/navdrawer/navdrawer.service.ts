@@ -4,7 +4,7 @@ import { NavdrawerReducer } from '../../helpers';
 import { NavdrawerLink } from '../../interfaces';
 
 export const LINKS: NavdrawerLink[] = [
-  { title: 'Home', icon: 'home', path: '/home', group: '' },
+  { title: 'Hjem', icon: 'home', path: '/hjem', group: '' },
   // { title: 'News', icon: 'feed', path: '/feed', group: '' },
 ];
 

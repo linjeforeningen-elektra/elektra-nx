@@ -34,26 +34,44 @@ export class NavdrawerComponent {
   private readonly closedLayer: NavbarLayerInstance = this.navbar.registerNavbarLayer(CLOSED_LAYER);
   private readonly closedSub = this.closedLayer.buttonClicked$.subscribe(() => {
     this.open();
+    this.navdrawer.open();
   });
 
   private openedLayer?: NavbarLayerInstance;
 
+  stateSub = this.navdrawer.state$.subscribe((opened) => {
+    if (opened) {
+      // this.open();
+    } else {
+      this.close();
+    }
+  });
+
   user$ = this.auth.user$;
   id$ = this.auth.id$;
 
-  public close(): void {
+  handleClick(): void {
+    if (this.mode != 'over') return;
+    this.closeAndEmit();
+  }
+
+  public closeAndEmit(): void {
+    this.close();
     this.navdrawer.close();
+  }
+
+  public close(): void {
     this.openedLayer?.release();
   }
 
   public open(): void {
-    this.navdrawer.open();
     this.attachLayer();
   }
 
   private attachLayer(): void {
     this.openedLayer = this.navbar.registerNavbarLayer(OPENED_LAYER);
     this.openedLayer.buttonClicked$.subscribe(() => {
+      this.navdrawer.close();
       this.close();
     });
   }

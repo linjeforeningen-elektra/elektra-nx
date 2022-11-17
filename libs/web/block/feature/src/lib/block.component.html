@@ -1,5 +1,26 @@
 <div class="elektra-nx-block">
   <ng-container *ngIf="query$ | async as query">
 
+    <div class="loading" *ngIf="query.loading">Loading...</div>
+    <ng-container class="content" *ngIf="query.data">
+      <div class="not-found" *ngIf="!query.data.block.latest">
+        <p>Her var det visst tomt. Vennligst kontakt administrator.</p>
+      </div>
+
+      <ng-container *ngIf="query.data.block.latest" [ngSwitch]="query.data.block.latest.type">
+        <ng-container *ngSwitchCase="'TEXT'">
+          <ng-container *ngTemplateOutlet="text; context: { $implicit: query.data.block.latest }"></ng-container>
+        </ng-container>
+      </ng-container>
+
+    </ng-container>
+
   </ng-container>
 </div>
+
+<ng-template #text let-data>
+  <div class="text">
+    <p class="updated">Oppdatert {{ data.createdAt | date}}</p>
+    <div [innerHTML]="sanitize(data.content)"></div>
+  </div>
+</ng-template>

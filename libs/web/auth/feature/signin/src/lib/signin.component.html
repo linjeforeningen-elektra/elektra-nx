@@ -13,16 +13,16 @@
 
       <form *ngSwitchCase="'input'" [formGroup]="formGroup" (ngSubmit)="submit($event)">
         <mat-form-field color="primary" appearance="outline">
-          <mat-label>E-mail</mat-label>
+          <mat-label>E-postadresse</mat-label>
           <input type="text" matInput autocomplete="email" formControlName="email">
         </mat-form-field>
         <mat-form-field appearance="outline">
-          <mat-label>Password</mat-label>
+          <mat-label>Passord</mat-label>
           <input type="password" matInput autocomplete="current-password" formControlName="password">
         </mat-form-field>
-        <button mat-raised-button [disabled]="!valid">Sign in</button>
+        <button mat-raised-button [disabled]="!valid">Logg inn</button>
 
-        <a [routerLink]="['/', 'auth', 'register']">No account? Sign up</a>
+        <a [routerLink]="['/', 'auth', 'register']">Ingen bruker? Registrer deg her</a>
       </form>
 
     </ng-container>

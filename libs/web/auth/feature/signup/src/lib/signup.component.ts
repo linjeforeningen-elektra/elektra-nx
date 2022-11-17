@@ -64,7 +64,7 @@ export class SignupComponent {
   }
 
   layer = this.navbar.registerNavbarLayer({
-    title: 'Register',
+    title: 'Ny bruker',
     theme: {
       background: 'transparent',
       color: 'var(--default-contrast)',
@@ -97,21 +97,11 @@ export class SignupComponent {
       },
     } as RegisterWithAuthLocalModel;
 
-    // this.api.register(body).subscribe({
-    //   next: ({ access_token }) => {
-    //     const sub = this.auth.loggedIn$
-    //       .pipe(
-    //         filter((loggedin) => loggedin),
-    //         take(1),
-    //       )
-    //       .subscribe(() => {
-    //         this.router.navigate(['/account']);
-    //       });
-    //     this.auth.login({ access_token });
-    //   },
-    //   error: (err) => {
-    //     console.log(err);
-    //   },
-    // });
+    this.api.signup(body).subscribe((response) => {
+      if (response.errors && response.errors.length > 0) throw 'Error';
+      if (!response.data?.result) throw 'No token';
+      this.auth.login(response.data.result.access_token);
+      this.router.navigateByUrl('/konto');
+    });
   }
 }

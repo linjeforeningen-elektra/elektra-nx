@@ -5,59 +5,59 @@
 
       <mat-vertical-stepper [linear]="true" #stepper>
         <mat-step [stepControl]="personaliaFG">
-          <ng-template matStepLabel>Personalia</ng-template>
+          <ng-template matStepLabel>Person</ng-template>
           <form (submit)="nextStep($event, stepper)" [formGroup]="personaliaFG">
             <mat-form-field>
-              <mat-label>First name</mat-label>
+              <mat-label>Fornavn</mat-label>
               <input type="text" matInput formControlName="fname" autocomplete="given-name">
-              <mat-error *ngIf="personaliaFG.controls.fname.errors?.['required']">Required.</mat-error>
+              <mat-error *ngIf="personaliaFG.controls.fname.errors?.['required']">Må utfylles.</mat-error>
             </mat-form-field>
             <mat-form-field>
-              <mat-label>Last name</mat-label>
+              <mat-label>Etternavn</mat-label>
               <input type="text" matInput formControlName="lname" autocomplete="family-name">
-              <mat-error *ngIf="personaliaFG.controls.lname.errors?.['required']">Required.</mat-error>
+              <mat-error *ngIf="personaliaFG.controls.lname.errors?.['required']">Må utfylles.</mat-error>
             </mat-form-field>
             <div>
-              <button type="submit" mat-button matStepperNext>Next</button>
+              <button type="submit" mat-button matStepperNext>Neste</button>
             </div>
           </form>
         </mat-step>
 
         <mat-step [stepControl]="authFG">
-          <ng-template matStepLabel>Authentication</ng-template>
+          <ng-template matStepLabel>Konto</ng-template>
           <form [formGroup]="authFG" (ngSubmit)="nextStep($event, stepper)">
             <mat-form-field>
-              <mat-label>E-mail</mat-label>
+              <mat-label>E-postadresse</mat-label>
               <input type="text" matInput formControlName="email" autocomplete="email">
-              <mat-error *ngIf="authFG.controls.email.errors?.['required']">Required.</mat-error>
+              <mat-error *ngIf="authFG.controls.email.errors?.['required']">Må utfylles.</mat-error>
             </mat-form-field>
             <mat-form-field>
-              <mat-label>Password</mat-label>
+              <mat-label>Passord</mat-label>
               <input type="password" matInput formControlName="pass" autocomplete="new-password">
-              <mat-error *ngIf="authFG.controls.pass.errors?.['required']">Required.</mat-error>
+              <mat-error *ngIf="authFG.controls.pass.errors?.['required']">Må utfylles.</mat-error>
             </mat-form-field>
             <mat-form-field>
-              <mat-label>Repeat password</mat-label>
+              <mat-label>Gjenta passord</mat-label>
               <input type="password" matInput formControlName="pass_c" autocomplete="new-password">
-              <mat-error *ngIf="authFG.controls.pass_c.errors?.['required']">Required.</mat-error>
-              <mat-error *ngIf="authFG.controls.pass_c.errors?.['password_match']">Passwords must match.</mat-error>
+              <mat-error *ngIf="authFG.controls.pass_c.errors?.['required']">Må utfylles.</mat-error>
+              <mat-error *ngIf="authFG.controls.pass_c.errors?.['password_match']">Passord må være like.</mat-error>
             </mat-form-field>
             <div>
-              <button mat-button matStepperNext>Next</button>
-              <button mat-button matStepperNext>Previous</button>
+              <button mat-button matStepperNext>Neste</button>
+              <button mat-button matStepperNext>Forrige</button>
             </div>
           </form>
         </mat-step>
 
         <mat-step [stepControl]="gdprFG">
-          <ng-template matStepLabel>Privacy</ng-template>
+          <ng-template matStepLabel>Personvern</ng-template>
           <form [formGroup]="gdprFG" (ngSubmit)="submit($event)">
             <div class="checkbox">
               <mat-checkbox color="primary" formControlName="consent"></mat-checkbox>
-              <span>I have read and agree with our <a routerLink="/privacy">Privacy Policy</a></span>
+              <span>Jeg har lest og akspeterer vår <a routerLink="/privacy">Personvernerklæring</a></span>
             </div>
             <button [disabled]="!valid" mat-flat-button color="primary">
-              Register
+              Registrer
             </button>
           </form>
         </mat-step>

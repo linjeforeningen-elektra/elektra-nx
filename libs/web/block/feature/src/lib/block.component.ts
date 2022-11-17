@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 import { ApolloQueryResult } from '@apollo/client/core';
 import { BlockQueryResult, BlockService } from '@elektra-nx/web/block/data-access';
 import { Observable } from 'rxjs';
@@ -9,11 +10,15 @@ import { Observable } from 'rxjs';
   styleUrls: ['./block.component.scss'],
 })
 export class BlockComponent implements OnInit {
-  constructor(private block: BlockService) {}
+  constructor(private block: BlockService, private sanitizer: DomSanitizer) {}
 
   @Input() id: string;
 
   query$?: Observable<ApolloQueryResult<BlockQueryResult>>;
+
+  public sanitize(input: any) {
+    return this.sanitizer.bypassSecurityTrustHtml(input);
+  }
 
   ngOnInit(): void {
     if (this.id) {
