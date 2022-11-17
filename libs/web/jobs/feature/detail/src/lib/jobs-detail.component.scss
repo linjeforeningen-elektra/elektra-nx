@@ -1,0 +1,44 @@
+@use 'layout/mixins' as mixins;
+@use '@angular/material' as mat;
+
+.elektra-nx-jobs-detail {
+  position: relative;
+  width: 100%;
+  .job {
+    width: 100%;
+    .content {
+      padding: 0 16px 8px;
+      box-sizing: border-box;
+    }
+    .button-wrapper {
+      padding: 16px;
+      display: flex;
+      a {
+        width: 100%;
+      }
+    }
+    @include mixins.screen('tablet-md') {
+      max-width: 700px;
+      margin: 32px auto;
+      @include mat.elevation(1);
+      @include mixins.round(8px);
+      .content {
+        padding: 0 24px 8px;
+      }
+      .button-wrapper {
+        align-items: center;
+        justify-content: center;
+        a {
+          width: 200px;
+        }
+      }
+    }
+  }
+
+  .not-found {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+}

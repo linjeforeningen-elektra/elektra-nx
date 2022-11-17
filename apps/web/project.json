@@ -26,7 +26,7 @@
           }
         ],
         "styles": ["apps/web/src/styles.scss"],
-        "scripts": [],
+        "scripts": ["node_modules/marked/marked.min.js"],
         "stylePreprocessorOptions": {
           "includePaths": ["libs/web/shared/assets/src/lib/style"]
         },

@@ -1,0 +1,19 @@
+<div class="elektra-nx-jobs-detail">
+  <div class="job" *ngIf="job; else nojob">
+    <elektra-nx-job-item [job]="job"></elektra-nx-job-item>
+    <div class="content">
+      <markdown [data]="job.desc"></markdown>
+    </div>
+    <div class="button-wrapper">
+      <a [href]="job.link" target="_blank" mat-raised-button color="primary">Søk her</a>
+    </div>
+  </div>
+</div>
+
+
+<ng-template #nojob>
+  <div class="not-found">
+    <h3>Stillingen har utløpt eller finnes ikke.</h3>
+    <a routerLink="../">Gå tilbake</a>
+  </div>
+</ng-template>

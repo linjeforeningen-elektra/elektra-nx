@@ -1,0 +1,10 @@
+<div class="elektra-nx-jobs-list">
+  <div class="wrapper">
+    <ng-container *ngIf="(query$ | async) as query">
+      <div class="loading" *ngIf="query.loading">loading</div>
+      <ng-container *ngIf="!query.loading">
+        <elektra-nx-job-item [routerLink]="job.id.toString()" *ngFor="let job of query.data.jobs" [job]="job"></elektra-nx-job-item>
+      </ng-container>
+    </ng-container>
+  </div>
+</div>

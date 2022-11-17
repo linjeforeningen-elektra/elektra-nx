@@ -54,7 +54,7 @@ export class SigninComponent implements OnDestroy {
       const { access_token } = data.session;
 
       this.auth.login(access_token);
-      this.router.navigateByUrl('/account');
+      this.router.navigateByUrl('/konto');
     });
   }
 

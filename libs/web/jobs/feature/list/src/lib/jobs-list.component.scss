@@ -1,0 +1,29 @@
+@use 'layout/mixins' as mixins;
+@use '@angular/material' as mat;
+
+
+.elektra-nx-jobs-list {
+  position: relative;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0 16px;
+  .wrapper {
+    width: 100%;
+    max-width: 1200px;
+    margin: 24px auto;
+    gap: 24px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    elektra-nx-job-item {
+      // border: 2px solid rgba(0,0,0,.58);
+      @include mat.elevation(1);
+      @include mixins.round(8px);
+    }
+  }
+
+  @include mixins.screen('tablet-md') {
+    .wrapper {
+      // grid-template-columns:
+    }
+  }
+}
