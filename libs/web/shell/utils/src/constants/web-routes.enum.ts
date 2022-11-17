@@ -3,4 +3,5 @@ export enum WebRoutes {
   HOME = 'hjem',
   ACCOUNT = 'konto',
   CONTACT = 'kontakt',
+  JOBS = 'stillingsannonser',
 }
