@@ -34,7 +34,7 @@ export const WEB_SHELL_ROUTES: Route[] = [
       {
         path: '',
         pathMatch: 'full',
-        redirectTo: 'home',
+        redirectTo: WebRoutes.HOME,
       },
       {
         path: '**',
