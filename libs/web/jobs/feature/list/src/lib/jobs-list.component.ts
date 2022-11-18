@@ -18,7 +18,7 @@ export class JobsListComponent implements OnInit {
       { name: 'og:title', content: _title },
       { name: 'description', content: _description },
       { name: 'og:description', content: _description },
-      { name: 'og:img', content: '/assets/images/common/elekra_og.png' },
+      { name: 'og:img', content: '/assets/images/common/elektra_og.png' },
       { name: 'og:url', content: 'https://elektra.io/stillingsannonser' },
     ]);
   }
