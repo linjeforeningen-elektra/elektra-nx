@@ -1,0 +1,15 @@
+.elektra-nx-not-found {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  h3 {
+    font-size: clamp(2rem, 10vw, 6rem);
+    margin: 16px 0 0;
+  }
+  h4 {
+    font-size: clamp(.8rem, 10vw, 1rem);
+    margin: 8px 0;
+    font-weight: 400;
+  }
+}
