@@ -7,6 +7,8 @@ import { LoginWithAuthLocalModel } from '@elektra-nx/shared/models';
 import { Router } from '@angular/router';
 import { Apollo } from 'apollo-angular';
 import { LoginWithAuthLocalMutation } from '@elektra-nx/web/auth/utils';
+import { catchError, EMPTY } from 'rxjs';
+import { isApolloError } from '@apollo/client/errors';
 
 type SigninState = 'input' | 'processing' | 'error' | 'success';
 
@@ -47,15 +49,23 @@ export class SigninComponent implements OnDestroy {
   submit(event: Event) {
     event.preventDefault();
     const body = this.formGroup.value as LoginWithAuthLocalModel;
-    this.apollo.mutate({ mutation: LoginWithAuthLocalMutation, variables: { body } }).subscribe(({ data, errors }) => {
-      if (errors && errors.length > 0) return;
-      if (!data) return;
+    this.apollo
+      .mutate({ mutation: LoginWithAuthLocalMutation, variables: { body } })
+      .pipe(
+        catchError((error) => {
+          if (isApolloError(error)) {
+            alert(error.message);
+          }
+          return EMPTY;
+        }),
+      )
+      .subscribe(({ data }) => {
+        if (!data) return;
+        const { access_token } = data.session;
 
-      const { access_token } = data.session;
-
-      this.auth.login(access_token);
-      this.router.navigateByUrl('/konto');
-    });
+        this.auth.login(access_token);
+        this.router.navigateByUrl('/konto');
+      });
   }
 
   ngOnDestroy(): void {
