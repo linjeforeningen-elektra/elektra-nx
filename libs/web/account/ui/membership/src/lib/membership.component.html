@@ -16,12 +16,12 @@
     <div class="error" *ngIf="!membership">
       <div class="not-found">
         <p>No membership registered.</p>
-        <a mat-flat-button color="primary" [routerLink]="['/', 'account', 'membership']">Register membership</a>
+        <a mat-flat-button color="primary" routerLink="/konto/medlemskap">Register membership</a>
       </div>
     </div>
     <div class="membership" *ngIf="membership">
       <div class="edit">
-        <a routerLink="/account/membership" mat-icon-button>
+        <a routerLink="/konto/medlemskap" mat-icon-button>
           <mat-icon>edit</mat-icon>
         </a>
       </div>

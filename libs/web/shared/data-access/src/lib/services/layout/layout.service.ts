@@ -9,6 +9,8 @@ enum Breakpoints {
   MOBILE = '(min-width: 320px)',
   IMOBILE = '(max-width: 320px)',
   TABLET = '(min-width: 600px)',
+  DESKTOP = '(min-width: 900px)',
+  DESKTOP_L = '(min-width: 1300px)',
 }
 
 @Injectable({

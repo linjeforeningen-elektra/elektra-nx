@@ -26,7 +26,7 @@ export class MembershipEditComponent implements OnDestroy {
     postal_code: new FormControl('', [Validators.required]),
     phone: new FormControl('', [Validators.required]),
     memberyear: new FormControl<Date | null>(null, [Validators.required]),
-    immatriculation: new FormControl<Date | null>(null, []),
+    immatriculation: new FormControl<Date | null>(null, [Validators.required]),
     graduation: new FormControl<Date | null>(null, []),
     specialisation: new FormControl('', []),
     gender: new FormControl('', []),
@@ -47,11 +47,11 @@ export class MembershipEditComponent implements OnDestroy {
   });
 
   buttonSub = this.layer.buttonClicked$.subscribe(() => {
-    this.router.navigateByUrl('/account');
+    this.router.navigateByUrl('/konto');
   });
 
   membership$ = this.dashboard.account$.pipe(
-    map(({ data }) => data.account.membership),
+    map(({ data }) => data.account.membership || <any>{}),
     tap((data) => {
       if (data?.address) this.formGroup.controls['address'].setValue(data.address);
       if (data?.postal_code) this.formGroup.controls['postal_code'].setValue(data.postal_code);

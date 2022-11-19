@@ -1,7 +1,7 @@
 <div class="elektra-nx-account-membership-edit" *ngIf="membership$ | async as membership">
   <div class="psa">
-    <h3>Important!</h3>
-    <p>To speed up the confirmation process, it's important to keep these values as accurate as possible.</p>
+    <h3>Viktig!</h3>
+    <p>For at godkjenning skal skje fortest mulig, er det viktig at dataen du sender inn her er så nøyaktig som mulig.</p>
   </div>
 
   <!-- <ng-container [ngSwitch]="state"> -->
@@ -12,35 +12,35 @@
       <elektra-nx-spinner></elektra-nx-spinner>
     </div> -->
     <form [formGroup]="formGroup" (ngSubmit)="submit($event)">
-      <h4 class="form-section-header">Personal</h4>
+      <h4 class="form-section-header">Person</h4>
       <div class="address">
         <mat-form-field appearance="fill">
-          <mat-label>Street address</mat-label>
+          <mat-label>Adresse</mat-label>
           <input type="text" matInput autocomplete="street-address" formControlName="address">
         </mat-form-field>
         <mat-form-field appearance="fill">
-          <mat-label>Postal code</mat-label>
+          <mat-label>Postnr.</mat-label>
           <input type="text" matInput autocomplete="postal-code" formControlName="postal_code">
         </mat-form-field>
         <mat-form-field appearance="fill">
-          <mat-label>Phone</mat-label>
+          <mat-label>Telefon</mat-label>
           <input type="text" matInput autocomplete="tel-national" formControlName="phone">
         </mat-form-field>
         <mat-form-field appearance="fill">
-          <mat-label>Sex</mat-label>
+          <mat-label>Kjønn</mat-label>
           <input type="text" matInput autocomplete="sex" [matAutocomplete]="auto" formControlName="gender">
-          <mat-hint>Optional</mat-hint>
+          <mat-hint>Valgfri</mat-hint>
           <mat-autocomplete #auto="matAutocomplete">
-            <mat-option value="Male">Male</mat-option>
-            <mat-option value="Female">Female</mat-option>
-            <mat-option value="Other">Other</mat-option>
+            <mat-option value="Mann">Mann</mat-option>
+            <mat-option value="Dame">Dame</mat-option>
+            <mat-option value="Annet">Annet</mat-option>
           </mat-autocomplete>
         </mat-form-field>
         <mat-divider></mat-divider>
       </div>
-      <h4 class="form-section-header">School</h4>
+      <h4 class="form-section-header">Skole</h4>
       <mat-form-field appearance="fill">
-        <mat-label>Membership semester</mat-label>
+        <mat-label>Semester for opptak</mat-label>
         <mat-select formControlName="memberyear">
           <mat-option>-- none --</mat-option>
           <mat-optgroup *ngFor="let group of memberYears"
@@ -49,10 +49,10 @@
             <mat-option *ngFor="let semester of group.semesters" [value]="semester.value">{{ semester.viewValue }}</mat-option>
           </mat-optgroup>
         </mat-select>
-        <mat-hint>Important!</mat-hint>
+        <mat-hint>Viktig!</mat-hint>
       </mat-form-field>
       <mat-form-field appearance="fill">
-        <mat-label>Immatriculation semester</mat-label>
+        <mat-label>Semester for skolestart</mat-label>
         <mat-select formControlName="immatriculation">
           <mat-option>-- none --</mat-option>
           <mat-optgroup *ngFor="let group of immatriculationYears"
@@ -63,7 +63,7 @@
         </mat-select>
       </mat-form-field>
       <mat-form-field appearance="fill">
-        <mat-label>Graduation semester</mat-label>
+        <mat-label>Semester for fullført grad</mat-label>
         <mat-select formControlName="graduation">
           <mat-option>-- none --</mat-option>
           <mat-optgroup *ngFor="let group of graduationYears"
@@ -74,13 +74,13 @@
         </mat-select>
       </mat-form-field>
       <mat-form-field appearance="fill">
-        <mat-label>Specialisation</mat-label>
+        <mat-label>Spesialisering</mat-label>
         <mat-select formControlName="specialisation">
           <mat-option>-- None --</mat-option>
           <mat-option *ngFor="let s of specialisations" [value]="s">{{ s }}</mat-option>
         </mat-select>
       </mat-form-field>
-      <button [disabled]="!valid" mat-raised-button color="primary">Submit</button>
+      <button [disabled]="!valid" mat-raised-button color="primary">Lagre</button>
     </form>
   <!-- </ng-container> -->
 </div>

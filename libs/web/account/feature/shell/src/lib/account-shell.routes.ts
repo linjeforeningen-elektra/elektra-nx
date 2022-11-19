@@ -16,7 +16,7 @@ export const ACCOUNT_ROUTES: Routes = [
         loadChildren: async () => (await import('@elektra-nx/web/account/feature/dashboard')).DashboardModule,
       },
       {
-        path: 'membership',
+        path: 'medlemskap',
         loadChildren: async () =>
           (await import('@elektra-nx/web/account/feature/membership-edit')).MembershipEditModule,
       },

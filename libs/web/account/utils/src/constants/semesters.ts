@@ -18,8 +18,8 @@ function createTermArray(startYear = 2007, endYear = new Date().getFullYear()): 
     years.push({
       year: String(y),
       semesters: [
-        { viewValue: `Spring ${y}`, value: new Date(y, 7, 1, 0, 0, 0, 0) },
-        { viewValue: `Autumn ${y}`, value: new Date(y, 0, 1, 0, 0, 0, 0) },
+        { viewValue: `Vår ${y}`, value: new Date(y, 7, 1, 0, 0, 0, 0) },
+        { viewValue: `Høst ${y}`, value: new Date(y, 0, 1, 0, 0, 0, 0) },
       ],
     });
   }

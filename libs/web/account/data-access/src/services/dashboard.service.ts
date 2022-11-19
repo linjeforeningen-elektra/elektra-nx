@@ -70,14 +70,25 @@ export class DashboardService {
           userId,
           body,
         },
-        update: (store, result) => {
-          const data = store.readQuery({ query: AccountGQLQuery });
-          const membership = result.data?.membership;
+        update: (store, { data }) => {
+          const cache = store.readQuery({ query: AccountGQLQuery });
 
-          if (data?.account) {
-            data.account.membership = membership;
-            store.writeQuery({ query: AccountGQLQuery, data });
+          if (!cache) {
+            console.error('No cache.');
+            return;
           }
+
+          if (!data?.membership) {
+            console.error('No membership in data?');
+            return;
+          }
+
+          const account = {
+            ...cache.account,
+            membership: data.membership,
+          };
+
+          store.writeQuery({ query: AccountGQLQuery, data: { account } });
         },
       })
       .pipe(tap({ next: () => this.snackBar.open('Membership created.') }))
