@@ -9,9 +9,7 @@ const ONE_MONTH = 1000 * 3600 * 24 * 30;
 
 @Injectable()
 export class CardAccessService {
-  constructor(@InjectRepository(CardAccessEntity) private readonly cardAccessRepo: Repository<CardAccessEntity>) {
-    // const d = this.getNextExpiry();
-  }
+  constructor(@InjectRepository(CardAccessEntity) private readonly cardAccessRepo: Repository<CardAccessEntity>) {}
 
   private get NOW(): Date {
     return new Date();

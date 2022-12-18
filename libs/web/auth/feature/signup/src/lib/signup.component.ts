@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, ValidatorFn, Validators } from '@angular/forms';
 import { MatStepper } from '@angular/material/stepper';
 import { AuthStore, WebAuthService } from '@elektra-nx/web/auth/data-access';
@@ -30,7 +30,7 @@ type SignupState = 'input' | 'error' | 'processing' | 'done';
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.scss'],
 })
-export class SignupComponent {
+export class SignupComponent implements OnDestroy {
   constructor(
     private navbar: NavbarService,
     private fb: FormBuilder,
@@ -103,5 +103,9 @@ export class SignupComponent {
       this.auth.login(response.data.result.access_token);
       this.router.navigateByUrl('/konto');
     });
+  }
+
+  ngOnDestroy(): void {
+    this.layer.release();
   }
 }
