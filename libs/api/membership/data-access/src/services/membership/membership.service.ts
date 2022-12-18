@@ -2,23 +2,23 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateMembershipDto, UpdateMembershipDto } from '@elektra-nx/api/shared/dto';
-import { MembershipEntity } from '@elektra-nx/api/membership/models';
-import { UserEntity } from '@elektra-nx/api/user/models';
+import { Membership } from '@elektra-nx/api/membership/models';
+import { User } from '@elektra-nx/api/user/models';
 import { AccessRole } from '@elektra-nx/shared/models';
 
 @Injectable()
 export class MembershipService {
-  constructor(@InjectRepository(MembershipEntity) private membershipRepo: Repository<MembershipEntity>) {}
+  constructor(@InjectRepository(Membership) private membershipRepo: Repository<Membership>) {}
 
-  public async findUserMembership(user: UserEntity): Promise<MembershipEntity | undefined> {
+  public async findUserMembership(user: User): Promise<Membership | undefined> {
     return this.membershipRepo.findOneBy({ userId: user.id });
   }
 
-  public async create(userId: string, dto: CreateMembershipDto): Promise<MembershipEntity> {
+  public async create(userId: string, dto: CreateMembershipDto): Promise<Membership> {
     return this.membershipRepo.save({ ...dto, userId, ownerId: userId });
   }
 
-  public async find(filter: Record<string, unknown> = {}): Promise<MembershipEntity[]> {
+  public async find(filter: Record<string, unknown> = {}): Promise<Membership[]> {
     const { address, confirmed, graduation, immatriculation, memberyear, phone, specialisation } = filter;
 
     const qb = this.membershipRepo.createQueryBuilder('m');
@@ -72,8 +72,8 @@ export class MembershipService {
     return qb.getMany();
   }
 
-  public async findOne(id: string, throws?: boolean): Promise<MembershipEntity | undefined>;
-  public async findOne(id: string, throws = true): Promise<MembershipEntity> {
+  public async findOne(id: string, throws?: boolean): Promise<Membership | undefined>;
+  public async findOne(id: string, throws = true): Promise<Membership> {
     const found = await this.membershipRepo.findOneBy({ id });
 
     if (!found && throws) {
@@ -83,7 +83,7 @@ export class MembershipService {
     return found;
   }
 
-  public async findOneFromUserRelation(user: UserEntity, throws = false): Promise<MembershipEntity | undefined> {
+  public async findOneFromUserRelation(user: User, throws = false): Promise<Membership | undefined> {
     const found = await this.membershipRepo.findOneBy({ userId: user.id });
 
     if (!found && throws) {
@@ -93,13 +93,13 @@ export class MembershipService {
     return found;
   }
 
-  public async isMember(user: UserEntity): Promise<AccessRole | null> {
+  public async isMember(user: User): Promise<AccessRole | null> {
     const membership = await this.findOneFromUserRelation(user);
     if (!membership || !membership?.confirmed) return null;
     return AccessRole.MEMBER;
   }
 
-  public async updateOne(membership: MembershipEntity, dto: UpdateMembershipDto) {
+  public async updateOne(membership: Membership, dto: UpdateMembershipDto) {
     return this.membershipRepo.save({ ...membership, ...dto });
   }
 

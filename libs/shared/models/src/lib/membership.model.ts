@@ -15,7 +15,7 @@ export interface MembershipModel extends CoreModel {
   graduation?: Date;
   confirmed?: boolean;
   specialisation?: Specialisation;
-  gender: string;
+  gender?: string;
 }
 
 export interface CreateMembershipModel {

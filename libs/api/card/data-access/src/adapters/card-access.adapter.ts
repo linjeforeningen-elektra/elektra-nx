@@ -1,5 +1,5 @@
 import { AuthUser } from '@elektra-nx/api/auth/utils';
-import { CardEntity } from '@elektra-nx/api/card/models';
+import { Card } from '@elektra-nx/api/card/models';
 import { CreateCardAccessDto } from '@elektra-nx/api/shared/dto';
 import { AccessResource } from '@elektra-nx/shared/models';
 import { ForbiddenException, Injectable } from '@nestjs/common';
@@ -27,7 +27,7 @@ export class CardAccessAclAdapter {
     return permission.filter(result);
   }
 
-  public async create(auth: AuthUser, cardId: string, dto: CreateCardAccessDto): Promise<CardEntity> {
+  public async create(auth: AuthUser, cardId: string, dto: CreateCardAccessDto): Promise<Card> {
     const card = await this.card.findOne(cardId);
     const createPermission = auth.create(card, AccessResource.CARD_ACCESSS);
 
@@ -39,7 +39,7 @@ export class CardAccessAclAdapter {
     return readPermission.filter(result);
   }
 
-  public async findByCardRelation(auth: AuthUser, card: CardEntity) {
+  public async findByCardRelation(auth: AuthUser, card: Card) {
     const permission = auth.read({ ownerId: card.ownerId }, AccessResource.CARD_ACCESSS);
     if (!permission.granted) throw new ForbiddenException();
 

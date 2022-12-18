@@ -1,4 +1,4 @@
-import { CardAccessEntity, CardEntity } from '@elektra-nx/api/card/models';
+import { CardAccess, Card } from '@elektra-nx/api/card/models';
 import { CreateCardAccessDto, UpdateCardAccessDto } from '@elektra-nx/api/shared/dto';
 import { CardAccessStatus } from '@elektra-nx/shared/models';
 import { ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
@@ -9,13 +9,13 @@ const ONE_MONTH = 1000 * 3600 * 24 * 30;
 
 @Injectable()
 export class CardAccessService {
-  constructor(@InjectRepository(CardAccessEntity) private readonly cardAccessRepo: Repository<CardAccessEntity>) {}
+  constructor(@InjectRepository(CardAccess) private readonly cardAccessRepo: Repository<CardAccess>) {}
 
   private get NOW(): Date {
     return new Date();
   }
 
-  public async findFromCardRelation(card: CardEntity) {
+  public async findFromCardRelation(card: Card) {
     return this.cardAccessRepo.findBy({ cardId: card.id });
   }
 
@@ -35,11 +35,11 @@ export class CardAccessService {
     return { id: _id };
   }
 
-  public async createCardAccess(card: CardEntity, dto: CreateCardAccessDto) {
+  public async createCardAccess(card: Card, dto: CreateCardAccessDto) {
     return this.cardAccessRepo.save({ ...dto, card });
   }
 
-  public async renewCardAccess(card: CardEntity): Promise<CardAccessStatus> {
+  public async renewCardAccess(card: Card): Promise<CardAccessStatus> {
     // validate whether access can be created
     const status = await this.getCardActivityStatus(card.id);
     if (status === CardAccessStatus.ACTIVE_WAITING || status === CardAccessStatus.EXPIRED_WAITING) {
@@ -58,8 +58,8 @@ export class CardAccessService {
     return this.getCardActivityStatus(card.id);
   }
 
-  public async findOne(id: string, throws?: boolean): Promise<CardAccessEntity | undefined>;
-  public async findOne(id: string, throws = true): Promise<CardAccessEntity> {
+  public async findOne(id: string, throws?: boolean): Promise<CardAccess | undefined>;
+  public async findOne(id: string, throws = true): Promise<CardAccess> {
     const found = await this.cardAccessRepo.findOneBy({ id });
 
     if (!found && throws) {

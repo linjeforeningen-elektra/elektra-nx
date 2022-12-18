@@ -9,20 +9,20 @@ import {
 } from '@elektra-nx/api/shared/dto';
 import * as bcrypt from 'bcryptjs';
 import { AuthLocalEntity } from '../../entities/auth-local.entity';
-import { UserEntity } from '@elektra-nx/api/user/models';
+import { User } from '@elektra-nx/api/user/models';
 import { AuthConfigService } from '@elektra-nx/api/auth/config';
 
 @Injectable()
 export class AuthLocalService {
   constructor(
     @InjectRepository(AuthLocalEntity) private authLocal: Repository<AuthLocalEntity>,
-    @InjectRepository(UserEntity) private user: Repository<UserEntity>,
+    @InjectRepository(User) private user: Repository<User>,
     private em: EntityManager,
     private conf: AuthConfigService,
   ) {}
 
   // add timing attack guard
-  public async loginWithAuthLocal(dto: LoginWithAuthLocalDto): Promise<{ user: UserEntity; email: string }> {
+  public async loginWithAuthLocal(dto: LoginWithAuthLocalDto): Promise<{ user: User; email: string }> {
     const { email, password } = dto;
 
     const found = await this.authLocal.findOneBy({ email });
@@ -60,11 +60,11 @@ export class AuthLocalService {
     return auth;
   }
 
-  private async createUserObject(dto: CreateUserDto): Promise<UserEntity> {
+  private async createUserObject(dto: CreateUserDto): Promise<User> {
     const { name, slug } = dto;
     const { id } = await this.createUserId();
 
-    const user = new UserEntity();
+    const user = new User();
     user.name = name;
     user.slug = slug;
     user.id = id;
@@ -73,7 +73,7 @@ export class AuthLocalService {
     return user;
   }
 
-  public async registerWithEmailPassword(dto: RegisterWithAuthLocalDto): Promise<{ user: UserEntity; email: string }> {
+  public async registerWithEmailPassword(dto: RegisterWithAuthLocalDto): Promise<{ user: User; email: string }> {
     return this.em.transaction(async (em: EntityManager) => {
       let user = await this.createUserObject(dto.user);
       let auth = await this.createAuthLocalObject(dto.auth);

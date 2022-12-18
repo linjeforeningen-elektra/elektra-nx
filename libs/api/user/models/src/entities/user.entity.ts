@@ -1,20 +1,22 @@
 // import { AuthLocalEntity } from '@elektra-nx/api/auth/data-access';
 import { CoreEntity } from '@elektra-nx/api/database/utils';
 import { AccessRole, UserModel } from '@elektra-nx/shared/models';
+import { Field, ObjectType } from '@nestjs/graphql';
 import { Column, Entity, Unique } from 'typeorm';
-
-// import { CardEntity } from '@elektra-nx/api/card/models';
-// import { MembershipEntity } from '@elektra-nx/api/membership/models';
 
 @Entity('user')
 @Unique('UQ_user_slug', ['slug'])
-export class UserEntity extends CoreEntity implements UserModel {
+@ObjectType()
+export class User extends CoreEntity implements UserModel {
   @Column({ nullable: true })
+  @Field(() => String, { nullable: true })
   slug?: string;
 
   @Column()
+  @Field(() => String)
   name: string;
 
+  @Field(() => [String])
   @Column({ type: 'enum', enum: AccessRole, array: true, enumName: 'AccessRole', default: [] })
   roles: AccessRole[];
 }

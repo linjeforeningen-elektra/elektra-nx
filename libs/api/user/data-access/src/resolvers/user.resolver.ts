@@ -1,36 +1,36 @@
 import { GQLAuth, GraphqlGuard } from '@elektra-nx/api/apollo/utils';
 import { AuthUser } from '@elektra-nx/api/auth/utils';
-import { UserSchema } from '@elektra-nx/api/user/schema';
-import { MembershipSchema } from '@elektra-nx/api/membership/schema';
 import { UseGuards } from '@nestjs/common';
 import { Args, Mutation, Parent, Query, ResolveField, Resolver } from '@nestjs/graphql';
 import { UserAclAdapter } from '../adapters';
 import { UpdateUserDto } from '@elektra-nx/api/shared/dto';
-import { CardSchema } from '@elektra-nx/api/card/schema';
 import { CardAclAdapter } from '@elektra-nx/api/card/data-access';
 import { MembershipAclAdapter } from '@elektra-nx/api/membership/data-access';
+import { User } from '@elektra-nx/api/user/models';
+import { Card } from '@elektra-nx/api/card/models';
+import { Membership } from '@elektra-nx/api/membership/models';
 
-@Resolver(UserSchema)
+@Resolver(User)
 @UseGuards(GraphqlGuard)
 export class UserResolver {
   constructor(private user: UserAclAdapter, private membership: MembershipAclAdapter, private card: CardAclAdapter) {}
 
-  @Query(() => [UserSchema], { nullable: true, name: 'user' })
+  @Query(() => [User], { nullable: true, name: 'user' })
   public findUsers(@GQLAuth() auth: AuthUser) {
     return this.user.find(auth);
   }
 
-  @Query(() => UserSchema, { name: 'user' })
+  @Query(() => User, { name: 'user' })
   public findOneUser(@GQLAuth() auth: AuthUser, @Args('userId', { type: () => String }) userId: string) {
     return this.user.findOne(auth, userId);
   }
 
-  @Query(() => UserSchema, { name: 'loggedInUser' })
+  @Query(() => User, { name: 'loggedInUser' })
   public getLoggedInUser(@GQLAuth() auth: AuthUser) {
     return this.user.findOne(auth, auth.id);
   }
 
-  @Mutation(() => UserSchema)
+  @Mutation(() => User)
   public updateOneUser(
     @GQLAuth() auth: AuthUser,
     @Args('userId', { type: () => String }) userId: string,
@@ -39,13 +39,13 @@ export class UserResolver {
     return this.user.updateOne(auth, userId, body);
   }
 
-  @ResolveField(() => MembershipSchema, { nullable: true, name: 'membership' })
-  public findMembershipFromUserRelation(@GQLAuth() auth: AuthUser, @Parent() parent: UserSchema) {
+  @ResolveField(() => Membership, { nullable: true, name: 'membership' })
+  public findMembershipFromUserRelation(@GQLAuth() auth: AuthUser, @Parent() parent: User) {
     return this.membership.findOneFromUserRelation(auth, parent, false);
   }
 
-  @ResolveField(() => CardSchema, { nullable: true, name: 'card' })
-  public findCardFromUserRelation(@GQLAuth() auth: AuthUser, @Parent() parent: UserSchema) {
+  @ResolveField(() => Card, { nullable: true, name: 'card' })
+  public findCardFromUserRelation(@GQLAuth() auth: AuthUser, @Parent() parent: User) {
     return this.card.findFromUserRelation(auth, parent, false);
   }
 }

@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { Repository, SelectQueryBuilder } from 'typeorm';
-import { MembershipEntity, UserEntity } from '../../entities';
+import { MembershipEntity, User } from '../../entities';
 import { RepositoryMock } from '../../__mocks__/repository-mock';
 import { MembershipService } from './membership.service';
 import { mocked } from 'jest-mock';
@@ -37,7 +37,7 @@ describe('MembershipService', () => {
   describe('findUserMembership()', () => {
     it('should call findOneBy', async () => {
       const user = { id: '1' };
-      await service.findUserMembership(user as unknown as UserEntity);
+      await service.findUserMembership(user as unknown as User);
       expect(membershipRepo.findOneBy).toHaveBeenCalledWith({ userId: user.id });
     });
   });

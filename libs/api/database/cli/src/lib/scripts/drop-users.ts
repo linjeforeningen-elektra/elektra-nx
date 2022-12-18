@@ -2,7 +2,7 @@ import { AuthLocalEntity } from '@elektra-nx/api/auth/data-access';
 import { CardAccessEntity, CardEntity } from '@elektra-nx/api/card/models';
 import { DatabaseModule } from '@elektra-nx/api/database/feature';
 import { MembershipEntity } from '@elektra-nx/api/membership/models';
-import { UserEntity } from '@elektra-nx/api/user/models';
+import { User } from '@elektra-nx/api/user/models';
 import { Module } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -13,7 +13,7 @@ const data = [];
 @Module({
   imports: [
     DatabaseModule,
-    TypeOrmModule.forFeature([UserEntity, AuthLocalEntity, MembershipEntity, CardEntity, CardAccessEntity]),
+    TypeOrmModule.forFeature([User, AuthLocalEntity, MembershipEntity, CardEntity, CardAccessEntity]),
   ],
 })
 class DropUsersModule {}
@@ -26,7 +26,7 @@ export default (async () => {
   const i = -1;
   for (const user of data) {
     // console.log(++i);
-    await em.insert(UserEntity, user as Partial<UserEntity>);
+    await em.insert(User, user as Partial<User>);
 
     if (user.card) {
       await em.insert(CardEntity, user.card as unknown as Partial<CardEntity>);

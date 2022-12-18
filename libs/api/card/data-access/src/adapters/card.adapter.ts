@@ -1,6 +1,6 @@
 import { AuthUser } from '@elektra-nx/api/auth/utils';
-import { CardEntity } from '@elektra-nx/api/card/models';
-import { UserEntity } from '@elektra-nx/api/user/models';
+import { Card } from '@elektra-nx/api/card/models';
+import { User } from '@elektra-nx/api/user/models';
 import { CreateCardDto, UpdateCardDto } from '@elektra-nx/api/shared/dto';
 import { ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
 import { CardService } from '../services';
@@ -58,7 +58,7 @@ export class CardAclAdapter {
     return this.card.deleteOne(entity);
   }
 
-  public async findFromUserRelation(auth: AuthUser, user: UserEntity, throws = false): Promise<CardEntity> {
+  public async findFromUserRelation(auth: AuthUser, user: User, throws = false): Promise<Card> {
     const entity = await this.card.findOneFromUserRelation(user, throws);
     const permission = auth.read({ ownerId: user.id }, AccessResource.CARD);
     if (!permission.granted) throw new ForbiddenException();

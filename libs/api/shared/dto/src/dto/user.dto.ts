@@ -31,7 +31,7 @@ export class UpdateUserDto implements PickPartial<UserModel, 'name' | 'slug' | '
 
   @IsOptional()
   @IsEnum(AccessRole, { each: true })
-  @Field(() => [AccessRole], { nullable: true })
+  @Field(() => [String], { nullable: true })
   roles?: AccessRole[];
 }
 

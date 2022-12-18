@@ -2,7 +2,7 @@ import { CoreEntity } from '@elektra-nx/api/database/utils';
 import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
 import { BlockRevisionModel, BlockRevisionType } from '@elektra-nx/shared/models';
 import { Block } from './block.entity';
-import { UserEntity } from '@elektra-nx/api/user/models';
+import { User } from '@elektra-nx/api/user/models';
 import { Field, Int, ObjectType } from '@nestjs/graphql';
 
 @Entity('block_revision')
@@ -32,7 +32,7 @@ export class BlockRevision extends CoreEntity implements BlockRevisionModel {
   @Field(() => String)
   createdById: string;
 
-  @ManyToOne(() => UserEntity, { onDelete: 'SET NULL', nullable: true })
+  @ManyToOne(() => User, { onDelete: 'SET NULL', nullable: true })
   @JoinColumn({ name: 'createdById' })
-  createdBy: UserEntity;
+  createdBy: User;
 }

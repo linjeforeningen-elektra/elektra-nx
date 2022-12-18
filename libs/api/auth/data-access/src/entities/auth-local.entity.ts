@@ -1,6 +1,6 @@
 import { Column, Entity, JoinColumn, OneToOne, Unique } from 'typeorm';
 import { CoreEntity } from '@elektra-nx/api/database/utils';
-import { UserEntity } from '@elektra-nx/api/user/models';
+import { User } from '@elektra-nx/api/user/models';
 import { AuthLocalModel } from '@elektra-nx/shared/models';
 
 @Entity('auth-local')
@@ -18,7 +18,7 @@ export class AuthLocalEntity extends CoreEntity implements AuthLocalModel {
   @Column()
   userId: string;
 
-  @OneToOne(() => UserEntity, { onDelete: 'CASCADE' })
+  @OneToOne(() => User, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'userId' })
-  user: UserEntity;
+  user: User;
 }

@@ -1,20 +1,24 @@
 import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
-import { CardEntity } from './card.entity';
+import { Card } from './card.entity';
 import { CoreEntity } from '@elektra-nx/api/database/utils';
 import { CardAccessModel } from '@elektra-nx/shared/models';
+import { Field, ObjectType } from '@nestjs/graphql';
 
 @Entity('access')
-export class CardAccessEntity extends CoreEntity implements CardAccessModel {
+@ObjectType()
+export class CardAccess extends CoreEntity implements CardAccessModel {
+  @Field(() => Date)
   @Column()
   expiration: Date;
 
   @Column({ default: 'false' })
+  @Field(() => Boolean)
   sent: boolean;
 
   @Column()
   cardId: string;
 
-  @ManyToOne(() => CardEntity, { onDelete: 'CASCADE', nullable: false })
+  @ManyToOne(() => Card, { onDelete: 'CASCADE', nullable: false })
   @JoinColumn({ name: 'cardId' })
-  card: CardEntity;
+  card: Card;
 }

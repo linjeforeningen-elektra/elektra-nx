@@ -1,6 +1,6 @@
 import { AuthUser } from '@elektra-nx/api/auth/utils';
-import { MembershipEntity } from '@elektra-nx/api/membership/models';
-import { UserEntity } from '@elektra-nx/api/user/models';
+import { Membership } from '@elektra-nx/api/membership/models';
+import { User } from '@elektra-nx/api/user/models';
 import { CreateMembershipDto, UpdateMembershipDto } from '@elektra-nx/api/shared/dto';
 import { ForbiddenException, Injectable } from '@nestjs/common';
 import { MembershipService } from '../services';
@@ -28,7 +28,7 @@ export class MembershipAclAdapter {
     return permission.filter(entity);
   }
 
-  public async updateOne(auth: AuthUser, id: string, dto: UpdateMembershipDto): Promise<MembershipEntity> {
+  public async updateOne(auth: AuthUser, id: string, dto: UpdateMembershipDto): Promise<Membership> {
     const membership = await this.membership.findOne(id);
     const permission = auth.update(membership, AccessResource.MEMBERSHIP);
     if (!permission.granted) throw new ForbiddenException();
@@ -39,7 +39,7 @@ export class MembershipAclAdapter {
     return { ...membership, ...result };
   }
 
-  public async create(auth: AuthUser, userId: string, dto: CreateMembershipDto): Promise<MembershipEntity> {
+  public async create(auth: AuthUser, userId: string, dto: CreateMembershipDto): Promise<Membership> {
     const permission = auth.create({ ownerId: userId }, AccessResource.MEMBERSHIP);
     if (!permission.granted) throw new ForbiddenException();
 
@@ -57,7 +57,7 @@ export class MembershipAclAdapter {
     return this.membership.delete(membership.id);
   }
 
-  public async findOneFromUserRelation(auth: AuthUser, user: UserEntity, throws = true): Promise<MembershipEntity> {
+  public async findOneFromUserRelation(auth: AuthUser, user: User, throws = true): Promise<Membership> {
     const entity = await this.membership.findOneFromUserRelation(user, throws);
     const permission = auth.read({ ownerId: user.id }, AccessResource.MEMBERSHIP);
 

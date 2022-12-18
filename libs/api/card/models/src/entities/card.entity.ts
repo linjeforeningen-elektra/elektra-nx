@@ -1,17 +1,21 @@
 import { Entity, Column, OneToOne, JoinColumn } from 'typeorm';
 import { CoreEntity } from '@elektra-nx/api/database/utils';
-import { UserEntity } from '@elektra-nx/api/user/models';
+import { User } from '@elektra-nx/api/user/models';
 import { CardModel } from '@elektra-nx/shared/models';
+import { Field, ObjectType } from '@nestjs/graphql';
 
 @Entity('card')
-export class CardEntity extends CoreEntity implements CardModel {
+@ObjectType()
+export class Card extends CoreEntity implements CardModel {
   @Column()
+  @Field(() => String)
   student_number: string;
 
   @Column()
+  @Field(() => String)
   userId: string;
 
-  @OneToOne(() => UserEntity, { onDelete: 'CASCADE', nullable: false })
+  @OneToOne(() => User, { onDelete: 'CASCADE', nullable: false })
   @JoinColumn({ name: 'userId' })
-  user: UserEntity;
+  user: User;
 }

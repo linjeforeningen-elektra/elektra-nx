@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { Repository, SelectQueryBuilder } from 'typeorm';
-import { UserEntity } from '../../entities';
+import { User } from '../../entities';
 import { UserService } from './user.service';
 import { mocked } from 'jest-mock';
 import { NotFoundException } from '@nestjs/common';
@@ -10,20 +10,20 @@ import { QueryBuilderMock } from '../../__mocks__/query-builder-mock';
 
 describe('UserService', () => {
   let service: UserService;
-  let userRepo: jest.Mocked<Repository<UserEntity>>;
+  let userRepo: jest.Mocked<Repository<User>>;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         UserService,
         {
-          provide: getRepositoryToken(UserEntity),
+          provide: getRepositoryToken(User),
           useValue: RepositoryMock(),
         },
       ],
     }).compile();
 
-    userRepo = module.get(getRepositoryToken(UserEntity));
+    userRepo = module.get(getRepositoryToken(User));
     service = module.get<UserService>(UserService);
   });
 
@@ -90,7 +90,7 @@ describe('UserService', () => {
   describe('delete()', () => {
     it('should return ID', async () => {
       const id = '123';
-      jest.spyOn(service, 'findOne').mockResolvedValueOnce({ id } as unknown as UserEntity);
+      jest.spyOn(service, 'findOne').mockResolvedValueOnce({ id } as unknown as User);
 
       const result = await service.delete(id);
       expect(result).toEqual({ id });
