@@ -181,7 +181,10 @@
     "sourcemap": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "source-map-explorer dist/apps/web/browser/**/*.js --html | firefox \"data:text/html;base64, $(base64 -w 0 <&0)\""
+        "commands": [
+          "source-map-explorer dist/apps/web/browser/**/*.js --html dist/web/sourcemap.html",
+          "firefox dist/web/sourcemap.html"
+        ]
       }
     },
     "gulp": {
