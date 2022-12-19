@@ -1,11 +1,15 @@
 <div class="elektra-nx-signup">
   <div class="wrapper">
 
-    <ng-container [ngSwitch]="state">
+    <div class="error" *ngIf="error">
+      <h3>Feil:</h3>
+      <p>{{ error }}</p>
+    </div>
 
+    <ng-container *ngIf="!loading; else loadingTemplate">
       <mat-vertical-stepper [linear]="true" #stepper>
         <mat-step [stepControl]="personaliaFG">
-          <ng-template matStepLabel>Person</ng-template>
+          <ng-template matStepLabel>Bruker</ng-template>
           <form (submit)="nextStep($event, stepper)" [formGroup]="personaliaFG">
             <mat-form-field>
               <mat-label>Fornavn</mat-label>
@@ -67,3 +71,9 @@
 
   </div>
 </div>
+
+<ng-template #loadingTemplate>
+  <div class="loading">
+    <elektra-nx-spinner></elektra-nx-spinner>
+  </div>
+</ng-template>

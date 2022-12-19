@@ -4,6 +4,10 @@ import { MatStepper } from '@angular/material/stepper';
 import { WebNavbarService, WebAuthService } from '@elektra-nx/web/shared/data-access';
 import { RegisterWithAuthLocalModel } from '@elektra-nx/shared/models';
 import { Router } from '@angular/router';
+import { Apollo } from 'apollo-angular';
+import { RegisterWithAuthLocalMutation } from '@elektra-nx/web/auth/utils';
+import { catchError, EMPTY } from 'rxjs';
+import { isApolloError } from '@apollo/client/errors';
 
 const PasswordMatchesValidator: ValidatorFn = (control: AbstractControl) => {
   // const p1 = control?.get('pass');
@@ -22,8 +26,6 @@ const PasswordMatchesValidator: ValidatorFn = (control: AbstractControl) => {
   return null;
 };
 
-type SignupState = 'input' | 'error' | 'processing' | 'done';
-
 @Component({
   selector: 'elektra-nx-signup',
   templateUrl: './signup.component.html',
@@ -34,10 +36,12 @@ export class SignupComponent implements OnDestroy {
     private navbar: WebNavbarService,
     private fb: FormBuilder,
     private auth: WebAuthService,
+    private apollo: Apollo,
     private router: Router,
   ) {}
 
-  state: SignupState = 'input';
+  loading = false;
+  error?: string;
 
   readonly personaliaFG = this.fb.group({
     fname: new FormControl('', [Validators.required]),
@@ -63,10 +67,6 @@ export class SignupComponent implements OnDestroy {
 
   layer = this.navbar.registerNavbarLayer({
     title: 'Ny bruker',
-    theme: {
-      background: 'transparent',
-      color: 'var(--default-contrast)',
-    },
     button: 'navigate_before',
   });
 
@@ -94,6 +94,33 @@ export class SignupComponent implements OnDestroy {
         password,
       },
     } as RegisterWithAuthLocalModel;
+
+    this.apollo
+      .mutate({
+        mutation: RegisterWithAuthLocalMutation,
+        variables: {
+          body,
+        },
+      })
+      .pipe(
+        catchError((err) => {
+          this.loading = false;
+          if (isApolloError(err)) {
+            this.error = err.message;
+          }
+
+          return EMPTY;
+        }),
+      )
+      .subscribe(({ data }) => {
+        if (!data) return;
+        this.error = undefined;
+        this.loading = false;
+
+        const { access_token } = data.user;
+        this.auth.login(access_token);
+        this.router.navigateByUrl('/konto');
+      });
 
     // this.api.signup(body).subscribe((response) => {
     //   if (response.errors && response.errors.length > 0) throw 'Error';
