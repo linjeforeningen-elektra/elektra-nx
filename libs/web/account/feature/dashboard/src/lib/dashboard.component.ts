@@ -2,7 +2,7 @@ import { Component, OnDestroy } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { CreateCardModel, UpdateUserModel } from '@elektra-nx/shared/models';
 import { DashboardService } from '@elektra-nx/web/account/data-access';
-import { NavbarService } from '@elektra-nx/web/shared/data-access';
+import { WebNavbarService } from '@elektra-nx/web/shared/data-access';
 import { map } from 'rxjs';
 
 @Component({
@@ -11,7 +11,7 @@ import { map } from 'rxjs';
   styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent implements OnDestroy {
-  constructor(private navbar: NavbarService, private title: Title, private dashboard: DashboardService) {
+  constructor(private navbar: WebNavbarService, private title: Title, private dashboard: DashboardService) {
     this.title.setTitle('Profile');
   }
 

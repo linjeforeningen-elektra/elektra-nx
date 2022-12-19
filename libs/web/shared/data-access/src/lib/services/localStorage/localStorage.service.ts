@@ -2,7 +2,7 @@ import { isPlatformBrowser } from '@angular/common';
 import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 
 @Injectable({ providedIn: 'root' })
-export class LocalStorageService {
+export class WebLocalStorageService {
   constructor(@Inject(PLATFORM_ID) private id: string) {}
 
   private readonly isBrowser = isPlatformBrowser(this.id);

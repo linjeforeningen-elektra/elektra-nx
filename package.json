@@ -64,6 +64,7 @@
     "rxjs-for-await": "^1.0.0",
     "tslib": "^2.3.0",
     "typeorm": "^0.3.7",
+    "uuid": "^9.0.0",
     "zone.js": "~0.11.4"
   },
   "devDependencies": {
@@ -91,6 +92,7 @@
     "@types/jest": "28.1.1",
     "@types/node": "16.11.7",
     "@types/passport-jwt": "^3.0.6",
+    "@types/uuid": "^9.0.0",
     "@typescript-eslint/eslint-plugin": "^5.36.1",
     "@typescript-eslint/parser": "^5.36.1",
     "cypress": "^9.1.0",

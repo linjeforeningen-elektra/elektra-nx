@@ -1,7 +1,7 @@
 import { Component, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { JobModel } from '@elektra-nx/shared/models';
-import { NavbarService } from '@elektra-nx/web/shared/data-access';
+import { WebNavbarService } from '@elektra-nx/web/shared/data-access';
 
 @Component({
   selector: 'elektra-nx-jobs-detail',
@@ -9,7 +9,7 @@ import { NavbarService } from '@elektra-nx/web/shared/data-access';
   styleUrls: ['./jobs-detail.component.scss'],
 })
 export class JobsDetailComponent implements OnDestroy {
-  constructor(private router: Router, private route: ActivatedRoute, private navbar: NavbarService) {}
+  constructor(private router: Router, private route: ActivatedRoute, private navbar: WebNavbarService) {}
 
   private layer = this.navbar.registerNavbarLayer({
     button: 'navigate_before',

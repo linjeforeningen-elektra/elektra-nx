@@ -1,6 +1,6 @@
 import { Component, OnDestroy } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
-import { NavbarService } from '@elektra-nx/web/shared/data-access';
+import { WebNavbarService } from '@elektra-nx/web/shared/data-access';
 
 const _title = 'Elektra';
 const _description = `Linjeforeningen for Elektroingeniør og Elektrifisering og Digitalisering ved NTNU`;
@@ -11,7 +11,7 @@ const _description = `Linjeforeningen for Elektroingeniør og Elektrifisering og
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnDestroy {
-  constructor(private navbar: NavbarService, private title: Title, private meta: Meta) {
+  constructor(private navbar: WebNavbarService, private title: Title, private meta: Meta) {
     this.title.setTitle('Elektra');
     this.meta.addTags([
       { name: 'og:title', content: _title },

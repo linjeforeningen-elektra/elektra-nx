@@ -1,6 +1,6 @@
 import { Component, OnDestroy } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
-import { NavbarService } from '@elektra-nx/web/shared/data-access';
+import { WebNavbarService } from '@elektra-nx/web/shared/data-access';
 
 const _title = 'Kontakt';
 const _description = 'Ta kontakt med oss';
@@ -11,7 +11,7 @@ const _description = 'Ta kontakt med oss';
   styleUrls: ['./contact.component.scss'],
 })
 export class ContactComponent implements OnDestroy {
-  constructor(private navbar: NavbarService, private title: Title, private meta: Meta) {
+  constructor(private navbar: WebNavbarService, private title: Title, private meta: Meta) {
     this.title.setTitle(_title);
     this.meta.addTags([
       { name: 'og:title', content: _title },

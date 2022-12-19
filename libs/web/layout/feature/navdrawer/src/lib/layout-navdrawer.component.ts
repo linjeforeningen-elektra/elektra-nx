@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { BreakpointObserver } from '@angular/cdk/layout';
-import { map, Observable } from 'rxjs';
+import { map } from 'rxjs';
 
-import { NavbarService, WebAuthService } from '@forprosjekt/web/shared/data-access';
-import { NavbarLayerInstance } from '@forprosjekt/web/shared/utils';
+import { WebNavbarService, WebAuthService } from '@elektra-nx/web/shared/data-access';
+import { NavbarLayerInstance } from '@elektra-nx/web/shared/utils';
 
 @Component({
   selector: 'forprosjekt-layout-navdrawer',
@@ -11,7 +11,7 @@ import { NavbarLayerInstance } from '@forprosjekt/web/shared/utils';
   styleUrls: ['./layout-navdrawer.component.scss'],
 })
 export class LayoutNavdrawerComponent implements OnInit {
-  constructor(private bpo: BreakpointObserver, private navbar: NavbarService, private webAuth: WebAuthService) {
+  constructor(private bpo: BreakpointObserver, private navbar: WebNavbarService, private webAuth: WebAuthService) {
     this.init();
   }
   readonly user$ = this.webAuth.user$;

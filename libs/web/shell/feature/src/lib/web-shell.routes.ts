@@ -1,11 +1,11 @@
 import { Route } from '@angular/router';
-import { LayoutComponent } from '@elektra-nx/web/shell/ui/layout';
+import { LayoutShellComponent } from '@elektra-nx/web/layout/feature/shell';
 import { WebRoutes } from '@elektra-nx/web/shell/utils';
 
 export const WEB_SHELL_ROUTES: Route[] = [
   {
     path: '',
-    component: LayoutComponent,
+    component: LayoutShellComponent,
     children: [
       {
         path: WebRoutes.AUTH,

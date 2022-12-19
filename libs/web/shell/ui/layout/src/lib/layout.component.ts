@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, ElementRef, HostBinding, ViewChild 
 import { map } from 'rxjs';
 
 import { PaddingAnimation } from './animations/padding.animation';
-import { NavbarService } from '@elektra-nx/web/shared/data-access';
+import { WebNavbarService } from '@elektra-nx/web/shared/data-access';
 
 @Component({
   selector: 'elektra-nx-layout',
@@ -12,7 +12,7 @@ import { NavbarService } from '@elektra-nx/web/shared/data-access';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LayoutComponent {
-  constructor(private navbar: NavbarService) {}
+  constructor(private navbar: WebNavbarService) {}
 
   @ViewChild('wrapper', { static: true, read: ElementRef }) private wrapper: ElementRef<HTMLElement>;
 

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 import { JobService } from '@elektra-nx/web/jobs/data-access';
-import { NavbarService } from '@elektra-nx/web/shared/data-access';
+import { WebNavbarService } from '@elektra-nx/web/shared/data-access';
 
 const _title = 'Stillingsannonser';
 const _description = 'Lyst på deltidsjobb, sommerjobb eller en fulltidsjobb? Søk her!';
@@ -12,7 +12,7 @@ const _description = 'Lyst på deltidsjobb, sommerjobb eller en fulltidsjobb? S�
   styleUrls: ['./jobs-list.component.scss'],
 })
 export class JobsListComponent implements OnInit {
-  constructor(private job: JobService, private navbar: NavbarService, private meta: Meta, private title: Title) {
+  constructor(private job: JobService, private navbar: WebNavbarService, private meta: Meta, private title: Title) {
     this.title.setTitle(_title);
     this.meta.addTags([
       { name: 'og:title', content: _title },

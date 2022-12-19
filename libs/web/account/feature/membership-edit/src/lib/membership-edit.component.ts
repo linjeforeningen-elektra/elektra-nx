@@ -1,6 +1,6 @@
 import { Component, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
-import { NavbarService } from '@elektra-nx/web/shared/data-access';
+import { WebNavbarService } from '@elektra-nx/web/shared/data-access';
 import { membershipTerms, immatriculationTerms, graduationTerms, specialisations } from '@elektra-nx/web/account/utils';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { CreateMembershipModel } from '@elektra-nx/shared/models';
@@ -15,7 +15,7 @@ import { map, tap } from 'rxjs';
 })
 export class MembershipEditComponent implements OnDestroy {
   constructor(
-    private navbar: NavbarService,
+    private navbar: WebNavbarService,
     private router: Router,
     private fb: FormBuilder,
     private dashboard: DashboardService,

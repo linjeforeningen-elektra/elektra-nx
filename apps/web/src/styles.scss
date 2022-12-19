@@ -1,68 +1,64 @@
-
 // Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
 @use '@angular/material' as mat;
-@use 'SASS:map';
+// Plus imports for other components in your app.
 
-// @use 'grid.mixin';
-@use 'themes';
-@import 'palette';
-
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
 @include mat.core();
 
-$web-light-primary: mat.define-palette($md-primary, 800);
-$web-light-accent: mat.define-palette($md-accent, 500);
-$web-warn: mat.define-palette(mat.$red-palette);
+@import 'assets/theme.scss';
 
-$web-light-theme: mat.define-light-theme((
-  color: (
-    primary: $web-light-primary,
-    accent: $web-light-accent,
-    warn: $web-warn,
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$web-primary: mat.define-palette($md-primary);
+$web-accent: mat.define-palette($md-accent);
+
+// The warn palette is optional (defaults to red).
+$web-warn: mat.define-palette($md-warn);
+
+// Create the theme object. A theme consists of configurations for individual
+// theming systems such as "color" or "typography".
+$web-theme: mat.define-dark-theme(
+  (
+    color: (
+      primary: $web-primary,
+      accent: $web-accent,
+      warn: $web-warn,
+    ),
   )
-));
+);
 
-$web-dark-theme: mat.define-dark-theme((
-  color: (
-    primary: $web-light-primary,
-    accent: $web-light-accent,
-    warn: $web-warn,
-  )
-));
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include mat.all-component-themes($web-theme);
 
+/* You can add global styles to this file, and also import other style files */
 
-
-@include mat.all-component-themes($web-light-theme);
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
+}
 
 :root {
-  --primary: #{map.get($web-light-theme, primary, 600)};
-  --primary-darker: #{map.get($web-light-theme, primary, 800)};
-  --foreground-text: #{map.get($web-light-theme, foreground, text)};
-  --default-contrast: #{map.get($web-light-theme, primary, default-contrast)};
-  // --primary-text: #{map-get($web-light-theme, 'primary', 'default-contrast')};
-  --accent: #{map-get($web-light-theme, 'accent', '500')};
-  --warn: #{map.get($web-light-theme, 'warn', 500)};
-}
+  font-size: 16px;
 
+  --primary: #{map-get($web-theme, 'primary', 500)};
+  --primary-darker: #{map-get($web-theme, 'primary', 900)};
+  --primary-contrast: #{map-get($web-theme, 'primary', 'contrast', 500)};
+  --accent: #{map-get($web-theme, 'accent', 500)};
+  --accent-contrast: #{map-get($web-theme, 'accent', 'contrast', 500)};
+  --warn: #{map-get($web-theme, 'warn', 500)};
+  --warn-contrast: #{map-get($web-theme, 'warn', 'contrast', 500)};
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+  --secondary-text: #{map-get($web-theme, 'foreground', 'secondary-text')};
 
-.on-primary {
-  @include themes.form-field-on-primary-theme($web-light-theme);
-  @include themes.input-on-primary-theme($web-light-theme);
-  @include themes.progress-spinner-on-primary($web-light-theme);
-}
-
-.dark-theme {
-  @include mat.all-component-colors($web-dark-theme);
-}
-
-.snackbar {
-  button {
-    color: var(--primary);
-  }
-}
-
-.mat-grid {
-  // @include grid();
+  --background-card: #{map-get($web-theme, 'background', 'card')};
 }

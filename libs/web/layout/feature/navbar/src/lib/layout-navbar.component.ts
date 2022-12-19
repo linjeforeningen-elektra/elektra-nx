@@ -1,6 +1,6 @@
 import { isPlatformBrowser } from '@angular/common';
 import { Component, Inject, PLATFORM_ID } from '@angular/core';
-import { NavbarService } from '@forprosjekt/web/shared/data-access';
+import { WebNavbarService } from '@elektra-nx/web/shared/data-access';
 import { distinctUntilChanged, fromEvent, map, of, startWith, switchMap } from 'rxjs';
 
 @Component({
@@ -9,7 +9,7 @@ import { distinctUntilChanged, fromEvent, map, of, startWith, switchMap } from '
   styleUrls: ['./layout-navbar.component.scss'],
 })
 export class LayoutNavbarComponent {
-  constructor(private navbar: NavbarService, @Inject(PLATFORM_ID) private id: any) {}
+  constructor(private navbar: WebNavbarService, @Inject(PLATFORM_ID) private id: any) {}
 
   button$ = this.navbar.latestProp$('button');
   title$ = this.navbar.latestProp$('title');

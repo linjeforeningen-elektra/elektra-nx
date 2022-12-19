@@ -1,7 +1,7 @@
 import { Component, OnDestroy } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 
-import { NavbarService, WebAuthService } from '@elektra-nx/web/shared/data-access';
+import { WebNavbarService, WebAuthService } from '@elektra-nx/web/shared/data-access';
 import { LoginWithAuthLocalModel } from '@elektra-nx/shared/models';
 import { Router } from '@angular/router';
 import { Apollo } from 'apollo-angular';
@@ -18,7 +18,7 @@ type SigninState = 'input' | 'processing' | 'error' | 'success';
 })
 export class SigninComponent implements OnDestroy {
   constructor(
-    private navbar: NavbarService,
+    private navbar: WebNavbarService,
     private fb: FormBuilder,
     private auth: WebAuthService,
     private router: Router,

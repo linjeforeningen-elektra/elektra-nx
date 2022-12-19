@@ -4,7 +4,7 @@ import { NavigationEnd, Router } from '@angular/router';
 import {
   LayoutService,
   NavbarLayerInstance,
-  NavbarService,
+  WebNavbarService,
   NavdrawerService,
 } from '@elektra-nx/web/shared/data-access';
 import { filter, map } from 'rxjs';
@@ -21,7 +21,7 @@ export class NavdrawerComponent implements OnInit {
   constructor(
     private layout: LayoutService,
     private readonly navdrawer: NavdrawerService,
-    private readonly navbar: NavbarService,
+    private readonly navbar: WebNavbarService,
     private router: Router,
   ) {}
 

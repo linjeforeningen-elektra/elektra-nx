@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { IsLoggedInGuard } from '@elektra-nx/web/auth/utils';
+import { IsLoggedInGuard } from '@elektra-nx/web/shared/data-access';
 
 export const ACCOUNT_ROUTES: Routes = [
   {

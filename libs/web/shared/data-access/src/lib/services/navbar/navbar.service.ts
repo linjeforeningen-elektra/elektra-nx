@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, map, Observable, Subject } from 'rxjs';
-import { NavbarLayerInstance } from '../../classes';
-import { NavbarLayer } from '../../interfaces';
+import { NavbarLayer, NavbarLayerInstance } from '@elektra-nx/web/shared/utils';
+import * as uuid from 'uuid';
 
 @Injectable({
   providedIn: 'root',
 })
-export class NavbarService {
+export class WebNavbarService {
   private idx = 1;
 
   private layers: BehaviorSubject<NavbarLayer[]> = new BehaviorSubject(<NavbarLayer[]>[]);
@@ -15,15 +15,19 @@ export class NavbarService {
   private buttonStream: Subject<Pick<NavbarLayer, 'id'>> = new Subject();
   public readonly buttonStream$ = this.buttonStream.asObservable();
 
-  private actionStream: Subject<{ id: number; action: string }> = new Subject();
+  private actionStream: Subject<Pick<NavbarLayer, 'id'> & { action: string }> = new Subject();
   private readonly actionStream$ = this.actionStream.asObservable();
 
   public latestProp$<T extends keyof NavbarLayer>(
     prop: T,
-  ): Observable<{ id: number; value: NavbarLayer[T] } | undefined> {
+  ): Observable<{ id: string; value: NavbarLayer[T] } | undefined> {
     return this.layers$.pipe(
       map((layers) => {
-        const found = layers.sort((a, b) => (a.id < b.id ? 1 : -1)).find((layer) => layer[prop] !== undefined);
+        const found = layers
+          .reverse()
+          .filter((l) => !l.hidden)
+          .find((layer) => layer[prop] !== undefined);
+
         if (!found) return undefined;
 
         const id = found.id;
@@ -33,12 +37,21 @@ export class NavbarService {
     );
   }
 
-  public registerNavbarLayer<T extends NavbarLayer>(props: Omit<T, 'id'>): NavbarLayerInstance<T> {
-    const id: number = ++this.idx;
+  public registerNavbarLayer<T extends NavbarLayer>(
+    props: Omit<T, 'id' | 'idx'>,
+    idx?: number,
+  ): NavbarLayerInstance<T> {
+    const id = uuid.v4();
+    const layers = this.layers.getValue();
     const layer = { ...props, id } as T;
 
-    const layers = this.layers.getValue();
-    this.layers.next([...layers, layer]);
+    if (idx !== undefined) {
+      layers.splice(idx, 0, layer);
+    } else {
+      layers.push(layer);
+    }
+
+    this.layers.next(layers);
 
     const instance = new NavbarLayerInstance(layer, this.buttonStream$, this.actionStream$);
     instance.onRelease$.subscribe(() => {
@@ -51,7 +64,7 @@ export class NavbarService {
     return instance;
   }
 
-  private updateNavbarLayer(id: number, changes: Partial<Omit<NavbarLayer, 'id'>>): void {
+  private updateNavbarLayer(id: string, changes: Partial<Omit<NavbarLayer, 'id'>>): void {
     const values = this.layers.getValue();
     const idx = values.findIndex((l) => l.id === id);
 
@@ -65,18 +78,18 @@ export class NavbarService {
   }
 
   /**@private */
-  private _removeLayer(id: number): void {
+  private _removeLayer(id: string): void {
     const layers = this.layers.getValue();
     this.layers.next(layers.filter((e) => e.id !== id));
   }
 
   /**@private */
-  public _buttonClicked(id: number): void {
+  public _buttonClicked(id: string): void {
     this.buttonStream.next({ id });
   }
 
   /**@private */
-  public _actionClicked(id: number, action: string): void {
+  public _actionClicked(id: string, action: string): void {
     this.actionStream.next({ id, action });
   }
 }

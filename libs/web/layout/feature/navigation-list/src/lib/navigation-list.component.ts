@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { NavdrawerRoute, routeSerializer } from '@forprosjekt/web/layout/utils';
-import { WebAuthService } from '@forprosjekt/web/shared/data-access';
+import { NavdrawerRoute, routeSerializer } from '@elektra-nx/web/layout/utils';
+import { WebAuthService } from '@elektra-nx/web/shared/data-access';
 import { map } from 'rxjs';
 
 @Component({

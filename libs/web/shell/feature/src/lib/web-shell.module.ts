@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LocalStorageService, WebAuthService } from '@elektra-nx/web/shared/data-access';
+import { WebLocalStorageService, WebNavbarService, WebAuthService } from '@elektra-nx/web/shared/data-access';
 import { RouterModule } from '@angular/router';
 
 import { WEB_SHELL_ROUTES } from './web-shell.routes';
@@ -15,6 +15,7 @@ import { HttpLink } from 'apollo-angular/http';
 import { ApolloLink, InMemoryCache } from '@apollo/client/core';
 import { setContext } from '@apollo/client/link/context';
 import { lastValueFrom, take } from 'rxjs';
+import { WebLayoutShellModule } from '@elektra-nx/web/layout/feature/shell';
 
 @NgModule({
   imports: [
@@ -23,11 +24,13 @@ import { lastValueFrom, take } from 'rxjs';
     ApolloModule,
     PortalModule,
     OverlayModule,
+    WebLayoutShellModule,
     RouterModule.forRoot(WEB_SHELL_ROUTES, { scrollPositionRestoration: 'top', onSameUrlNavigation: 'reload' }),
   ],
   providers: [
-    LocalStorageService,
+    WebLocalStorageService,
     WebAuthService,
+    WebNavbarService,
     {
       provide: APOLLO_OPTIONS,
       useFactory: (httpLink: HttpLink, authService: WebAuthService) => {
