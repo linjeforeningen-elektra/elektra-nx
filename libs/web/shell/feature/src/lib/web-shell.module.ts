@@ -7,6 +7,7 @@ import {
   NavbarService,
   NavdrawerService,
   SnackbarService,
+  WebAuthService,
 } from '@elektra-nx/web/shared/data-access';
 import { RouterModule } from '@angular/router';
 
@@ -14,7 +15,6 @@ import { LayoutModule } from '@elektra-nx/web/shell/ui/layout';
 import { WEB_SHELL_ROUTES } from './web-shell.routes';
 
 import { HttpClientModule } from '@angular/common/http';
-import { AuthStore } from '@elektra-nx/web/auth/data-access';
 // import { AuthEffects, AuthFeatureKey, AuthReducer } from '@elektra-nx/web/auth/data-access';
 import { PortalModule } from '@angular/cdk/portal';
 import { OverlayModule } from '@angular/cdk/overlay';
@@ -40,14 +40,14 @@ import { lastValueFrom, take } from 'rxjs';
     NavdrawerService,
     LayoutService,
     DialogService,
-    AuthStore,
     LocalStorageService,
     SnackbarService,
+    WebAuthService,
     {
       provide: APOLLO_OPTIONS,
-      useFactory: (httpLink: HttpLink, authStore: AuthStore) => {
+      useFactory: (httpLink: HttpLink, authService: WebAuthService) => {
         const auth = setContext(async (operation, context) => {
-          const token = await lastValueFrom(authStore.token$.pipe(take(1)));
+          const token = await lastValueFrom(authService.token$.pipe(take(1)));
 
           if (!token) {
             return {};
@@ -68,7 +68,7 @@ import { lastValueFrom, take } from 'rxjs';
           cache,
         };
       },
-      deps: [HttpLink, AuthStore],
+      deps: [HttpLink, WebAuthService],
     },
   ],
   exports: [RouterModule],

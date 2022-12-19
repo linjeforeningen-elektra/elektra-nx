@@ -1,8 +1,7 @@
 import { Component, OnDestroy } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, ValidatorFn, Validators } from '@angular/forms';
 import { MatStepper } from '@angular/material/stepper';
-import { AuthStore, WebAuthService } from '@elektra-nx/web/auth/data-access';
-import { NavbarService } from '@elektra-nx/web/shared/data-access';
+import { NavbarService, WebAuthService } from '@elektra-nx/web/shared/data-access';
 import { RegisterWithAuthLocalModel } from '@elektra-nx/shared/models';
 import { Router } from '@angular/router';
 
@@ -34,8 +33,7 @@ export class SignupComponent implements OnDestroy {
   constructor(
     private navbar: NavbarService,
     private fb: FormBuilder,
-    private api: WebAuthService,
-    private auth: AuthStore,
+    private auth: WebAuthService,
     private router: Router,
   ) {}
 
@@ -97,12 +95,12 @@ export class SignupComponent implements OnDestroy {
       },
     } as RegisterWithAuthLocalModel;
 
-    this.api.signup(body).subscribe((response) => {
-      if (response.errors && response.errors.length > 0) throw 'Error';
-      if (!response.data?.result) throw 'No token';
-      this.auth.login(response.data.result.access_token);
-      this.router.navigateByUrl('/konto');
-    });
+    // this.api.signup(body).subscribe((response) => {
+    //   if (response.errors && response.errors.length > 0) throw 'Error';
+    //   if (!response.data?.result) throw 'No token';
+    //   this.auth.login(response.data.result.access_token);
+    //   this.router.navigateByUrl('/konto');
+    // });
   }
 
   ngOnDestroy(): void {

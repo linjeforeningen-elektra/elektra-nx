@@ -1,7 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MatDrawerMode } from '@angular/material/sidenav';
 import { NavigationEnd, Router } from '@angular/router';
-import { AuthStore } from '@elektra-nx/web/auth/data-access';
 import {
   LayoutService,
   NavbarLayerInstance,
@@ -23,7 +22,6 @@ export class NavdrawerComponent implements OnInit {
     private layout: LayoutService,
     private readonly navdrawer: NavdrawerService,
     private readonly navbar: NavbarService,
-    private auth: AuthStore,
     private router: Router,
   ) {}
 
@@ -51,8 +49,8 @@ export class NavdrawerComponent implements OnInit {
     }
   });
 
-  user$ = this.auth.user$;
-  id$ = this.auth.id$;
+  // user$ = this.auth.user$;
+  // id$ = this.auth.id$;
 
   handleClick(): void {
     if (this.mode != 'over') return;
@@ -81,7 +79,7 @@ export class NavdrawerComponent implements OnInit {
   }
 
   logout(): void {
-    this.auth.logout();
+    // this.auth.logout();
   }
 
   ngOnInit(): void {

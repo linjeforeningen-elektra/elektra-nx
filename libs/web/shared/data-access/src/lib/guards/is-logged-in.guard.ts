@@ -1,11 +1,11 @@
 import { CanActivate, Router } from '@angular/router';
 import { map, Observable } from 'rxjs';
-import { AuthStore } from '@elektra-nx/web/auth/data-access';
 import { Injectable } from '@angular/core';
+import { WebAuthService } from '@elektra-nx/web/shared/data-access';
 
 @Injectable()
 export class IsLoggedInGuard implements CanActivate {
-  constructor(private auth: AuthStore, private router: Router) {}
+  constructor(private auth: WebAuthService, private router: Router) {}
   canActivate(): Observable<boolean> {
     return this.auth.loggedIn$.pipe(
       map((loggedin) => {
