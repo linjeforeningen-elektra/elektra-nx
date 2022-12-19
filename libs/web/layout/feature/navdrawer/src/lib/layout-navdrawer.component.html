@@ -1,0 +1,48 @@
+<ng-template #notLoggedIn>
+  <div class="text">
+    <h3>Not logged in</h3>
+    <p>Please log in</p>
+  </div>
+  <div class="buttons">
+    <a mat-icon-button routerLink="/auth">
+      <mat-icon>login</mat-icon>
+    </a>
+  </div>
+</ng-template>
+
+
+<mat-sidenav-container class="forprosjekt-layout-navdrawer"
+  [class.is-mobile]="isMobile"
+  (backdropClick)="handleBackdropClick()"
+>
+
+<mat-sidenav
+    [opened]="opened"
+    [mode]="isMobile ? 'over' : 'side'"
+    [fixedInViewport]="isMobile"
+    >
+
+    <div class="session">
+      <ng-container *ngIf="(user$ | async) as user; else notLoggedIn">
+        <div class="text">
+          <h3>Logged in</h3>
+          <p>{{ user.email }}</p>
+        </div>
+        <div class="buttons">
+          <!-- <a mat-icon-button routerLink="/account">
+            <mat-icon>account_circle</mat-icon>
+          </a> -->
+        </div>
+      </ng-container>
+    </div>
+
+    <forprosjekt-navigation-list></forprosjekt-navigation-list>
+
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <forprosjekt-layout-navbar></forprosjekt-layout-navbar>
+    <div class="content">
+      <ng-content></ng-content>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

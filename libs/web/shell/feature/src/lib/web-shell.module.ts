@@ -1,17 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {
-  DialogService,
-  LayoutService,
-  LocalStorageService,
-  NavbarService,
-  NavdrawerService,
-  SnackbarService,
-  WebAuthService,
-} from '@elektra-nx/web/shared/data-access';
+import { LocalStorageService, WebAuthService } from '@elektra-nx/web/shared/data-access';
 import { RouterModule } from '@angular/router';
 
-import { LayoutModule } from '@elektra-nx/web/shell/ui/layout';
 import { WEB_SHELL_ROUTES } from './web-shell.routes';
 
 import { HttpClientModule } from '@angular/common/http';
@@ -28,7 +19,6 @@ import { lastValueFrom, take } from 'rxjs';
 @NgModule({
   imports: [
     CommonModule,
-    LayoutModule,
     HttpClientModule,
     ApolloModule,
     PortalModule,
@@ -36,12 +26,7 @@ import { lastValueFrom, take } from 'rxjs';
     RouterModule.forRoot(WEB_SHELL_ROUTES, { scrollPositionRestoration: 'top', onSameUrlNavigation: 'reload' }),
   ],
   providers: [
-    NavbarService,
-    NavdrawerService,
-    LayoutService,
-    DialogService,
     LocalStorageService,
-    SnackbarService,
     WebAuthService,
     {
       provide: APOLLO_OPTIONS,

@@ -105,7 +105,15 @@
       "@elektra-nx/web/shell/ui/navdrawer": ["libs/web/shell/ui/navdrawer/src/index.ts"],
       "@elektra-nx/web/shell/ui/navdrawer-links": ["libs/web/shell/ui/navdrawer-links/src/index.ts"],
       "@elektra-nx/web/shell/ui/spin-button": ["libs/web/shell/ui/spin-button/src/index.ts"],
-      "@elektra-nx/web/shell/utils": ["libs/web/shell/utils/src/index.ts"]
+      "@elektra-nx/web/shell/utils": ["libs/web/shell/utils/src/index.ts"],
+      "@elektra-nx/web/layout/feature/footer": ["libs/web/layout/feature/footer/src/index.ts"],
+      "@elektra-nx/web/layout/feature/navbar": ["libs/web/layout/feature/navbar/src/index.ts"],
+      "@elektra-nx/web/layout/feature/navdrawer": ["libs/web/layout/feature/navdrawer/src/index.ts"],
+      "@elektra-nx/web/layout/feature/navigation-list": ["libs/web/layout/feature/navigation-list/src/index.ts"],
+      "@elektra-nx/web/layout/feature/shell": ["libs/web/layout/feature/shell/src/index.ts"],
+      "@elektra-nx/web/layout/ui/fade-text": ["libs/web/layout/ui/fade-text/src/index.ts"],
+      "@elektra-nx/web/layout/ui/spin-button": ["libs/web/layout/ui/spin-button/src/index.ts"],
+      "@elektra-nx/web/layout/utils": ["libs/web/layout/utils/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

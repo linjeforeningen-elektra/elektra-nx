@@ -1,0 +1,27 @@
+<nav class="forprosjekt-navigation-list">
+  <ng-container *ngFor="let item of (routes$ | async)">
+    <ng-container *ngTemplateOutlet="item.group ? group : route; context: { $implicit: item.group ? item : item.routes[0] }"></ng-container>
+  </ng-container>
+</nav>
+
+<ng-template #group let-g>
+  <div class="group" [class.active]="groupIsActive(g.routes)">
+    <h3 class="group-name">{{ g.group }}</h3>
+    <ul class="routes">
+      <ng-container *ngFor="let r of g.routes">
+        <ng-container *ngTemplateOutlet="route; context: { $implicit: r }"></ng-container>
+      </ng-container>
+    </ul>
+    <div class="overlay"><div></div></div>
+  </div>
+</ng-template>
+
+<ng-template #route let-route let-index>
+  <a class="route" matRipple [class.active]="routeIsActive(route)" [routerLink]="[route.path]">
+    <mat-icon>{{ route.icon }}</mat-icon>
+    <h3>{{ route.name }}</h3>
+    <div class="overlay">
+      <div></div>
+    </div>
+  </a>
+</ng-template>

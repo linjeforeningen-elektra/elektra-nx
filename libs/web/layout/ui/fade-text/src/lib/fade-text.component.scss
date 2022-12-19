@@ -1,0 +1,21 @@
+.forprosjekt-fade-text {
+  font-size: inherit;
+  position: relative;
+  height: 100%;
+  h2 {
+    margin: 0;
+    position: relative;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    font-weight: 500;
+  }
+  span {
+    position: relative;
+    &.old {
+      opacity: 0;
+      display: none;
+    }
+    white-space: nowrap;
+  }
+}
