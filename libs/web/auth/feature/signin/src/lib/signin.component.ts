@@ -9,8 +9,6 @@ import { LoginWithAuthLocalMutation } from '@elektra-nx/web/auth/utils';
 import { catchError, EMPTY } from 'rxjs';
 import { isApolloError } from '@apollo/client/errors';
 
-type SigninState = 'input' | 'processing' | 'error' | 'success';
-
 @Component({
   selector: 'elektra-nx-signin',
   templateUrl: './signin.component.html',
@@ -25,8 +23,8 @@ export class SigninComponent implements OnDestroy {
     private apollo: Apollo,
   ) {}
 
-  state: SigninState = 'input';
   error?: string;
+  loading = false;
 
   formGroup = this.fb.group({
     email: new FormControl('', [Validators.required]),
@@ -42,20 +40,25 @@ export class SigninComponent implements OnDestroy {
   }
 
   submit(event: Event) {
+    this.error = undefined;
+    this.loading = true;
     event.preventDefault();
     const body = this.formGroup.value as LoginWithAuthLocalModel;
     this.apollo
       .mutate({ mutation: LoginWithAuthLocalMutation, variables: { body } })
       .pipe(
         catchError((error) => {
+          this.loading = false;
           if (isApolloError(error)) {
-            alert(error.message);
+            this.error = error.message;
           }
           return EMPTY;
         }),
       )
       .subscribe(({ data }) => {
         if (!data) return;
+        this.loading = false;
+        this.error = undefined;
         const { access_token } = data.session;
 
         this.auth.login(access_token);

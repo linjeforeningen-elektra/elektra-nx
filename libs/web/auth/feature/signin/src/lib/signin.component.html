@@ -1,17 +1,12 @@
 <div class="elektra-nx-signin on-primary">
   <div class="wrapper">
-    <ng-container [ngSwitch]="state">
-
-      <div class="error" *ngSwitchCase="'error'">
+      <div class="error" *ngIf="error">
         <h3>
           {{ error }}
         </h3>
-        <button mat-raised-button (click)="state = 'input'">Retry</button>
       </div>
 
-      <elektra-nx-spinner *ngSwitchCase="'processing'"></elektra-nx-spinner>
-
-      <form *ngSwitchCase="'input'" [formGroup]="formGroup" (ngSubmit)="submit($event)">
+      <form *ngIf="!loading; else loadingTemplate" [formGroup]="formGroup" (ngSubmit)="submit($event)">
         <mat-form-field color="primary" appearance="outline">
           <mat-label>E-postadresse</mat-label>
           <input type="text" matInput autocomplete="email" formControlName="email">
@@ -25,6 +20,10 @@
         <a [routerLink]="['/', 'auth', 'register']">Ingen bruker? Registrer deg her</a>
       </form>
 
-    </ng-container>
+    <!-- </ng-container> -->
   </div>
 </div>
+
+<ng-template #loadingTemplate>
+  <elektra-nx-spinner></elektra-nx-spinner>
+</ng-template>

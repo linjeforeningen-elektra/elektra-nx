@@ -1,9 +1,23 @@
 // @import 'grid.mixin';
+@use 'layout/mixins' as mixins;
+
 .elektra-nx-signin {
   min-height: 100vh;
   position: relative;
   box-sizing: border-box;
   padding: 100px 8px 16px;
+  .error {
+    width: 100%;
+    margin: 0 0 16px;
+    h3 {
+      padding: 0;
+      margin: 0;
+    }
+    box-sizing: border-box;
+    padding: 16px;
+    @include mixins.round(8px);
+    background-color: var(--warn);
+  }
   // background-color: var(--primary);
   // color: var(--default-contrast);
   h2 {
@@ -22,6 +36,12 @@
   form {
     display: flex;
     flex-direction: column;
+    width: 100%;
+
+    mat-form-field {
+      width: 100%;
+    }
+
     button {
       background-color: var(--primary-darker);
       color: #FFF;
