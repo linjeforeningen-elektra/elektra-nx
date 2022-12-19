@@ -2,21 +2,20 @@
   <!-- user -->
   <!-- <elektra-nx-user-item class="item"></elektra-nx-user-item> -->
   <elektra-nx-expandable-section [expanded]="true">
-    <span enx-title>User</span>
-    <span enx-description>Name, slug, public visibility.</span>
-    <!-- <elektra-nx-user-item enx-content></elektra-nx-user-item> -->
+    <span enx-title>Bruker</span>
+    <span enx-description>Navn, slug, offentlig synlighet.</span>
     <elektra-nx-account-user enx-content [user]="account" (update)="updateUser($event)"></elektra-nx-account-user>
   </elektra-nx-expandable-section>
 
   <elektra-nx-expandable-section [expanded]="true">
-    <span enx-title>Membership</span>
-    <span enx-description>Everything concerning your membership in the student organisation.</span>
+    <span enx-title>Medlemskap</span>
+    <span enx-description>Informasjon om deg som medlem i linjeforeningen.</span>
     <elektra-nx-account-membership enx-content [membership]="account.membership"></elektra-nx-account-membership>
   </elektra-nx-expandable-section>
 
   <elektra-nx-expandable-section [expanded]="true">
-    <span enx-title>Card and Access</span>
-    <span enx-description>Want access to the office and makerspace? This is where you get it.</span>
+    <span enx-title>Kort og tilgang</span>
+    <span enx-description>Ønsker du tilgang til Kontoret og Verkstedet? Få det her.</span>
     <ng-container enx-content>
       <elektra-nx-account-card [card]="account.card" (deleteCard)="deleteCard()" (createCard)="createCard($event)" ></elektra-nx-account-card>
       <elektra-nx-account-card-access (renew)="renewCardAccess()" [status]="account.card?.status"></elektra-nx-account-card-access>

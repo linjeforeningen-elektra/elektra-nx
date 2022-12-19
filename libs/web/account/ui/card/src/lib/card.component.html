@@ -1,7 +1,7 @@
 <ng-template #nocard>
   <div class="not-found">
-    <b>No card created.</b>
-    <button (click)="resetError()" mat-flat-button color="primary">Create card</button>
+    <b>Intet kort funnet.</b>
+    <button (click)="resetError()" mat-flat-button color="primary">Registrer kort</button>
   </div>
 </ng-template>
 
@@ -27,12 +27,12 @@
     </div> -->
     <form  [formGroup]="formGroup" (ngSubmit)="submit($event)">
       <mat-form-field appearance="outline" floatLabel="always">
-        <mat-label>Student number</mat-label>
+        <mat-label>Studentnummer</mat-label>
         <input type="text" matInput formControlName="student_number" placeholder="XXXXXX">
-        <mat-hint>Wrong number? Remove and create a new card.</mat-hint>
+        <mat-hint>Feil nummer? Fjern kortet og registrer på nytt.</mat-hint>
       </mat-form-field>
-      <button [disabled]="!valid" mat-flat-button color="primary">Save</button>
-      <button (click)="removeCard()" type="button" mat-flat-button color="warn" *ngIf="student_number.disabled">Remove</button>
+      <button [disabled]="!valid" mat-flat-button color="primary">Registrer</button>
+      <button (click)="removeCard()" type="button" mat-flat-button color="warn" *ngIf="student_number.disabled">Fjern</button>
     </form>
   <!-- </ng-container> -->
 </section>
