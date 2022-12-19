@@ -23,11 +23,7 @@ export class HomeComponent implements OnDestroy {
   }
 
   private layer = this.navbar.registerNavbarLayer({
-    title: '',
-    theme: {
-      background: 'transparent',
-      color: '#FFF',
-    },
+    title: 'Elektra',
   });
 
   ngOnDestroy(): void {

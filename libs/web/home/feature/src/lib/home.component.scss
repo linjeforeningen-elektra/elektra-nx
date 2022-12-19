@@ -9,7 +9,7 @@
   }
 
   .banner {
-    background: #009A44;
+    background: var(--primary);
     position: relative;
     width: 100%;
     box-sizing: border-box;
@@ -17,7 +17,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    color: #FFF;
+    color: var(--primary-contrast);
     h2 {
       font-size: clamp(1.5rem, 4vw, 4rem);
       font-weight: 500;
@@ -31,12 +31,13 @@
       margin: 16px 0 0;
       a {
         border: 1px solid #FFF;
+        color: inherit;
       }
     }
   }
 
   .dev {
-    color: rgba(0,0,0,.56);
+    // color: rgba(0,0,0,.56);
   }
 }
 

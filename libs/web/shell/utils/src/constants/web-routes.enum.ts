@@ -1,6 +1,6 @@
 export enum WebRoutes {
+  HOME = '',
   AUTH = 'auth',
-  HOME = 'hjem',
   ACCOUNT = 'konto',
   CONTACT = 'kontakt',
   JOBS = 'stillingsannonser',

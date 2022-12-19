@@ -47,6 +47,12 @@ body {
   font-family: Roboto, 'Helvetica Neue', sans-serif;
 }
 
+a, a:visited {
+  &:not(.mat-icon-button) {
+    color: var(--primary);
+  }
+}
+
 :root {
   font-size: 16px;
 

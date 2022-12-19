@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { WebLocalStorageService, WebNavbarService, WebAuthService } from '@elektra-nx/web/shared/data-access';
 import { RouterModule } from '@angular/router';
@@ -31,6 +31,14 @@ import { WebLayoutShellModule } from '@elektra-nx/web/layout/feature/shell';
     WebLocalStorageService,
     WebAuthService,
     WebNavbarService,
+    {
+      provide: APP_INITIALIZER,
+      useFactory: (auth: WebAuthService) => () => {
+        auth.init();
+      },
+      deps: [WebAuthService],
+      multi: true,
+    },
     {
       provide: APOLLO_OPTIONS,
       useFactory: (httpLink: HttpLink, authService: WebAuthService) => {
