@@ -1,4 +1,5 @@
 <div class="elektra-nx-account-membership-edit" *ngIf="membership$ | async as membership">
+<!-- <div class="elektra-nx-account-membership-edit"> -->
   <div class="psa">
     <h3>Viktig!</h3>
     <p>For at godkjenning skal skje fortest mulig, er det viktig at dataen du sender inn her er så nøyaktig som mulig.</p>
@@ -41,7 +42,7 @@
       <h4 class="form-section-header">Skole</h4>
       <mat-form-field appearance="fill">
         <mat-label>Semester for opptak</mat-label>
-        <mat-select formControlName="memberyear">
+        <mat-select formControlName="memberyear" [disableOptionCentering]="true">
           <mat-option>-- none --</mat-option>
           <mat-optgroup *ngFor="let group of memberYears"
             [label]="group.year"
@@ -53,7 +54,7 @@
       </mat-form-field>
       <mat-form-field appearance="fill">
         <mat-label>Semester for skolestart</mat-label>
-        <mat-select formControlName="immatriculation">
+        <mat-select formControlName="immatriculation" [disableOptionCentering]="true">
           <mat-option>-- none --</mat-option>
           <mat-optgroup *ngFor="let group of immatriculationYears"
             [label]="group.year"
@@ -64,7 +65,7 @@
       </mat-form-field>
       <mat-form-field appearance="fill">
         <mat-label>Semester for fullført grad</mat-label>
-        <mat-select formControlName="graduation">
+        <mat-select formControlName="graduation" [disableOptionCentering]="true">
           <mat-option>-- none --</mat-option>
           <mat-optgroup *ngFor="let group of graduationYears"
             [label]="group.year"
@@ -75,7 +76,7 @@
       </mat-form-field>
       <mat-form-field appearance="fill">
         <mat-label>Spesialisering</mat-label>
-        <mat-select formControlName="specialisation">
+        <mat-select formControlName="specialisation" [disableOptionCentering]="true">
           <mat-option>-- None --</mat-option>
           <mat-option *ngFor="let s of specialisations" [value]="s">{{ s }}</mat-option>
         </mat-select>

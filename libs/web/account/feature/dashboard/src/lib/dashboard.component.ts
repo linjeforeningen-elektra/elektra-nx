@@ -16,7 +16,7 @@ export class DashboardComponent implements OnDestroy {
   }
 
   readonly layer = this.navbar.registerNavbarLayer({
-    title: 'Account',
+    title: 'Bruker',
     theme: {
       background: 'var(--app-bar)',
       color: 'var(--text)',

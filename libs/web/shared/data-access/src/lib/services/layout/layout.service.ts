@@ -38,7 +38,6 @@ export class WebLayoutService {
   public toggleTheme(): void {
     this.theme.pipe(take(1)).subscribe((theme) => {
       this.theme.next(theme === Theme.DARK ? Theme.LIGHT : Theme.DARK);
-      console.log(this.theme.value);
     });
   }
   // public registerNavbarLayer<T extends NavbarLayer>(props: Omit<T, 'id'>): NavbarLayerInstance<T> {

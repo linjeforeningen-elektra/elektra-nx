@@ -1,7 +1,7 @@
 <ng-template #notLoggedIn>
   <div class="text">
-    <h3>Not logged in</h3>
-    <p>Please log in</p>
+    <h3>Ikke innlogged</h3>
+    <p>Vennligst logg in</p>
   </div>
   <div class="buttons">
     <a mat-icon-button routerLink="/auth">
@@ -28,7 +28,7 @@
     <div class="session">
       <ng-container *ngIf="(user$ | async) as user; else notLoggedIn">
         <div class="text">
-          <h3>Logged in</h3>
+          <h3>Innlogget</h3>
           <p>{{ user.email }}</p>
         </div>
         <div class="buttons">

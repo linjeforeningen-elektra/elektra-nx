@@ -42,7 +42,7 @@ export class MembershipEditComponent implements OnDestroy {
   specialisations = specialisations;
 
   readonly layer = this.navbar.registerNavbarLayer({
-    title: 'Membership',
+    title: 'Medlemskap',
     button: 'navigate_before',
   });
 

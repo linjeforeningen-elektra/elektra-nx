@@ -2,6 +2,6 @@
   [style.backgroundColor]="backgroundColor$ | async"
   [style.color]="color$ | async"
 >
-  <elektra-nx-spin-button (click)="emitButton(button.id)" *ngIf="(button$ | async) as button" [icon]="button.value"></elektra-nx-spin-button>
+  <elektra-nx-spin-button [@testanim]="button" (click)="emitButton(button.id)" *ngIf="(button$ | async) as button" [icon]="button.value"></elektra-nx-spin-button>
   <elektra-nx-fade-text [text]="(title$ | async)?.value"></elektra-nx-fade-text>
 </nav>

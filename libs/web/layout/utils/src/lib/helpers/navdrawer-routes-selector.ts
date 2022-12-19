@@ -1,10 +1,10 @@
 import { NavdrawerRoute } from '../interfaces';
 
 const LOGGED_IN_ROUTES: NavdrawerRoute[] = [
-  { path: '/konto', icon: 'dashboard', name: 'Bruker', group: 'For you' },
-  { path: '/konto/innstillinger', icon: 'settings', name: 'Settings', group: 'For you' },
+  { path: '/konto', icon: 'dashboard', name: 'Oversikt', group: 'Bruker' },
+  { path: '/konto/medlemskap', icon: 'settings', name: 'Medlemskap', group: 'Bruker' },
 ];
-const DEFAULT_ROUTES: NavdrawerRoute[] = [{ path: '/', icon: 'home', name: 'Home' }];
+const DEFAULT_ROUTES: NavdrawerRoute[] = [{ path: '/', icon: 'home', name: 'Hjem' }];
 
 export function navdrawerRoutesSelector(loggedIn: boolean) {
   return loggedIn ? [...LOGGED_IN_ROUTES, ...DEFAULT_ROUTES] : DEFAULT_ROUTES;

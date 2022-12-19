@@ -1,20 +1,20 @@
 <div class="elektra-nx-dashboard" *ngIf="account$ | async as account">
   <!-- user -->
   <!-- <elektra-nx-user-item class="item"></elektra-nx-user-item> -->
-  <elektra-nx-expandable-section>
+  <elektra-nx-expandable-section [expanded]="true">
     <span enx-title>User</span>
     <span enx-description>Name, slug, public visibility.</span>
     <!-- <elektra-nx-user-item enx-content></elektra-nx-user-item> -->
     <elektra-nx-account-user enx-content [user]="account" (update)="updateUser($event)"></elektra-nx-account-user>
   </elektra-nx-expandable-section>
 
-  <elektra-nx-expandable-section>
+  <elektra-nx-expandable-section [expanded]="true">
     <span enx-title>Membership</span>
     <span enx-description>Everything concerning your membership in the student organisation.</span>
     <elektra-nx-account-membership enx-content [membership]="account.membership"></elektra-nx-account-membership>
   </elektra-nx-expandable-section>
 
-  <elektra-nx-expandable-section>
+  <elektra-nx-expandable-section [expanded]="true">
     <span enx-title>Card and Access</span>
     <span enx-description>Want access to the office and makerspace? This is where you get it.</span>
     <ng-container enx-content>
