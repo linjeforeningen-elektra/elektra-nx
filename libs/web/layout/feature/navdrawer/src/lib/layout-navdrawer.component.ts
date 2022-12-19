@@ -6,7 +6,7 @@ import { WebNavbarService, WebAuthService } from '@elektra-nx/web/shared/data-ac
 import { NavbarLayerInstance } from '@elektra-nx/web/shared/utils';
 
 @Component({
-  selector: 'forprosjekt-layout-navdrawer',
+  selector: 'elektra-nx-layout-navdrawer',
   templateUrl: './layout-navdrawer.component.html',
   styleUrls: ['./layout-navdrawer.component.scss'],
 })

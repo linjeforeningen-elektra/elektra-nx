@@ -1,4 +1,4 @@
-<nav class="forprosjekt-navigation-list">
+<nav class="elektra-nx-navigation-list">
   <ng-container *ngFor="let item of (routes$ | async)">
     <ng-container *ngTemplateOutlet="item.group ? group : route; context: { $implicit: item.group ? item : item.routes[0] }"></ng-container>
   </ng-container>

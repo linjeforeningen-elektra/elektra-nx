@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, Input, OnChanges, SimpleChanges } f
 import { FADE_TEXT_ANIMATION } from './fade-text.animation';
 
 @Component({
-  selector: 'forprosjekt-fade-text',
+  selector: 'elektra-nx-fade-text',
   templateUrl: './fade-text.component.html',
   styleUrls: ['./fade-text.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

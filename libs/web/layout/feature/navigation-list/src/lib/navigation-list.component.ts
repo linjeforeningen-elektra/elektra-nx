@@ -5,7 +5,7 @@ import { WebAuthService } from '@elektra-nx/web/shared/data-access';
 import { map } from 'rxjs';
 
 @Component({
-  selector: 'forprosjekt-navigation-list',
+  selector: 'elektra-nx-navigation-list',
   templateUrl: './navigation-list.component.html',
   styleUrls: ['./navigation-list.component.scss'],
 })

@@ -1,4 +1,4 @@
-.forprosjekt-layout-navbar {
+.elektra-nx-layout-navbar {
   height: 56px;
   width: 100%;
   top: 0;
@@ -10,15 +10,15 @@
   padding: 0 8px;
   box-sizing: border-box;
 
-  forprosjekt-spin-button {
+  elektra-nx-spin-button {
     margin-right: 24px;
   }
 
-  forprosjekt-spin-button ~ forprosjekt-fade-text {
+  elektra-nx-spin-button ~ elektra-nx-fade-text {
     margin: 0;
   }
 
-  forprosjekt-fade-text {
+  elektra-nx-fade-text {
     flex: 1 1 auto;
     margin-left: 8px;
   }

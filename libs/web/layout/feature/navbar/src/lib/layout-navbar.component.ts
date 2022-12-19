@@ -4,7 +4,7 @@ import { WebNavbarService } from '@elektra-nx/web/shared/data-access';
 import { distinctUntilChanged, fromEvent, map, of, startWith, switchMap } from 'rxjs';
 
 @Component({
-  selector: 'forprosjekt-layout-navbar',
+  selector: 'elektra-nx-layout-navbar',
   templateUrl: './layout-navbar.component.html',
   styleUrls: ['./layout-navbar.component.scss'],
 })

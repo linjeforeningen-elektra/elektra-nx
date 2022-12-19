@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, Input, OnChanges, SimpleChanges } f
 import { SPIN_BUTTON_ANIMATION } from './spin-button.animation';
 
 @Component({
-  selector: 'forprosjekt-spin-button',
+  selector: 'elektra-nx-spin-button',
   templateUrl: './spin-button.component.html',
   styleUrls: ['./spin-button.component.scss'],
   animations: [SPIN_BUTTON_ANIMATION],
