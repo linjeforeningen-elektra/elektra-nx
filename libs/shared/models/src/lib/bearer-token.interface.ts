@@ -1,6 +1,6 @@
 import { AccessRole } from './access-role.enum';
 
-export interface BearerTokenPayload {
+export interface JwtPayload {
   id: string;
   roles: AccessRole[];
   email: string;

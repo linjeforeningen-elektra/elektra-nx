@@ -1,9 +1,9 @@
-import { AccessResource, AccessRole, BearerTokenPayload } from '@elektra-nx/shared/models';
+import { AccessResource, AccessRole, JwtPayload } from '@elektra-nx/shared/models';
 import { Permission } from 'nest-access-control';
 import { builder } from '../permissions';
 
 export class AuthUser {
-  constructor(private payload?: BearerTokenPayload | false) {}
+  constructor(private payload?: JwtPayload | false) {}
 
   get id(): string | undefined {
     return this.payload ? this.payload.id : undefined;

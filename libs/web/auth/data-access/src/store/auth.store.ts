@@ -2,14 +2,14 @@ import { Injectable } from '@angular/core';
 import { ComponentStore } from '@ngrx/component-store';
 import jwtDecode from 'jwt-decode';
 import { EMPTY, filter, map, Observable, of, switchMap, tap } from 'rxjs';
-import { BearerTokenPayload } from '@elektra-nx/shared/models';
+import { JwtPayload } from '@elektra-nx/shared/models';
 import { LocalStorageService } from '@elektra-nx/web/shared/data-access';
 
 const AUTH_LOCALSTORAGE_KEY = 'elektra-nx.auth-key';
 
 interface AuthState {
   login_attempted: boolean;
-  user?: BearerTokenPayload;
+  user?: JwtPayload;
   access_token?: string;
 }
 
@@ -56,7 +56,7 @@ export class AuthStore extends ComponentStore<AuthState> {
 
   login(access_token: string) {
     this.setToken(access_token);
-    const user: BearerTokenPayload = jwtDecode(access_token);
+    const user: JwtPayload = jwtDecode(access_token);
     this.patchState({ user, access_token });
   }
 
@@ -84,7 +84,7 @@ export class AuthStore extends ComponentStore<AuthState> {
       return of(<AuthState>{ login_attempted: true });
     }
 
-    const payload: BearerTokenPayload = jwtDecode(token);
+    const payload: JwtPayload = jwtDecode(token);
 
     if (Date.now() > new Date(payload.exp * 1000).getTime()) {
       this.removeToken();

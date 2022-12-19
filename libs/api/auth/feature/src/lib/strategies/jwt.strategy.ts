@@ -1,5 +1,5 @@
 import { AuthConfigService } from '@elektra-nx/api/auth/config';
-import { BearerTokenPayload } from '@elektra-nx/shared/models';
+import { JwtPayload } from '@elektra-nx/shared/models';
 import { Injectable } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { Strategy, ExtractJwt, StrategyOptions } from 'passport-jwt';
@@ -15,7 +15,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   }
 
   // create helper class here
-  async validate(payload: BearerTokenPayload) {
+  async validate(payload: JwtPayload) {
     return payload;
   }
 }
