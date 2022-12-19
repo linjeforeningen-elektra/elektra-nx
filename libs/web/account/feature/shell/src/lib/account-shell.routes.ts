@@ -6,13 +6,13 @@ export const ACCOUNT_ROUTES: Routes = [
     path: '',
     canActivate: [IsLoggedInGuard],
     children: [
+      // {
+      //   path: '',
+      //   pathMatch: 'full',
+      //   redirectTo: 'dashboard',
+      // },
       {
         path: '',
-        pathMatch: 'full',
-        redirectTo: 'dashboard',
-      },
-      {
-        path: 'dashboard',
         loadChildren: async () => (await import('@elektra-nx/web/account/feature/dashboard')).DashboardModule,
       },
       {

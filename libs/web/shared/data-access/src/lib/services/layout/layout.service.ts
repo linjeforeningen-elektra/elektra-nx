@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { WebNavbarService } from '../navbar/navbar.service';
-import { map, Observable } from 'rxjs';
+import { BehaviorSubject, map, Observable, take } from 'rxjs';
 
 enum Breakpoints {
   MOBILE = '(min-width: 320px)',
@@ -11,11 +11,19 @@ enum Breakpoints {
   DESKTOP_L = '(min-width: 1300px)',
 }
 
+export enum Theme {
+  DARK = 'dark',
+  LIGHT = 'light',
+}
+
 @Injectable({
   providedIn: 'root',
 })
-export class LayoutService {
+export class WebLayoutService {
   constructor(private readonly navbar: WebNavbarService, private readonly bps: BreakpointObserver) {}
+
+  private theme = new BehaviorSubject<Theme>(Theme.DARK);
+  public readonly theme$ = this.theme.asObservable();
 
   public readonly breakpoints = Breakpoints;
 
@@ -23,6 +31,16 @@ export class LayoutService {
     .observe(Object.values(this.breakpoints))
     .pipe(map((state) => state.breakpoints as Record<Breakpoints, boolean>));
 
+  public setTheme(theme: Theme) {
+    this.theme.next(theme);
+  }
+
+  public toggleTheme(): void {
+    this.theme.pipe(take(1)).subscribe((theme) => {
+      this.theme.next(theme === Theme.DARK ? Theme.LIGHT : Theme.DARK);
+      console.log(this.theme.value);
+    });
+  }
   // public registerNavbarLayer<T extends NavbarLayer>(props: Omit<T, 'id'>): NavbarLayerInstance<T> {
   //   return this.navbar.registerNavbarLayer<T>(props);
   // }

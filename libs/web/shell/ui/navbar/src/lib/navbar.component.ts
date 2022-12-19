@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { LayoutService, WebNavbarService } from '@elektra-nx/web/shared/data-access';
+import { WebLayoutService, WebNavbarService } from '@elektra-nx/web/shared/data-access';
 import { map, race } from 'rxjs';
 
 @Component({
@@ -9,7 +9,7 @@ import { map, race } from 'rxjs';
   animations: [],
 })
 export class NavbarComponent {
-  constructor(private navbar: WebNavbarService, private layout: LayoutService) {}
+  constructor(private navbar: WebNavbarService, private layout: WebLayoutService) {}
 
   title$ = this.navbar.latestProp$('title');
   noTitleTransition$ = this.navbar.latestProp$('disableTitleTransition');

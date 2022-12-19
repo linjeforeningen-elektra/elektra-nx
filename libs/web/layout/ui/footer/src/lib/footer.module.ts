@@ -8,4 +8,4 @@ import { RouterModule } from '@angular/router';
   declarations: [FooterComponent],
   exports: [FooterComponent],
 })
-export class FooterModule {}
+export class WebFooterModule {}

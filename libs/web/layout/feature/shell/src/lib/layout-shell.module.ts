@@ -5,9 +5,19 @@ import { WebLayoutNavbarModule } from '@elektra-nx/web/layout/feature/navbar';
 import { RouterModule } from '@angular/router';
 import { MatDividerModule } from '@angular/material/divider';
 import { WebLayoutNavdrawerModule } from '@elektra-nx/web/layout/feature/navdrawer';
+import { WebFooterModule } from '@elektra-nx/web/layout/ui/footer';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
-  imports: [CommonModule, WebLayoutNavbarModule, WebLayoutNavdrawerModule, RouterModule, MatDividerModule],
+  imports: [
+    CommonModule,
+    WebLayoutNavbarModule,
+    WebLayoutNavdrawerModule,
+    RouterModule,
+    MatDividerModule,
+    WebFooterModule,
+    MatSnackBarModule,
+  ],
   declarations: [LayoutShellComponent],
   exports: [LayoutShellComponent],
 })

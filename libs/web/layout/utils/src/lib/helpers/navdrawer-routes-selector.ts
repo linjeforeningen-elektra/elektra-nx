@@ -1,8 +1,8 @@
 import { NavdrawerRoute } from '../interfaces';
 
 const LOGGED_IN_ROUTES: NavdrawerRoute[] = [
-  { path: '/account', icon: 'dashboard', name: 'Dashboard', group: 'For you' },
-  { path: '/account/settings', icon: 'settings', name: 'Settings', group: 'For you' },
+  { path: '/konto', icon: 'dashboard', name: 'Bruker', group: 'For you' },
+  { path: '/konto/innstillinger', icon: 'settings', name: 'Settings', group: 'For you' },
 ];
 const DEFAULT_ROUTES: NavdrawerRoute[] = [{ path: '/', icon: 'home', name: 'Home' }];
 

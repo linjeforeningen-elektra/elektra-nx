@@ -47,7 +47,7 @@
         }
         mat-icon,
         h4 {
-          color: #009a44;
+          color: var(--primary);
         }
         .overlay > div {
           opacity: 0.25;
@@ -55,7 +55,4 @@
       }
     }
   }
-}
-.matt-p-bg-500 {
-  background: #009a44;
 }

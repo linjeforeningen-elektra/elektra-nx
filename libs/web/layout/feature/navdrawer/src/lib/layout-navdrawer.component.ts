@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { map } from 'rxjs';
 
-import { WebNavbarService, WebAuthService } from '@elektra-nx/web/shared/data-access';
+import { WebNavbarService, WebAuthService, WebLayoutService } from '@elektra-nx/web/shared/data-access';
 import { NavbarLayerInstance } from '@elektra-nx/web/shared/utils';
 
 @Component({
@@ -11,16 +11,23 @@ import { NavbarLayerInstance } from '@elektra-nx/web/shared/utils';
   styleUrls: ['./layout-navdrawer.component.scss'],
 })
 export class LayoutNavdrawerComponent implements OnInit {
-  constructor(private bpo: BreakpointObserver, private navbar: WebNavbarService, private webAuth: WebAuthService) {
+  constructor(
+    private bpo: BreakpointObserver,
+    private navbar: WebNavbarService,
+    private webAuth: WebAuthService,
+    private layout: WebLayoutService,
+  ) {
     this.init();
   }
   readonly user$ = this.webAuth.user$;
+  readonly theme$ = this.layout.theme$;
 
   private baseNavbarLayer = this.navbar.registerNavbarLayer(
     {
       theme: {
-        background: 'var(--primary)',
-        color: 'var(--primary-contrast)',
+        background: 'var(--app-bar)',
+        color: '#FFF',
+        // color: 'var(--primary-contrast)',
       },
     },
     0,
@@ -76,6 +83,10 @@ export class LayoutNavdrawerComponent implements OnInit {
           this.closedLayer.show();
         }
       });
+  }
+
+  public toggleTheme(): void {
+    this.layout.toggleTheme();
   }
 
   ngOnInit(): void {

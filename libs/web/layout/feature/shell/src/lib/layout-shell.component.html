@@ -1,4 +1,4 @@
-<div class="elektra-nx-layout-shell">
+<div class="elektra-nx-layout-shell" [ngClass]="theme$ | async">
   <elektra-nx-layout-navdrawer>
     <div class="content">
       <router-outlet></router-outlet>

@@ -1,6 +1,6 @@
 /* eslint-disable */
 export default {
-  displayName: 'web-shell-ui-footer',
+  displayName: 'web-layout-ui-footer',
   preset: '../../../../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
   globals: {
@@ -9,7 +9,7 @@ export default {
       stringifyContentPathRegex: '\\.(html|svg)$',
     },
   },
-  coverageDirectory: '../../../../../coverage/libs/web/shell/ui/footer',
+  coverageDirectory: '../../../../../coverage/libs/web/layout/ui/footer',
   transform: {
     '^.+\\.(ts|mjs|js|html)$': 'jest-preset-angular',
   },

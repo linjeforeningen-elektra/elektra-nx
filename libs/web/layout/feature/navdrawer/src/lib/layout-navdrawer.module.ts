@@ -8,6 +8,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { WebLayoutNavbarModule } from '@elektra-nx/web/layout/feature/navbar';
 import { RouterModule } from '@angular/router';
 import { NavigationListModule } from '@elektra-nx/web/layout/feature/navigation-list';
+import { WebFooterModule } from '@elektra-nx/web/layout/ui/footer';
 
 @NgModule({
   imports: [
@@ -18,6 +19,7 @@ import { NavigationListModule } from '@elektra-nx/web/layout/feature/navigation-
     WebLayoutNavbarModule,
     RouterModule,
     NavigationListModule,
+    WebFooterModule,
   ],
   declarations: [LayoutNavdrawerComponent],
   exports: [LayoutNavdrawerComponent],

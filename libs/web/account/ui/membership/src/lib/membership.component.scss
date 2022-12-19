@@ -18,7 +18,7 @@
     }
     position: relative;
     width: 100%;
-    border: 1px solid black;
+    border: 1px solid var(--text);
     box-sizing: border-box;
     padding: 8px;
     margin: 8px 0 0;
@@ -38,7 +38,7 @@
         display: flex;
         align-items: center;
         gap: 16px;
-        color: rgba(0,0,0,.56);
+        color: var(--secondary-text);
       }
     }
   }

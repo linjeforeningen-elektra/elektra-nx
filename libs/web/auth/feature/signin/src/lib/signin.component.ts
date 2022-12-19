@@ -35,10 +35,6 @@ export class SigninComponent implements OnDestroy {
 
   private readonly layer = this.navbar.registerNavbarLayer({
     title: 'Logg inn',
-    theme: {
-      background: 'transparent',
-      color: 'var(--default-contrast)',
-    },
   });
 
   get valid() {

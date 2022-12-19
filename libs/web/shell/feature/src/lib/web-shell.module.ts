@@ -1,6 +1,11 @@
 import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { WebLocalStorageService, WebNavbarService, WebAuthService } from '@elektra-nx/web/shared/data-access';
+import {
+  WebLocalStorageService,
+  WebNavbarService,
+  WebAuthService,
+  WebSnackbarService,
+} from '@elektra-nx/web/shared/data-access';
 import { RouterModule } from '@angular/router';
 
 import { WEB_SHELL_ROUTES } from './web-shell.routes';
@@ -31,6 +36,7 @@ import { WebLayoutShellModule } from '@elektra-nx/web/layout/feature/shell';
     WebLocalStorageService,
     WebAuthService,
     WebNavbarService,
+    WebSnackbarService,
     {
       provide: APP_INITIALIZER,
       useFactory: (auth: WebAuthService) => () => {

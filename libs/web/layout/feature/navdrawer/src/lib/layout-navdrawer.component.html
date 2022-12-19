@@ -7,6 +7,9 @@
     <a mat-icon-button routerLink="/auth">
       <mat-icon>login</mat-icon>
     </a>
+    <button mat-icon-button (click)="toggleTheme()" *ngIf="(theme$ | async) as theme">
+      <mat-icon>{{ theme === 'dark' ? 'light_mode' : 'dark_mode' }}</mat-icon>
+    </button>
   </div>
 </ng-template>
 
@@ -29,9 +32,9 @@
           <p>{{ user.email }}</p>
         </div>
         <div class="buttons">
-          <!-- <a mat-icon-button routerLink="/account">
-            <mat-icon>account_circle</mat-icon>
-          </a> -->
+          <button mat-icon-button (click)="toggleTheme()" *ngIf="(theme$ | async) as theme">
+            <mat-icon>{{ theme === 'dark' ? 'light_mode' : 'dark_mode' }}</mat-icon>
+          </button>
         </div>
       </ng-container>
     </div>
@@ -43,6 +46,7 @@
     <elektra-nx-layout-navbar></elektra-nx-layout-navbar>
     <div class="content">
       <ng-content></ng-content>
+      <elektra-nx-footer></elektra-nx-footer>
     </div>
   </mat-sidenav-content>
 </mat-sidenav-container>

@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { MatDrawerMode } from '@angular/material/sidenav';
 
 import { Router } from '@angular/router';
-import { LayoutService, NavdrawerLink, NavdrawerService } from '@elektra-nx/web/shared/data-access';
+import { WebLayoutService, NavdrawerLink, NavdrawerService } from '@elektra-nx/web/shared/data-access';
 import { map } from 'rxjs';
 
 @Component({
@@ -12,7 +12,7 @@ import { map } from 'rxjs';
   animations: [],
 })
 export class NavdrawerLinksComponent {
-  constructor(private router: Router, private navdrawer: NavdrawerService, private layout: LayoutService) {}
+  constructor(private router: Router, private navdrawer: NavdrawerService, private layout: WebLayoutService) {}
 
   groups$ = this.navdrawer.groups$;
 

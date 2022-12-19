@@ -1,8 +1,6 @@
 @use 'layout/mixins' as mixins;
 
-
 .elektra-nx-footer {
-  background-color: #F9F9F9;
   width: 100%;
   padding: 24px 16px 32px;
   box-sizing: border-box;
@@ -10,8 +8,6 @@
     width: 100%;
     max-width: 1000px;
     margin: 0 auto;
-    color: rgba(0,0,0,.68);
-
     .sponsors {
       h4 {
         font-weight: 800;
@@ -32,7 +28,7 @@
         // gap: clamp(32px, 10vw, 10rem);
         justify-content: center;
         align-items: center;
-        li a{
+        li a {
           display: flex;
           align-items: center;
         }
@@ -77,8 +73,9 @@
         padding: 0;
         list-style: none;
         li {
-          margin: 4px 0 ;
-          a, a:visited {
+          margin: 4px 0;
+          a,
+          a:visited {
             color: inherit;
             // text-decoration: none;
           }

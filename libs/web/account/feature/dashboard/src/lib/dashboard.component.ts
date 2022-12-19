@@ -18,8 +18,8 @@ export class DashboardComponent implements OnDestroy {
   readonly layer = this.navbar.registerNavbarLayer({
     title: 'Account',
     theme: {
-      color: '#000',
-      background: '#fafafa',
+      background: 'var(--app-bar)',
+      color: 'var(--text)',
     },
   });
 

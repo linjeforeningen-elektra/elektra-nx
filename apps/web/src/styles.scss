@@ -31,6 +31,16 @@ $web-theme: mat.define-dark-theme(
   )
 );
 
+$web-light-theme: mat.define-light-theme(
+  (
+    color: (
+      primary: $web-primary,
+      accent: $web-accent,
+      warn: $web-warn,
+    ),
+  )
+);
+
 // Include theme styles for core and each component used in your app.
 // Alternatively, you can import and @include the theme mixins for each component
 // that you are using.
@@ -63,8 +73,33 @@ a, a:visited {
   --accent-contrast: #{map-get($web-theme, 'accent', 'contrast', 500)};
   --warn: #{map-get($web-theme, 'warn', 500)};
   --warn-contrast: #{map-get($web-theme, 'warn', 'contrast', 500)};
-
   --secondary-text: #{map-get($web-theme, 'foreground', 'secondary-text')};
-
   --background-card: #{map-get($web-theme, 'background', 'card')};
+
+  --text: #{map-get($web-theme, 'foreground', 'text')};
+
+
+  --status-bar: #{map-get($web-theme, 'background', 'status-bar')};
+  --app-bar: #{map-get($web-theme, 'background', 'app-bar')};
+  --background: #121212;
+}
+
+.light {
+  @include mat.all-component-colors($web-light-theme);
+
+  --background: #F8F8F8;
+  --text: #{map-get($web-light-theme, 'foreground', 'text')};
+  --primary: #{map-get($web-light-theme, 'primary', 500)};
+  --primary-darker: #{map-get($web-light-theme, 'primary', 900)};
+  --primary-contrast: #{map-get($web-light-theme, 'primary', 'contrast', 500)};
+  --accent: #{map-get($web-light-theme, 'accent', 500)};
+  --accent-contrast: #{map-get($web-light-theme, 'accent', 'contrast', 500)};
+  --warn: #{map-get($web-light-theme, 'warn', 500)};
+  --warn-contrast: #{map-get($web-light-theme, 'warn', 'contrast', 500)};
+  --secondary-text: #{map-get($web-light-theme, 'foreground', 'secondary-text')};
+  --background-card: #{map-get($web-light-theme, 'background', 'card')};
+
+
+  --status-bar: #{map-get($web-light-theme, 'background', 'status-bar')};
+  --app-bar: #{map-get($web-light-theme, 'primary', 500)};
 }

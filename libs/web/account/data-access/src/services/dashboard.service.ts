@@ -5,7 +5,7 @@ import {
   UpdateMembershipModel,
   UpdateUserModel,
 } from '@elektra-nx/shared/models';
-import { SnackbarService } from '@elektra-nx/web/shared/data-access';
+import { WebSnackbarService } from '@elektra-nx/web/shared/data-access';
 import { Apollo } from 'apollo-angular';
 import { tap } from 'rxjs';
 import {
@@ -23,7 +23,7 @@ import {
 
 @Injectable({ providedIn: 'root' })
 export class DashboardService {
-  constructor(private apollo: Apollo, private snackBar: SnackbarService) {}
+  constructor(private apollo: Apollo, private snackBar: WebSnackbarService) {}
 
   private accountQuery = this.apollo.watchQuery<AccountResponse, null>({
     query: AccountGQLQuery,

@@ -2,7 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MatDrawerMode } from '@angular/material/sidenav';
 import { NavigationEnd, Router } from '@angular/router';
 import {
-  LayoutService,
+  WebLayoutService,
   NavbarLayerInstance,
   WebNavbarService,
   NavdrawerService,
@@ -19,7 +19,7 @@ const CLOSED_LAYER = { button: 'menu' };
 })
 export class NavdrawerComponent implements OnInit {
   constructor(
-    private layout: LayoutService,
+    private layout: WebLayoutService,
     private readonly navdrawer: NavdrawerService,
     private readonly navbar: WebNavbarService,
     private router: Router,
