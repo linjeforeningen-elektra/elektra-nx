@@ -3,7 +3,9 @@ FROM node:alpine3.16
 WORKDIR /app
 
 COPY ./dist/apps/api .
-RUN npm install
+COPY ./yarn.lock .
+
+RUN yarn
 # RUN npm install class-transformer class-validator reflect-metadata tslib rxjs @nestjs/platform-express
 
 ENV PORT=3000
