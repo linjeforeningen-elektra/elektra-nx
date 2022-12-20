@@ -2,6 +2,7 @@ import { CreateUserModel } from './user.model';
 
 export interface AuthLocalModel {
   id: string;
+  confirmed: boolean;
   email: string;
   salt: string;
   hash: string;

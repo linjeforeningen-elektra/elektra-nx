@@ -1,4 +1,4 @@
-import { ForbiddenException, Injectable, InternalServerErrorException } from '@nestjs/common';
+import { ForbiddenException, Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { EntityManager, Repository } from 'typeorm';
 import {
@@ -8,15 +8,17 @@ import {
   RegisterWithAuthLocalDto,
 } from '@elektra-nx/api/shared/dto';
 import * as bcrypt from 'bcryptjs';
-import { AuthLocalEntity } from '../../entities/auth-local.entity';
+import { AuthLocal } from '../../entities/auth-local.entity';
 import { User } from '@elektra-nx/api/user/models';
 import { AuthConfigService } from '@elektra-nx/api/auth/config';
+import { EmailConfirmation } from '../../entities';
 
 @Injectable()
 export class AuthLocalService {
   constructor(
-    @InjectRepository(AuthLocalEntity) private authLocal: Repository<AuthLocalEntity>,
+    @InjectRepository(AuthLocal) private authLocal: Repository<AuthLocal>,
     @InjectRepository(User) private user: Repository<User>,
+    @InjectRepository(EmailConfirmation) private emailConfirmation: Repository<EmailConfirmation>,
     private em: EntityManager,
     private conf: AuthConfigService,
   ) {}
@@ -46,9 +48,9 @@ export class AuthLocalService {
     return { id };
   }
 
-  private async createAuthLocalObject(dto: CreateAuthLocalDto): Promise<AuthLocalEntity> {
+  private async createAuthLocalObject(dto: CreateAuthLocalDto): Promise<AuthLocal> {
     const { email, password } = dto;
-    const auth = new AuthLocalEntity();
+    const auth = new AuthLocal();
 
     const salt = await bcrypt.genSalt(this.conf.BCRYPT_ROUNDS);
     const hash = await bcrypt.hash(password, salt);
@@ -85,5 +87,29 @@ export class AuthLocalService {
 
       return { user, email: auth.email };
     });
+  }
+
+  private generateNumberString(length = 6): string {
+    return Array(length)
+      .fill(0)
+      .map(() => Math.round(9 * Math.random()))
+      .join('');
+  }
+
+  public async createOrReplaceEmailConfirmation(email: string) {
+    const authLocal = await this.authLocal.findOneBy({ email });
+
+    if (!authLocal) {
+      throw new NotFoundException(`Email not found.`);
+    }
+
+    // check if one exists and delete if found
+    const exists = await this.emailConfirmation.findOneBy({ authLocalId: authLocal.id });
+
+    if (exists) {
+      await this.emailConfirmation.remove(exists);
+    }
+
+    return this.emailConfirmation.save({ authLocal });
   }
 }

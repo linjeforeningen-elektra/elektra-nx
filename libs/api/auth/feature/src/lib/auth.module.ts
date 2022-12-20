@@ -4,16 +4,18 @@ import { JwtModule } from '@nestjs/jwt';
 import { JwtStrategy } from './strategies/jwt.strategy';
 import {
   AuthLocalAclAdapter,
-  AuthLocalEntity,
+  AuthLocal,
   AuthLocalResolver,
   AuthLocalService,
   AuthService,
+  EmailConfirmation,
 } from '@elektra-nx/api/auth/data-access';
 
 import { AuthGuard } from '@elektra-nx/api/auth/utils';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthController, AuthLocalController } from './controllers';
 import { ApiAuthConfigModule, AuthConfigService } from '@elektra-nx/api/auth/config';
+import { User } from '@elektra-nx/api/user/models';
 
 @Global()
 @Module({
@@ -30,7 +32,7 @@ import { ApiAuthConfigModule, AuthConfigService } from '@elektra-nx/api/auth/con
         },
       }),
     }),
-    TypeOrmModule.forFeature([AuthLocalEntity]),
+    TypeOrmModule.forFeature([User, AuthLocal, EmailConfirmation]),
   ],
   providers: [
     AuthService,
@@ -47,4 +49,4 @@ import { ApiAuthConfigModule, AuthConfigService } from '@elektra-nx/api/auth/con
   controllers: [AuthController, AuthLocalController],
   exports: [TypeOrmModule, AuthService, AuthGuard, AuthLocalAclAdapter, AuthLocalService],
 })
-export class AuthModule {}
+export class ApiAuthModule {}

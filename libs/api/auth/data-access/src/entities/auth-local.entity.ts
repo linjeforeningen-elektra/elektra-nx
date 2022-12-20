@@ -5,7 +5,7 @@ import { AuthLocalModel } from '@elektra-nx/shared/models';
 
 @Entity('auth-local')
 @Unique('UQ_auth_local_email', ['email'])
-export class AuthLocalEntity extends CoreEntity implements AuthLocalModel {
+export class AuthLocal extends CoreEntity implements AuthLocalModel {
   @Column()
   email: string;
 
@@ -14,6 +14,9 @@ export class AuthLocalEntity extends CoreEntity implements AuthLocalModel {
 
   @Column()
   hash: string;
+
+  @Column({ default: 'false' })
+  confirmed: boolean;
 
   @Column()
   userId: string;
