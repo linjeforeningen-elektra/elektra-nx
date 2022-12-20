@@ -7,14 +7,14 @@
     "typeorm": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "ts-node --project libs/api/database/cli/tsconfig.json -r tsconfig-paths/register ./node_modules/.bin/typeorm -d libs/api/database/cli/src/lib/datasource.ts"
+        "command": "SHELL_ENV=CLI ts-node --project libs/api/database/cli/tsconfig.json -r tsconfig-paths/register ./node_modules/.bin/typeorm -d libs/api/database/cli/src/lib/datasource.ts"
       }
     },
     "migration-generate": {
       "executor": "nx:run-commands",
       "options": {
         "commands": [
-          "ts-node --project libs/api/database/cli/tsconfig.json -r tsconfig-paths/register ./node_modules/.bin/typeorm migration:generate -d libs/api/database/cli/src/lib/datasource.ts libs/api/database/cli/src/lib/migrations/{args.name}"
+          "SHELL_ENV=CLI ts-node --project libs/api/database/cli/tsconfig.json -r tsconfig-paths/register ./node_modules/.bin/typeorm migration:generate -d libs/api/database/cli/src/lib/datasource.ts libs/api/database/cli/src/lib/migrations/{args.name}"
         ]
       }
     },
@@ -22,7 +22,7 @@
       "executor": "nx:run-commands",
       "options": {
         "commands": [
-          "ts-node --project libs/api/database/cli/tsconfig.json -r tsconfig-paths/register ./node_modules/.bin/typeorm migration:create libs/api/database/cli/src/lib/migrations/{args.name}"
+          "SHELL_ENV=CLI ts-node --project libs/api/database/cli/tsconfig.json -r tsconfig-paths/register ./node_modules/.bin/typeorm migration:create libs/api/database/cli/src/lib/migrations/{args.name}"
         ]
       }
     },
@@ -30,7 +30,7 @@
       "executor": "nx:run-commands",
       "options": {
         "commands": [
-          "ts-node --project libs/api/database/cli/tsconfig.json -r tsconfig-paths/register ./node_modules/.bin/typeorm migration:run -d libs/api/database/cli/src/lib/datasource.ts"
+          "SHELL_ENV=CLI ts-node --project libs/api/database/cli/tsconfig.json -r tsconfig-paths/register ./node_modules/.bin/typeorm migration:run -d libs/api/database/cli/src/lib/datasource.ts"
         ]
       }
     },

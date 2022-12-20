@@ -23,9 +23,9 @@ export class Membership extends CoreEntity implements MembershipModel {
   @Field(() => String)
   gender?: string;
 
-  @Column()
-  @Field(() => Date)
-  immatriculation: Date;
+  @Column({ nullable: true })
+  @Field(() => Date, { nullable: true })
+  immatriculation?: Date;
 
   @Column()
   @Field(() => Date)

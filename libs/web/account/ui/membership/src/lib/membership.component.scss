@@ -4,6 +4,10 @@
   position: relative;
   padding: 8px 0;
 
+  a {
+    color: var(--primary-contrast);
+  }
+
   .error {
     p {
       margin: 4px 0px;
