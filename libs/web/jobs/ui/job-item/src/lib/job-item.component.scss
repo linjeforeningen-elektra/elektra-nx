@@ -15,6 +15,7 @@
     max-height: 200px;
     overflow: hidden;
     margin: auto 0;
+    filter: var(--image-filter);
   }
 
   .content {
@@ -29,7 +30,7 @@
       margin: 0;
       padding: 0;
       list-style: none;
-      color: rgba(0,0,0,.56);
+      color: var(--secondary-text);
       li {
         margin: 4px 0;
         display: flex;

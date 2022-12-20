@@ -75,13 +75,12 @@ a, a:visited {
   --warn-contrast: #{map-get($web-theme, 'warn', 'contrast', 500)};
   --secondary-text: #{map-get($web-theme, 'foreground', 'secondary-text')};
   --background-card: #{map-get($web-theme, 'background', 'card')};
-
   --text: #{map-get($web-theme, 'foreground', 'text')};
-
-
   --status-bar: #{map-get($web-theme, 'background', 'status-bar')};
   --app-bar: #{map-get($web-theme, 'background', 'app-bar')};
   --background: #121212;
+
+  --image-filter: grayscale(50%);
 }
 
 .light {
@@ -102,4 +101,5 @@ a, a:visited {
 
   --status-bar: #{map-get($web-light-theme, 'background', 'status-bar')};
   --app-bar: #{map-get($web-light-theme, 'primary', 500)};
+  --image-filter: none;
 }

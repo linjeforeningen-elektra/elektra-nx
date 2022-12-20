@@ -5,6 +5,7 @@
   position: relative;
   width: 100%;
   .job {
+    background-color: var(--background-card);
     width: 100%;
     .content {
       padding: 0 16px 8px;
@@ -30,6 +31,7 @@
         justify-content: center;
         a {
           width: 200px;
+          color: var(--primary-contrast);
         }
       }
     }

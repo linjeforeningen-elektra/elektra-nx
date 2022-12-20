@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 import { JobService } from '@elektra-nx/web/jobs/data-access';
 import { WebNavbarService } from '@elektra-nx/web/shared/data-access';
@@ -11,7 +11,7 @@ const _description = 'Lyst p√• deltidsjobb, sommerjobb eller en fulltidsjobb? S√
   templateUrl: './jobs-list.component.html',
   styleUrls: ['./jobs-list.component.scss'],
 })
-export class JobsListComponent implements OnInit {
+export class JobsListComponent implements OnInit, OnDestroy {
   constructor(private job: JobService, private navbar: WebNavbarService, private meta: Meta, private title: Title) {
     this.title.setTitle(_title);
     this.meta.addTags([
@@ -30,4 +30,8 @@ export class JobsListComponent implements OnInit {
   readonly query$ = this.job.getJobs();
 
   ngOnInit(): void {}
+
+  ngOnDestroy(): void {
+    this.layer.release();
+  }
 }
