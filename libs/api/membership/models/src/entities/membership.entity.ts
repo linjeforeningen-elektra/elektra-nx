@@ -40,7 +40,7 @@ export class Membership extends CoreEntity implements MembershipModel {
   confirmed: boolean;
 
   @Column({ type: 'enum', enum: Specialisation, enumName: 'Specialization', nullable: true })
-  @Field(() => String)
+  @Field(() => String, { nullable: true })
   specialisation?: Specialisation;
 
   @Column()
