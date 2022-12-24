@@ -1,4 +1,10 @@
-import { ForbiddenException, Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
+import {
+  ForbiddenException,
+  GoneException,
+  Injectable,
+  InternalServerErrorException,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { EntityManager, Repository } from 'typeorm';
 import {
@@ -12,6 +18,7 @@ import { AuthLocal } from '../../entities/auth-local.entity';
 import { User } from '@elektra-nx/api/user/models';
 import { AuthConfigService } from '@elektra-nx/api/auth/config';
 import { EmailConfirmation } from '../../entities';
+import * as moment from 'moment';
 
 @Injectable()
 export class AuthLocalService {
@@ -116,13 +123,9 @@ export class AuthLocalService {
       throw new NotFoundException(`No confirmation found.`);
     }
 
-    console.log(new Date(), emailConfirmation.expiration);
-
-    throw '';
-
-    if (new Date() > emailConfirmation.expiration) {
+    if (moment().utc(false) > moment(emailConfirmation.expiration).utc(false)) {
       await this.emailConfirmation.remove(emailConfirmation);
-      throw new ForbiddenException(`Email confirmation has expired.`);
+      throw new GoneException(`Email confirmation has expired.`);
     }
 
     await this.em.transaction(async (em) => {
@@ -143,23 +146,9 @@ export class AuthLocalService {
     const regex = /^(\d+)(h|m|s)$/;
     const [_, digits, modifier] = regex.exec(expiration);
 
-    let offset = parseInt(digits);
+    console.log(digits, modifier);
 
-    switch (modifier) {
-      case 'h':
-        offset *= 3600;
-        break;
-      case 'm':
-        offset *= 60;
-        break;
-      case 's':
-        offset *= 1;
-        break;
-      default:
-        throw 'Error in expiration config';
-    }
-
-    return new Date(Date.now() + offset * 1000);
+    return moment().add(digits, <'h' | 'm' | 's'>modifier);
   }
 
   public async createOrReplaceEmailConfirmation(email: string): Promise<string> {
@@ -167,6 +156,10 @@ export class AuthLocalService {
 
     if (!authLocal) {
       throw new NotFoundException(`Email not found.`);
+    }
+
+    if (authLocal.confirmed) {
+      throw new ForbiddenException('Email already confirmed.');
     }
 
     // check if one exists and delete if found
@@ -177,9 +170,7 @@ export class AuthLocalService {
     }
 
     const code = this.generateNumberString();
-    const expiration = this.createDateFromExpiration();
-
-    console.log(new Date(), expiration);
+    const expiration = this.createDateFromExpiration().utc(false);
 
     await this.emailConfirmation.save({ authLocal, code, expiration });
 
