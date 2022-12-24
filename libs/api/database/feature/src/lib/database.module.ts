@@ -30,6 +30,7 @@ import { join } from 'path';
         database: dbconf.DATABASE,
         host: dbconf.HOST,
         port: dbconf.PORT,
+        useUTC: true,
       }),
     }),
   ],

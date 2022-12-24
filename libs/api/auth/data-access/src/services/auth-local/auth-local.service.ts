@@ -37,6 +37,10 @@ export class AuthLocalService {
       throw new ForbiddenException('Email/Password combination wrong.');
     }
 
+    if (!found.confirmed) {
+      throw new ForbiddenException(`Email has not yet been confirmed.`);
+    }
+
     const user = await this.user.findOneBy({ id: found.userId });
     if (!user) throw new InternalServerErrorException('AuthLocal has no user.');
 
@@ -96,7 +100,69 @@ export class AuthLocalService {
       .join('');
   }
 
-  public async createOrReplaceEmailConfirmation(email: string) {
+  public async confirmEmail(email: string, code: string): Promise<{ user: User; email: string }> {
+    const authLocal = await this.authLocal.findOneBy({ email });
+
+    if (!authLocal) {
+      throw new NotFoundException(`No confirmation found.`);
+    }
+
+    const emailConfirmation = await this.emailConfirmation.findOneBy({
+      authLocalId: authLocal.id,
+      code,
+    });
+
+    if (!emailConfirmation) {
+      throw new NotFoundException(`No confirmation found.`);
+    }
+
+    console.log(new Date(), emailConfirmation.expiration);
+
+    throw '';
+
+    if (new Date() > emailConfirmation.expiration) {
+      await this.emailConfirmation.remove(emailConfirmation);
+      throw new ForbiddenException(`Email confirmation has expired.`);
+    }
+
+    await this.em.transaction(async (em) => {
+      await em.save(AuthLocal, { ...authLocal, confirmed: true });
+      await em.remove(emailConfirmation);
+    });
+
+    const user = await this.user.findOneBy({ id: authLocal.userId });
+    if (!user) {
+      throw new NotFoundException(`User not found.`);
+    }
+
+    return { user, email };
+  }
+
+  public createDateFromExpiration() {
+    const expiration = this.conf.EMAIL_CONFIRMATION_EXPIRATION;
+    const regex = /^(\d+)(h|m|s)$/;
+    const [_, digits, modifier] = regex.exec(expiration);
+
+    let offset = parseInt(digits);
+
+    switch (modifier) {
+      case 'h':
+        offset *= 3600;
+        break;
+      case 'm':
+        offset *= 60;
+        break;
+      case 's':
+        offset *= 1;
+        break;
+      default:
+        throw 'Error in expiration config';
+    }
+
+    return new Date(Date.now() + offset * 1000);
+  }
+
+  public async createOrReplaceEmailConfirmation(email: string): Promise<string> {
     const authLocal = await this.authLocal.findOneBy({ email });
 
     if (!authLocal) {
@@ -110,6 +176,13 @@ export class AuthLocalService {
       await this.emailConfirmation.remove(exists);
     }
 
-    return this.emailConfirmation.save({ authLocal });
+    const code = this.generateNumberString();
+    const expiration = this.createDateFromExpiration();
+
+    console.log(new Date(), expiration);
+
+    await this.emailConfirmation.save({ authLocal, code, expiration });
+
+    return email;
   }
 }

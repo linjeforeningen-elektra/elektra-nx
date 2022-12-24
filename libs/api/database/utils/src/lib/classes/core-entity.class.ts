@@ -13,11 +13,11 @@ export class CoreEntity implements CoreModel {
   ownerId: string;
 
   @Field(() => Date)
-  @CreateDateColumn()
+  @CreateDateColumn({ type: 'timestamp without time zone' })
   createdAt: Date;
 
   @Field(() => Date)
-  @UpdateDateColumn()
+  @UpdateDateColumn({ type: 'timestamp without time zone' })
   updatedAt: Date;
 
   @Field(() => String, { nullable: true })

@@ -22,3 +22,8 @@ export interface RegisterWithAuthLocalModel {
   user: CreateUserModel;
   auth: CreateAuthLocalModel;
 }
+
+export interface ConfirmEmailModel {
+  email: string;
+  code: string;
+}

@@ -1,6 +1,6 @@
 import { AuthUser } from '@elektra-nx/api/auth/utils';
 import { MembershipService } from '@elektra-nx/api/membership/data-access';
-import { LoginWithAuthLocalDto, RegisterWithAuthLocalDto } from '@elektra-nx/api/shared/dto';
+import { ConfirmEmailDto, LoginWithAuthLocalDto, RegisterWithAuthLocalDto } from '@elektra-nx/api/shared/dto';
 import { Injectable } from '@nestjs/common';
 import { AuthLocalService, AuthService } from '../services';
 
@@ -19,5 +19,18 @@ export class AuthLocalAclAdapter {
   public async registerWithAuthLocal(auth: AuthUser, dto: RegisterWithAuthLocalDto) {
     const { user, email } = await this.authLocal.registerWithEmailPassword(dto);
     return this.auth.login(user.id, email, []);
+  }
+
+  public async confirmEmail(auth: AuthUser, dto: ConfirmEmailDto) {
+    const { code, email } = dto;
+    const { user } = await this.authLocal.confirmEmail(email, code);
+    const MEMBERSHIP = await this.membership.isMember(user);
+    const roles = user.roles.concat(MEMBERSHIP || []);
+
+    return this.auth.login(user.id, email, roles);
+  }
+
+  public async createEmailConfirmation(auth: AuthUser, email: string) {
+    return this.authLocal.createOrReplaceEmailConfirmation(email);
   }
 }

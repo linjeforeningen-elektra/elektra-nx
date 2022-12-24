@@ -16,4 +16,8 @@ export class AuthConfigService {
   get BCRYPT_ROUNDS(): number {
     return this.conf.get('auth.BCRYPT_ROUNDS');
   }
+
+  get EMAIL_CONFIRMATION_EXPIRATION(): string {
+    return this.conf.get('auth.EMAIL_CONFIRMATION_EXPIRATION');
+  }
 }

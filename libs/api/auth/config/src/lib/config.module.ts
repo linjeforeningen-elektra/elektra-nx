@@ -12,6 +12,9 @@ import { AuthConfigService } from './config.service';
         AUTH_JWT_EXPIRY: Joi.string().required(),
         AUTH_JWT_SECRET: Joi.string().required(),
         AUTH_BCRYPT_ROUNDS: Joi.number().required(),
+        AUTH_EMAIL_CONFIRMATION_EXPIRATION: Joi.string()
+          .pattern(/^(\d+)(h|m|s)$/)
+          .default('2h'),
       }),
     }),
   ],
