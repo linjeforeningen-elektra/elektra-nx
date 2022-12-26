@@ -18,6 +18,11 @@ class LogoutComponent {}
         pathMatch: 'full',
         redirectTo: 'login',
       },
+      {
+        path: 'bekreft-epost',
+        loadChildren: async () =>
+          (await import('@elektra-nx/web/auth/feature/confirm-email')).WebAuthConfirmEmailModule,
+      },
       // {
       //   path: 'logout',
       //   canActivate: [LogoutGuard],

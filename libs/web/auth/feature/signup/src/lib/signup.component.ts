@@ -117,9 +117,7 @@ export class SignupComponent implements OnDestroy {
         this.error = undefined;
         this.loading = false;
 
-        const { access_token } = data.user;
-        this.auth.login(access_token);
-        this.router.navigateByUrl('/konto');
+        this.router.navigate(['/auth/bekreft-epost'], { queryParams: { email } });
       });
 
     // this.api.signup(body).subscribe((response) => {

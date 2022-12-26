@@ -17,8 +17,7 @@ export class AuthLocalAclAdapter {
   }
 
   public async registerWithAuthLocal(auth: AuthUser, dto: RegisterWithAuthLocalDto) {
-    const { user, email } = await this.authLocal.registerWithEmailPassword(dto);
-    return this.auth.login(user.id, email, []);
+    return this.authLocal.registerWithEmailPassword(dto);
   }
 
   public async confirmEmail(auth: AuthUser, dto: ConfirmEmailDto) {

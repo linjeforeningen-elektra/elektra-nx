@@ -19,6 +19,8 @@ import { User } from '@elektra-nx/api/user/models';
 import { AuthConfigService } from '@elektra-nx/api/auth/config';
 import { EmailConfirmation } from '../../entities';
 import * as moment from 'moment';
+import { ElektraErrorCode } from '@elektra-nx/shared/util/types';
+import { ElektraException } from '@elektra-nx/api/shared/data-access';
 
 @Injectable()
 export class AuthLocalService {
@@ -45,7 +47,7 @@ export class AuthLocalService {
     }
 
     if (!found.confirmed) {
-      throw new ForbiddenException(`Email has not yet been confirmed.`);
+      throw new ElektraException(ElektraErrorCode.EMAIL_NOT_CONFIRMED);
     }
 
     const user = await this.user.findOneBy({ id: found.userId });
@@ -86,7 +88,13 @@ export class AuthLocalService {
     return user;
   }
 
-  public async registerWithEmailPassword(dto: RegisterWithAuthLocalDto): Promise<{ user: User; email: string }> {
+  public async registerWithEmailPassword(dto: RegisterWithAuthLocalDto): Promise<string> {
+    const exists = await this.authLocal.findOneBy({ email: dto.auth.email });
+
+    if (exists) {
+      throw new ForbiddenException(`Account with email exists.`);
+    }
+
     return this.em.transaction(async (em: EntityManager) => {
       let user = await this.createUserObject(dto.user);
       let auth = await this.createAuthLocalObject(dto.auth);
@@ -96,7 +104,7 @@ export class AuthLocalService {
       user = await em.save(user);
       auth = await em.save(auth);
 
-      return { user, email: auth.email };
+      return auth.email;
     });
   }
 
@@ -145,8 +153,6 @@ export class AuthLocalService {
     const expiration = this.conf.EMAIL_CONFIRMATION_EXPIRATION;
     const regex = /^(\d+)(h|m|s)$/;
     const [_, digits, modifier] = regex.exec(expiration);
-
-    console.log(digits, modifier);
 
     return moment().add(digits, <'h' | 'm' | 's'>modifier);
   }

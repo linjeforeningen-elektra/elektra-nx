@@ -16,7 +16,7 @@ export class AuthLocalResolver {
     return this.authLocal.loginWithAuthLocal(auth, body);
   }
 
-  @Mutation(() => GQLAccessToken)
+  @Mutation(() => String)
   public async registerWithAuthLocal(@GQLAuth() auth: AuthUser, @Args('body') body: RegisterWithAuthLocalDto) {
     return this.authLocal.registerWithAuthLocal(auth, body);
   }

@@ -61,6 +61,7 @@
     "web-admin-feature-dashboard": "libs/web/admin/feature/dashboard",
     "web-admin-feature-shell": "libs/web/admin/feature/shell",
     "web-auth-data-access": "libs/web/auth/data-access",
+    "web-auth-feature-confirm-email": "libs/web/auth/feature/confirm-email",
     "web-auth-feature-shell": "libs/web/auth/feature/shell",
     "web-auth-feature-signin": "libs/web/auth/feature/signin",
     "web-auth-feature-signup": "libs/web/auth/feature/signup",

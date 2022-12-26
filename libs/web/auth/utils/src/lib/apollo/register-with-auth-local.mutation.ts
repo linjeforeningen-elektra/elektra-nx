@@ -6,9 +6,7 @@ export interface RegisterWithAuthLocalMutationVariables {
 }
 
 export interface RegisterWithAuthLocalMutationResult {
-  readonly user: {
-    access_token: string;
-  };
+  readonly email: string;
 }
 
 // eslint-disable-next-line

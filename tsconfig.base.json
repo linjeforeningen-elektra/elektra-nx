@@ -76,6 +76,7 @@
       "@elektra-nx/web/admin/feature/dashboard": ["libs/web/admin/feature/dashboard/src/index.ts"],
       "@elektra-nx/web/admin/feature/shell": ["libs/web/admin/feature/shell/src/index.ts"],
       "@elektra-nx/web/auth/data-access": ["libs/web/auth/data-access/src/index.ts"],
+      "@elektra-nx/web/auth/feature/confirm-email": ["libs/web/auth/feature/confirm-email/src/index.ts"],
       "@elektra-nx/web/auth/feature/shell": ["libs/web/auth/feature/shell/src/index.ts"],
       "@elektra-nx/web/auth/feature/signin": ["libs/web/auth/feature/signin/src/index.ts"],
       "@elektra-nx/web/auth/feature/signup": ["libs/web/auth/feature/signup/src/index.ts"],

@@ -1,0 +1,54 @@
+<div class="elektra-nx-auth-confirm-email">
+
+  <div class="notice">
+    <h3>NB!</h3>
+    <p>Det kan ta litt tid før du mottar e-posten. Husk å sjekke søppelpost også.</p>
+  </div>
+
+  <div class="wrapper">
+
+    <ng-container *ngIf="!success; else successTemplate">
+      <form [formGroup]="formGroup" *ngIf="!loading; else loadingTemplate" (ngSubmit)="submit($event)">
+
+        <div class="error" *ngIf="error">
+          <h3>Error:</h3>
+          <p>{{ error }}</p>
+        </div>
+
+        <ng-container *ngIf="!email; else queryEmailTemplate">
+          <mat-form-field appearance="fill">
+            <mat-label>E-postadresse</mat-label>
+            <input type="text" matInput formControlName="email">
+            <mat-error *ngIf="formGroup.controls.email.errors?.['required']">Må utfylles</mat-error>
+          </mat-form-field>
+        </ng-container>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Kode</mat-label>
+          <input type="text" matInput formControlName="code">
+        </mat-form-field>
+        <button [disabled]="!valid" mat-flat-button color="primary">Bekreft</button>
+        <a (click)="resendEmail()">Ikke fått noen e-post? Send på nytt</a>
+        <a *ngIf="email" (click)="setEmail()">Bytt e-post</a>
+      </form>
+    </ng-container>
+
+  </div>
+</div>
+
+<ng-template #queryEmailTemplate>
+  <h3>{{ email }}</h3>
+</ng-template>
+
+<ng-template #successTemplate>
+  <div class="success">
+    <p>En e-post er nå sendt til deg.</p>
+    <a (click)="success = false">Fortsett til bekreftelse</a>
+  </div>
+</ng-template>
+
+<ng-template #loadingTemplate>
+  <div class="loading">
+    <elektra-nx-spinner></elektra-nx-spinner>
+  </div>
+</ng-template>

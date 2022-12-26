@@ -3,7 +3,7 @@ import { JobModel } from '@elektra-nx/shared/models';
 import { Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { HttpService } from '@nestjs/axios';
 import { Cron, CronExpression } from '@nestjs/schedule';
-import { BehaviorSubject, filter, lastValueFrom, map, take } from 'rxjs';
+import { BehaviorSubject, catchError, EMPTY, filter, lastValueFrom, map, take } from 'rxjs';
 
 @Injectable()
 export class JobService {
@@ -20,10 +20,18 @@ export class JobService {
   @Cron(CronExpression.EVERY_10_MINUTES)
   public async fetchJobs() {
     this.logger.log(`Fetching jobs.`);
-    this.http.get<JobModel[]>(this.conf.FETCH_URL, { responseType: 'json' }).subscribe(({ data }) => {
-      this.setJobs(data);
-      this.init.next(true);
-    });
+    this.http
+      .get<JobModel[]>(this.conf.FETCH_URL, { responseType: 'json' })
+      .pipe(
+        catchError((err) => {
+          this.logger.error(`Error fetching jobs.`);
+          return EMPTY;
+        }),
+      )
+      .subscribe(({ data }) => {
+        this.setJobs(data);
+        this.init.next(true);
+      });
   }
 
   private setJobs(jobs: JobModel[]): void {
