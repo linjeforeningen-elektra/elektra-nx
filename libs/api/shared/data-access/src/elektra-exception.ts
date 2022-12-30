@@ -1,13 +1,12 @@
 import { HttpException } from '@nestjs/common/exceptions';
-import { ElektraErrorCode } from '@elektra-nx/shared/util/types';
+import { ElektraErrors } from '@elektra-nx/shared/util/types';
+import { HttpStatus } from '@nestjs/common';
 
-const ElektraErrorMessages: Map<ElektraErrorCode, string> = new Map([
-  [ElektraErrorCode.EMAIL_NOT_CONFIRMED, 'Email not confirmed'],
-]);
-
-export class ElektraException extends HttpException {
-  constructor(code: ElektraErrorCode) {
-    super(ElektraErrorMessages.get(code) || 'Internal server error', code);
-    // super('', );
+export class EmailNotConfirmedException extends HttpException {
+  constructor(message?: string) {
+    super(
+      HttpException.createBody(message, ElektraErrors.EMAIL_NOT_CONFIRMED, HttpStatus.FORBIDDEN),
+      HttpStatus.FORBIDDEN,
+    );
   }
 }

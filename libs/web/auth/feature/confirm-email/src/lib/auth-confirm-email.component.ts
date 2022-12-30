@@ -2,7 +2,6 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { isApolloError } from '@apollo/client/errors';
-import { ConfirmEmailModel } from '@elektra-nx/shared/models';
 import { ConfirmEmailMutation, CreateEmailConfirmationMutation } from '@elektra-nx/web/auth/data-access';
 import { WebAuthService, WebNavbarService } from '@elektra-nx/web/shared/data-access';
 import { Apollo } from 'apollo-angular';
@@ -35,7 +34,6 @@ export class AuthConfirmEmailComponent implements OnInit, OnDestroy {
   });
 
   readonly formGroup = this.fb.group({
-    email: new FormControl<string>('', { nonNullable: true, validators: [Validators.required] }),
     code: new FormControl<string>('', { nonNullable: true, validators: [Validators.required] }),
   });
 
@@ -46,41 +44,39 @@ export class AuthConfirmEmailComponent implements OnInit, OnDestroy {
   private readonly buttonSub = this.layer.buttonClicked$.subscribe(async () => {
     this.router.navigateByUrl('/auth');
   });
-  private readonly emailSub = this.route.queryParams.subscribe((params) => this.setEmail(params['email']));
+  private readonly emailSub = this.route.queryParams.subscribe((params) => {
+    if (params['email']) {
+      this.email = params['email'];
+    }
+  });
 
   readonly hash$: Observable<string | undefined> = this.route.params.pipe(map((params) => params['hash']));
   private readonly hashSub = this.hash$.subscribe((hash) => {
     if (hash) {
-      const body: Record<string, unknown> = jwtDecode(hash);
+      const body: Record<string, string> = jwtDecode(hash);
 
       if (body['email'] && body['code']) {
-        this.setEmail(<string>body['email']);
-        this.formGroup.controls.code.setValue(<string>body['code']);
+        this.email = body['email'];
+        this.formGroup.controls.code.setValue(body['code']);
+
         this.submit();
       }
     }
   });
-
-  setEmail(email?: string): void {
-    if (email) {
-      this.email = email;
-      this.formGroup.controls.email.setValue(email);
-      this.formGroup.controls.email.disable();
-    } else {
-      this.formGroup.controls.email.enable();
-      this.email = undefined;
-    }
-  }
 
   public submit(event?: Event): void {
     event?.preventDefault();
     this.error = undefined;
     this.loading = true;
 
-    const body = this.formGroup.value as ConfirmEmailModel;
-    if (this.email) {
-      body.email = this.email;
-    }
+    if (!this.email) return;
+    const code = this.formGroup.controls.code.value;
+    const email = this.email;
+
+    const body = {
+      code,
+      email,
+    };
 
     this.apollo
       .mutate({
@@ -109,9 +105,7 @@ export class AuthConfirmEmailComponent implements OnInit, OnDestroy {
   }
 
   resendEmail(): void {
-    const email = this.formGroup.controls.email.value || this.email;
-
-    if (!email) {
+    if (!this.email) {
       this.error = 'Du må fylle inn e-post.';
       return;
     }
@@ -121,7 +115,7 @@ export class AuthConfirmEmailComponent implements OnInit, OnDestroy {
     this.apollo
       .mutate({
         mutation: CreateEmailConfirmationMutation,
-        variables: { email },
+        variables: { email: this.email },
       })
       .pipe(
         catchError((error) => {
@@ -136,7 +130,6 @@ export class AuthConfirmEmailComponent implements OnInit, OnDestroy {
       )
       .subscribe((result) => {
         if (!result.data?.email) return;
-        this.setEmail(email);
         this.success = true;
         this.loading = false;
         this.error = undefined;
@@ -150,5 +143,6 @@ export class AuthConfirmEmailComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.layer.release();
     this.emailSub.unsubscribe();
+    this.hashSub.unsubscribe();
   }
 }

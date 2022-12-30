@@ -19,8 +19,7 @@ import { User } from '@elektra-nx/api/user/models';
 import { AuthConfigService } from '@elektra-nx/api/auth/config';
 import { EmailConfirmation } from '../../entities';
 import * as moment from 'moment';
-import { ElektraErrorCode } from '@elektra-nx/shared/util/types';
-import { ElektraException } from '@elektra-nx/api/shared/data-access';
+import { ElektraErrors } from '@elektra-nx/shared/util/types';
 
 @Injectable()
 export class AuthLocalService {
@@ -47,7 +46,7 @@ export class AuthLocalService {
     }
 
     if (!found.confirmed) {
-      throw new ElektraException(ElektraErrorCode.EMAIL_NOT_CONFIRMED);
+      throw new ForbiddenException(ElektraErrors.EMAIL_NOT_CONFIRMED);
     }
 
     const user = await this.user.findOneBy({ id: found.userId });

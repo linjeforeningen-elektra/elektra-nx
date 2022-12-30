@@ -9,13 +9,19 @@
 // } from '@elektra-nx/shared/models';
 // import { Body, Controller, Delete, Get, Param, Patch, Post, Req, UseGuards } from '@nestjs/common';
 
-import { Controller } from '@nestjs/common';
+import { EmailNotConfirmedException } from '@elektra-nx/api/shared/data-access';
+import { Controller, Get } from '@nestjs/common';
 
 // import { AppService } from './app.service';
 
 // @UseGuards(AuthGuard)
 @Controller()
 export class AppController {
+  @Get()
+  public async test() {
+    throw new EmailNotConfirmedException();
+  }
+
   // private auth: AuthService, // private authLocal: AuthLocalAdapter, // private userAdapter: UserAdapter, // private readonly appService: AppService,
   // @UseGuards(AuthGuard)
   // @Post('auth/local/register')

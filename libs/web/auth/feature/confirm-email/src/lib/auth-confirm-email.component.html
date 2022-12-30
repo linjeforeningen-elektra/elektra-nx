@@ -2,7 +2,7 @@
 
   <div class="notice">
     <h3>NB!</h3>
-    <p>Det kan ta litt tid før du mottar e-posten. Husk å sjekke søppelpost også.</p>
+    <p>En epost med bekreftelse har blitt sendt til deg. Det kan ta litt tid før du mottar e-posten. Husk å sjekke søppelpost også.</p>
   </div>
 
   <div class="wrapper">
@@ -15,13 +15,7 @@
           <p>{{ error }}</p>
         </div>
 
-        <ng-container *ngIf="!email; else queryEmailTemplate">
-          <mat-form-field appearance="fill">
-            <mat-label>E-postadresse</mat-label>
-            <input type="text" matInput formControlName="email">
-            <mat-error *ngIf="formGroup.controls.email.errors?.['required']">Må utfylles</mat-error>
-          </mat-form-field>
-        </ng-container>
+        <h3>{{ email || 'Ingen epost' }}</h3>
 
         <mat-form-field appearance="fill">
           <mat-label>Kode</mat-label>
@@ -29,7 +23,6 @@
         </mat-form-field>
         <button [disabled]="!valid" mat-flat-button color="primary">Bekreft</button>
         <a (click)="resendEmail()">Ikke fått noen e-post? Send på nytt</a>
-        <a *ngIf="email" (click)="setEmail()">Bytt e-post</a>
       </form>
     </ng-container>
 

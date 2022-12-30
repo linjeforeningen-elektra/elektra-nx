@@ -8,6 +8,8 @@ import { Apollo } from 'apollo-angular';
 import { LoginWithAuthLocalMutation } from '@elektra-nx/web/auth/utils';
 import { catchError, EMPTY } from 'rxjs';
 import { isApolloError } from '@apollo/client/errors';
+import { transformApolloError } from '@elektra-nx/web/shared/utils';
+import { ElektraErrors } from '@elektra-nx/shared/util/types';
 
 @Component({
   selector: 'elektra-nx-signin',
@@ -50,6 +52,12 @@ export class SigninComponent implements OnDestroy {
         catchError((error) => {
           this.loading = false;
           if (isApolloError(error)) {
+            const transformed = transformApolloError(error);
+
+            if (transformed.message === ElektraErrors.EMAIL_NOT_CONFIRMED) {
+              this.router.navigate(['/auth', 'bekreft-epost'], { queryParams: { email: body.email } });
+            }
+
             this.error = error.message;
           }
           return EMPTY;
@@ -64,6 +72,13 @@ export class SigninComponent implements OnDestroy {
         this.auth.login(access_token);
         this.router.navigateByUrl('/konto');
       });
+  }
+
+  public confirm(): void {
+    const email = this.formGroup.controls.email.value;
+
+    if (email) this.router.navigate(['/auth', 'bekreft-epost'], { queryParams: { email } });
+    else this.router.navigate(['/auth', 'bekreft-epost']);
   }
 
   ngOnDestroy(): void {
