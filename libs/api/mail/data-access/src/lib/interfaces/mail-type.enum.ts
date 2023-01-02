@@ -8,6 +8,7 @@ export type EmailConfirmationJob = {
   data: {
     email: string;
     code: string;
+    hash: string;
   };
 };
 

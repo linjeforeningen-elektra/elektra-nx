@@ -20,6 +20,8 @@ import { AuthConfigService } from '@elektra-nx/api/auth/config';
 import { EmailConfirmation } from '../../entities';
 import * as moment from 'moment';
 import { ElektraErrors } from '@elektra-nx/shared/util/types';
+import { ApiMailProducer, MailJobType } from '@elektra-nx/api/mail/data-access';
+import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class AuthLocalService {
@@ -29,6 +31,8 @@ export class AuthLocalService {
     @InjectRepository(EmailConfirmation) private emailConfirmation: Repository<EmailConfirmation>,
     private em: EntityManager,
     private conf: AuthConfigService,
+    private mail: ApiMailProducer,
+    private jwt: JwtService,
   ) {}
 
   // add timing attack guard
@@ -46,6 +50,7 @@ export class AuthLocalService {
     }
 
     if (!found.confirmed) {
+      await this.createOrReplaceEmailConfirmation(email);
       throw new ForbiddenException(ElektraErrors.EMAIL_NOT_CONFIRMED);
     }
 
@@ -94,7 +99,7 @@ export class AuthLocalService {
       throw new ForbiddenException(`Account with email exists.`);
     }
 
-    return this.em.transaction(async (em: EntityManager) => {
+    const email = await this.em.transaction(async (em: EntityManager) => {
       let user = await this.createUserObject(dto.user);
       let auth = await this.createAuthLocalObject(dto.auth);
       auth.userId = user.id;
@@ -105,6 +110,10 @@ export class AuthLocalService {
 
       return auth.email;
     });
+
+    await this.createOrReplaceEmailConfirmation(email);
+
+    return email;
   }
 
   private generateNumberString(length = 6): string {
@@ -177,7 +186,17 @@ export class AuthLocalService {
     const code = this.generateNumberString();
     const expiration = this.createDateFromExpiration().utc(false);
 
+    const hash = this.jwt.sign({ code, email });
+
     await this.emailConfirmation.save({ authLocal, code, expiration });
+    await this.mail.addJobb({
+      type: MailJobType.EMAIL_CONFIRMATION,
+      data: {
+        email,
+        code,
+        hash,
+      },
+    });
 
     return email;
   }

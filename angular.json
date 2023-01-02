@@ -33,6 +33,7 @@
     "api-job-data-access": "libs/api/job/data-access",
     "api-job-feature": "libs/api/job/feature",
     "api-job-utils": "libs/api/job/utils",
+    "api-mail-config": "libs/api/mail/config",
     "api-mail-data-access": "libs/api/mail/data-access",
     "api-mail-feature": "libs/api/mail/feature",
     "api-mail-utils": "libs/api/mail/utils",

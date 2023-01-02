@@ -10,6 +10,7 @@ import * as Joi from 'joi';
       load: [configuration],
       validationSchema: Joi.object({
         SHELL_ENV: Joi.string().default('development'),
+        SHELL_HOST: Joi.string().required(),
       }),
     }),
   ],

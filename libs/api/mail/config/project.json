@@ -1,24 +1,24 @@
 {
-  "name": "api-mail-data-access",
+  "name": "api-mail-config",
   "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/api/mail/data-access/src",
+  "sourceRoot": "libs/api/mail/config/src",
   "projectType": "library",
   "targets": {
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["libs/api/mail/data-access/**/*.ts"]
+        "lintFilePatterns": ["libs/api/mail/config/**/*.ts"]
       }
     },
     "test": {
       "executor": "@nrwl/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
-        "jestConfig": "libs/api/mail/data-access/jest.config.ts",
+        "jestConfig": "libs/api/mail/config/jest.config.ts",
         "passWithNoTests": true
       }
     }
   },
-  "tags": ["type:data-access", "scope:api"]
+  "tags": ["type:util", "scope:api"]
 }

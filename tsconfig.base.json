@@ -47,6 +47,7 @@
       "@elektra-nx/api/job/data-access": ["libs/api/job/data-access/src/index.ts"],
       "@elektra-nx/api/job/feature": ["libs/api/job/feature/src/index.ts"],
       "@elektra-nx/api/job/utils": ["libs/api/job/utils/src/index.ts"],
+      "@elektra-nx/api/mail/config": ["libs/api/mail/config/src/index.ts"],
       "@elektra-nx/api/mail/data-access": ["libs/api/mail/data-access/src/index.ts"],
       "@elektra-nx/api/mail/feature": ["libs/api/mail/feature/src/index.ts"],
       "@elektra-nx/api/mail/utils": ["libs/api/mail/utils/src/index.ts"],

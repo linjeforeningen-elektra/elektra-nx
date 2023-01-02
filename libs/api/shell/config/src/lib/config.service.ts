@@ -8,4 +8,8 @@ export class ApiShellConfigService {
   get ENV() {
     return this.conf.get('shell.ENV');
   }
+
+  get HOST(): string {
+    return this.conf.get('shell.HOST');
+  }
 }
