@@ -40,3 +40,13 @@ services:
     volumes:
       - ./database/data:/var/lib/postgresql/data # persist data
       - ./database/backups:/usr/src/backups # store backups
+
+  redis:
+    container_name: redis
+    image: redis:7
+    restart: always
+    ports:
+      - ${REDIS_PORT}:${REDIS_PORT}
+    command: redis-server --save 20 1 --loglevel warning
+    volumes:
+      - ./cache:/data

@@ -1,21 +1,21 @@
 {
-  "name": "api-job-config",
+  "name": "api-redis-config",
   "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/api/job/config/src",
+  "sourceRoot": "libs/api/redis/config/src",
   "projectType": "library",
   "targets": {
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["libs/api/job/config/**/*.ts"]
+        "lintFilePatterns": ["libs/api/redis/config/**/*.ts"]
       }
     },
     "test": {
       "executor": "@nrwl/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
-        "jestConfig": "libs/api/job/config/jest.config.ts",
+        "jestConfig": "libs/api/redis/config/jest.config.ts",
         "passWithNoTests": true
       }
     }

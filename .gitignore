@@ -21,6 +21,8 @@ ormconfig.json
 # dependencies
 node_modules
 
+/cache
+
 # IDEs and editors
 /.idea
 .project

@@ -2,3 +2,7 @@
 /database/data
 /database/**
 database
+
+/cache
+/cache/*
+/cache/**/*

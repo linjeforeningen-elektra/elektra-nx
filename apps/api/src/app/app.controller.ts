@@ -9,6 +9,7 @@
 // } from '@elektra-nx/shared/models';
 // import { Body, Controller, Delete, Get, Param, Patch, Post, Req, UseGuards } from '@nestjs/common';
 
+import { ApiMailProducer, MailJobType } from '@elektra-nx/api/mail/data-access';
 import { EmailNotConfirmedException } from '@elektra-nx/api/shared/data-access';
 import { Controller, Get } from '@nestjs/common';
 
@@ -17,6 +18,16 @@ import { Controller, Get } from '@nestjs/common';
 // @UseGuards(AuthGuard)
 @Controller()
 export class AppController {
+  constructor(private mail: ApiMailProducer) {
+    this.mail.addJobb({
+      type: MailJobType.EMAIL_CONFIRMATION,
+      data: {
+        email: 'andr',
+        code: 'ayy',
+      },
+    });
+  }
+
   @Get()
   public async test() {
     throw new EmailNotConfirmedException();
