@@ -12,7 +12,7 @@ import { map } from 'rxjs';
 })
 export class DashboardComponent implements OnDestroy {
   constructor(private navbar: WebNavbarService, private title: Title, private dashboard: DashboardService) {
-    this.title.setTitle('Profile');
+    this.title.setTitle('Profil');
   }
 
   readonly layer = this.navbar.registerNavbarLayer({

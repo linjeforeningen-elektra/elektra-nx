@@ -6,6 +6,7 @@ import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { CreateMembershipModel } from '@elektra-nx/shared/models';
 import { DashboardService } from '@elektra-nx/web/account/data-access';
 import { map, tap } from 'rxjs';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'elektra-nx-membership-edit',
@@ -19,7 +20,10 @@ export class MembershipEditComponent implements OnDestroy {
     private router: Router,
     private fb: FormBuilder,
     private dashboard: DashboardService,
-  ) {}
+    private title: Title,
+  ) {
+    title.setTitle('Medlemskap');
+  }
 
   readonly formGroup = this.fb.group({
     address: new FormControl('', [Validators.required]),
