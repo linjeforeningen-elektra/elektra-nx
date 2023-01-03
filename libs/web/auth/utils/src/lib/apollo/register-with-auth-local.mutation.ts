@@ -12,8 +12,6 @@ export interface RegisterWithAuthLocalMutationResult {
 // eslint-disable-next-line
 export const RegisterWithAuthLocalMutation = gql<RegisterWithAuthLocalMutationResult, RegisterWithAuthLocalMutationVariables>`
   mutation RegisterWithAuthLocal($body: RegisterWithAuthLocalDto!) {
-    user: registerWithAuthLocal(body: $body) {
-      access_token
-    }
+    email: registerWithAuthLocal(body: $body)
   }
 `;

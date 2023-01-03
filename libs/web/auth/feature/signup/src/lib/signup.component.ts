@@ -80,6 +80,9 @@ export class SignupComponent implements OnDestroy {
   }
 
   public submit(event: Event) {
+    this.loading = true;
+    this.error = undefined;
+
     event.preventDefault();
     const name = `${this.personaliaFG.controls.fname.value} ${this.personaliaFG.controls.lname.value}`;
     const email = this.authFG.controls.email.value;
@@ -117,15 +120,8 @@ export class SignupComponent implements OnDestroy {
         this.error = undefined;
         this.loading = false;
 
-        this.router.navigate(['/auth/bekreft-epost'], { queryParams: { email } });
+        this.router.navigate(['/auth/bekreft-epost'], { queryParams: { email: data.email } });
       });
-
-    // this.api.signup(body).subscribe((response) => {
-    //   if (response.errors && response.errors.length > 0) throw 'Error';
-    //   if (!response.data?.result) throw 'No token';
-    //   this.auth.login(response.data.result.access_token);
-    //   this.router.navigateByUrl('/konto');
-    // });
   }
 
   ngOnDestroy(): void {
