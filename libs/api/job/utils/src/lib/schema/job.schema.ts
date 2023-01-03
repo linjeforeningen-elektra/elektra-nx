@@ -6,27 +6,27 @@ export class JobSchema implements JobModel {
   @Field(() => Int)
   id: number;
 
-  @Field(() => String)
+  @Field(() => String, { nullable: true })
   title: string;
 
-  @Field(() => String)
+  @Field(() => String, { nullable: true })
   location: string;
 
-  @Field(() => String)
+  @Field(() => String, { nullable: true })
   link: string;
 
-  @Field(() => String)
+  @Field(() => String, { nullable: true })
   deadline: string;
 
-  @Field(() => String)
+  @Field(() => String, { nullable: true })
   company: string;
 
-  @Field(() => String)
+  @Field(() => String, { nullable: true })
   companyimg: string;
 
-  @Field(() => String)
+  @Field(() => String, { nullable: true })
   pct: string;
 
-  @Field(() => String)
+  @Field(() => String, { nullable: true })
   desc: string;
 }
