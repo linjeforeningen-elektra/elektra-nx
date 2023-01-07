@@ -28,7 +28,6 @@
       "@elektra-nx/api/auth/config": ["libs/api/auth/config/src/index.ts"],
       "@elektra-nx/api/auth/data-access": ["libs/api/auth/data-access/src/index.ts"],
       "@elektra-nx/api/auth/feature": ["libs/api/auth/feature/src/index.ts"],
-      "@elektra-nx/api/auth/schema": ["libs/api/auth/schema/src/index.ts"],
       "@elektra-nx/api/auth/utils": ["libs/api/auth/utils/src/index.ts"],
       "@elektra-nx/api/block/data-access": ["libs/api/block/data-access/src/index.ts"],
       "@elektra-nx/api/block/feature": ["libs/api/block/feature/src/index.ts"],

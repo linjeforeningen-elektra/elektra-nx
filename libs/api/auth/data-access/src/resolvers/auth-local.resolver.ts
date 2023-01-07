@@ -1,12 +1,12 @@
 import { GQLAuth, GraphqlGuard } from '@elektra-nx/api/apollo/utils';
-import { AuthLocalSchema } from '@elektra-nx/api/auth/schema';
 import { AuthUser, GQLAccessToken } from '@elektra-nx/api/auth/utils';
 import { ConfirmEmailDto, LoginWithAuthLocalDto, RegisterWithAuthLocalDto } from '@elektra-nx/api/shared/dto';
 import { UseGuards } from '@nestjs/common';
 import { Args, Mutation, Resolver } from '@nestjs/graphql';
 import { AuthLocalAclAdapter } from '../adapters';
+import { AuthLocal } from '../entities';
 
-@Resolver(AuthLocalSchema)
+@Resolver(AuthLocal)
 @UseGuards(GraphqlGuard)
 export class AuthLocalResolver {
   constructor(private authLocal: AuthLocalAclAdapter) {}
