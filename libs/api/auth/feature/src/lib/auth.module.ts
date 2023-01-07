@@ -9,6 +9,7 @@ import {
   AuthLocalService,
   AuthService,
   EmailConfirmation,
+  PasswordReset,
 } from '@elektra-nx/api/auth/data-access';
 
 import { AuthGuard } from '@elektra-nx/api/auth/utils';
@@ -32,7 +33,7 @@ import { User } from '@elektra-nx/api/user/models';
         },
       }),
     }),
-    TypeOrmModule.forFeature([User, AuthLocal, EmailConfirmation]),
+    TypeOrmModule.forFeature([User, AuthLocal, EmailConfirmation, PasswordReset]),
   ],
   providers: [
     AuthService,
