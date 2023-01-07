@@ -41,6 +41,12 @@ export class SigninComponent implements OnDestroy {
     return this.formGroup.valid;
   }
 
+  public navigateToPasswordReset(): void {
+    this.router.navigate(['/auth', 'tilbakestill-passord'], {
+      queryParams: { email: this.formGroup.controls.email.value },
+    });
+  }
+
   submit(event: Event) {
     this.error = undefined;
     this.loading = true;

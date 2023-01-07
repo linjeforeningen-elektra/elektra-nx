@@ -23,6 +23,11 @@ class LogoutComponent {}
         loadChildren: async () =>
           (await import('@elektra-nx/web/auth/feature/confirm-email')).WebAuthConfirmEmailModule,
       },
+      {
+        path: 'tilbakestill-passord',
+        loadChildren: async () =>
+          (await import('@elektra-nx/web/auth/feature/password-reset')).WebAuthFeaturePasswordResetModule,
+      },
       // {
       //   path: 'logout',
       //   canActivate: [LogoutGuard],
