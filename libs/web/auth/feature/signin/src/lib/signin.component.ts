@@ -41,7 +41,18 @@ export class SigninComponent implements OnDestroy {
     return this.formGroup.valid;
   }
 
+  get resetValid() {
+    return this.formGroup.controls.email.value != undefined;
+  }
+
   public navigateToPasswordReset(): void {
+    const email = this.formGroup.controls.email;
+
+    if (!email.value) {
+      this.error = 'Du må skrive inn din e-post først.';
+      return;
+    }
+
     this.router.navigate(['/auth', 'tilbakestill-passord'], {
       queryParams: { email: this.formGroup.controls.email.value },
     });

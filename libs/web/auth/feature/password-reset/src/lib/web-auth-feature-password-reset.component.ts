@@ -102,7 +102,7 @@ export class WebAuthFeaturePasswordResetComponent implements OnDestroy {
     const password = <string>this.formGroup.controls.password.value;
     const hash = <string>this.hash;
 
-    this.apollo
+    return this.apollo
       .mutate({
         mutation: ResetPasswordByHashMutation,
         variables: {
@@ -121,7 +121,7 @@ export class WebAuthFeaturePasswordResetComponent implements OnDestroy {
         }),
       )
       .subscribe(({ data }) => {
-        if (!data?.email) return;
+        if (!data) return;
         this.state = 'done-reset';
       });
   }
