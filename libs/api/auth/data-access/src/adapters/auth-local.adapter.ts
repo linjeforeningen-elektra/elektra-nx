@@ -32,4 +32,12 @@ export class AuthLocalAclAdapter {
   public async createEmailConfirmation(auth: AuthUser, email: string) {
     return this.authLocal.createOrReplaceEmailConfirmation(email);
   }
+
+  public async createPasswordReset(auth: AuthUser, email: string) {
+    return this.authLocal.createPasswordReset(email);
+  }
+
+  public async resetPasswordByHash(auth: AuthUser, hash: string, password: string) {
+    return this.authLocal.resetPasswordByHash(hash, password);
+  }
 }

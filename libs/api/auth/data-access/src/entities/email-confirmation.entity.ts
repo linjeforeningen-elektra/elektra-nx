@@ -19,7 +19,7 @@ export class EmailConfirmation {
   @Column()
   authLocalId: string;
 
-  @OneToOne(() => AuthLocal)
+  @OneToOne(() => AuthLocal, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'authLocalId' })
   authLocal: AuthLocal;
 }

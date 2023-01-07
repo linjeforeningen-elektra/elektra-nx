@@ -8,7 +8,7 @@ import { ApiShellConfigModule, ApiShellConfigService } from '@elektra-nx/api/she
 import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handlebars.adapter';
 import { join } from 'path';
 
-const substr = (v: string) => v.substring(0, 48);
+const substr = (v: string) => v.substring(0, 64);
 
 @Module({
   imports: [

@@ -33,4 +33,18 @@ export class AuthLocalResolver {
   ) {
     return this.authLocal.createEmailConfirmation(auth, email);
   }
+
+  @Mutation(() => String)
+  public async createPasswordReset(@GQLAuth() auth: AuthUser, @Args('email', { type: () => String }) email: string) {
+    return this.authLocal.createPasswordReset(auth, email);
+  }
+
+  @Mutation(() => String)
+  public async resetPasswordByHash(
+    @GQLAuth() auth: AuthUser,
+    @Args('hash', { type: () => String }) hash: string,
+    @Args('password', { type: () => String }) password: string,
+  ) {
+    return this.authLocal.resetPasswordByHash(auth, hash, password);
+  }
 }

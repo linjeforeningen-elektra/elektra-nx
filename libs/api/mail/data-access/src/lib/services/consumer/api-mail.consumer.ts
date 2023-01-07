@@ -29,7 +29,7 @@ export class ApiMailConsumer implements OnModuleInit {
         break;
       case MailJobType.PASSWORD_RESET:
         {
-          console.log('PASSWORD RESET');
+          job$ = () => this.sendPasswordReset(body.data.email, body.data.hash);
         }
         break;
       default:
@@ -37,6 +37,21 @@ export class ApiMailConsumer implements OnModuleInit {
     }
 
     return lastValueFrom(timer(5000).pipe(switchMap(() => job$().pipe(first()))));
+  }
+
+  private sendPasswordReset(to: string, hash: string) {
+    const link = this.shellConf.HOST + '/auth/tilbakestill-passord/' + hash;
+
+    return from(
+      this.mail.sendMail({
+        to,
+        subject: 'Tilbakestilling av passord',
+        template: 'reset-password',
+        context: {
+          link,
+        },
+      }),
+    );
   }
 
   private sendEmailConfirmation(to: string, code: string, hash: string) {

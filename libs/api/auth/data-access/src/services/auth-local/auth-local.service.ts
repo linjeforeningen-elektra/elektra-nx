@@ -17,11 +17,12 @@ import * as bcrypt from 'bcryptjs';
 import { AuthLocal } from '../../entities/auth-local.entity';
 import { User } from '@elektra-nx/api/user/models';
 import { AuthConfigService } from '@elektra-nx/api/auth/config';
-import { EmailConfirmation } from '../../entities';
+import { EmailConfirmation, PasswordReset } from '../../entities';
 import * as moment from 'moment';
 import { ElektraErrors } from '@elektra-nx/shared/util/types';
 import { ApiMailProducer, MailJobType } from '@elektra-nx/api/mail/data-access';
 import { JwtService } from '@nestjs/jwt';
+import * as crypto from 'crypto';
 
 @Injectable()
 export class AuthLocalService {
@@ -29,11 +30,66 @@ export class AuthLocalService {
     @InjectRepository(AuthLocal) private authLocal: Repository<AuthLocal>,
     @InjectRepository(User) private user: Repository<User>,
     @InjectRepository(EmailConfirmation) private emailConfirmation: Repository<EmailConfirmation>,
+    @InjectRepository(PasswordReset) private passwordReset: Repository<PasswordReset>,
     private em: EntityManager,
     private conf: AuthConfigService,
     private mail: ApiMailProducer,
     private jwt: JwtService,
   ) {}
+
+  public async resetPasswordByHash(hash: string, password: string): Promise<string> {
+    const passwordReset = await this.passwordReset.findOneBy({ hash });
+
+    if (!passwordReset) {
+      throw new NotFoundException(`Password reset not found`);
+    }
+
+    if (moment().utc(false) > moment(passwordReset.expires).utc(false)) {
+      throw new GoneException(`Password reset expired.`);
+    }
+
+    const authLocal = await this.authLocal.findOneBy({ id: passwordReset.authLocalId });
+
+    if (!authLocal) {
+      throw new NotFoundException(`Auth local not found`);
+    }
+
+    const _salt = await bcrypt.genSalt(this.conf.BCRYPT_ROUNDS);
+    const _hash = await bcrypt.hash(password, _salt);
+
+    await this.em.transaction(async (em) => {
+      await em.save(AuthLocal, { ...authLocal, salt: _salt, hash: _hash });
+      await em.remove(PasswordReset, passwordReset);
+    });
+
+    return authLocal.email;
+  }
+
+  public async createPasswordReset(email: string): Promise<string> {
+    // check if auth local exists
+    const authLocal = await this.authLocal.findOneBy({ email });
+
+    if (!authLocal) {
+      throw new NotFoundException(`Email not found.`);
+    }
+
+    // check if password reset exists
+    const passwordReset: PasswordReset = await this.passwordReset.findOneBy({ authLocalId: authLocal.id });
+
+    if (passwordReset) {
+      await this.passwordReset.remove(passwordReset);
+    }
+
+    const hash = crypto.randomBytes(20).toString('hex');
+    const expires = moment().utc(false).add(15, 'm');
+
+    await this.em.transaction(async (em) => {
+      await this.mail.addJobb({ type: MailJobType.PASSWORD_RESET, data: { hash, email } });
+      await em.save(PasswordReset, { hash, expires, authLocal });
+    });
+
+    return email;
+  }
 
   // add timing attack guard
   public async loginWithAuthLocal(dto: LoginWithAuthLocalDto): Promise<{ user: User; email: string }> {

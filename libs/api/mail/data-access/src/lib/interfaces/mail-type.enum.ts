@@ -15,7 +15,8 @@ export type EmailConfirmationJob = {
 export type PasswordResetJob = {
   type: MailJobType.PASSWORD_RESET;
   data: {
-    password: string;
+    email: string;
+    hash: string;
   };
 };
 
