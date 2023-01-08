@@ -9,15 +9,17 @@ import { MembershipAclAdapter } from '@elektra-nx/api/membership/data-access';
 import { User } from '@elektra-nx/api/user/models';
 import { Card } from '@elektra-nx/api/card/models';
 import { Membership } from '@elektra-nx/api/membership/models';
+import { FindUsersFilterDto } from '@elektra-nx/api/user/utils';
+import { AuthLocal } from '@elektra-nx/api/auth/data-access';
 
 @Resolver(User)
 @UseGuards(GraphqlGuard)
 export class UserResolver {
   constructor(private user: UserAclAdapter, private membership: MembershipAclAdapter, private card: CardAclAdapter) {}
 
-  @Query(() => [User], { nullable: true, name: 'user' })
-  public findUsers(@GQLAuth() auth: AuthUser) {
-    return this.user.find(auth);
+  @Query(() => [User], { nullable: true, name: 'users' })
+  public findUsers(@GQLAuth() auth: AuthUser, @Args('filter', { nullable: true }) filter: FindUsersFilterDto = {}) {
+    return this.user.find(auth, filter);
   }
 
   @Query(() => User, { name: 'user' })
@@ -48,4 +50,7 @@ export class UserResolver {
   public findCardFromUserRelation(@GQLAuth() auth: AuthUser, @Parent() parent: User) {
     return this.card.findFromUserRelation(auth, parent, false);
   }
+
+  @ResolveField(() => AuthLocal, { nullable: true, name: 'auth_local' })
+  public findAuthLocalFromUserRelation(@GQLAuth() auth: AuthUser) {}
 }

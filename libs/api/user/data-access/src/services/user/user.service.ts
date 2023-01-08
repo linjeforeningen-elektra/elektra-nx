@@ -3,13 +3,15 @@ import { UpdateUserDto } from '@elektra-nx/api/shared/dto';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { EntityManager, Repository } from 'typeorm';
+import { FindUsersFilterDto } from '@elektra-nx/api/user/utils';
+import { orderByQuery, paginateQuery } from '@elektra-nx/api/database/utils';
 
 @Injectable()
 export class UserService {
   constructor(private em: EntityManager, @InjectRepository(User) private user: Repository<User>) {}
 
-  public async find(filter: Record<string, unknown>): Promise<User[]> {
-    const { slug, name } = filter;
+  public async find(filter: FindUsersFilterDto): Promise<User[]> {
+    const { slug, name, roles, pagination, orderBy } = filter;
 
     const qb = this.user.createQueryBuilder('u');
 
@@ -20,6 +22,18 @@ export class UserService {
 
     if (name) {
       qb.andWhere('LOWER(u.name) like :name', { name: `%${name}%` });
+    }
+
+    if (roles) {
+      qb.andWhere('u.roles @> :roles', { roles });
+    }
+
+    if (pagination) {
+      paginateQuery(qb, pagination);
+    }
+
+    if (orderBy) {
+      orderByQuery(qb, orderBy);
     }
 
     return qb.getMany();

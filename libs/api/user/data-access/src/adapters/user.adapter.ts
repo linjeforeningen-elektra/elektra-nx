@@ -4,16 +4,17 @@ import { AuthUser } from '@elektra-nx/api/auth/utils';
 import { UserService } from '../services';
 import { User } from '@elektra-nx/api/user/models';
 import { AccessResource } from '@elektra-nx/shared/models';
+import { FindUsersFilterDto } from '@elektra-nx/api/user/utils';
 
 @Injectable()
 export class UserAclAdapter {
   constructor(private user: UserService) {}
 
-  public async find(auth: AuthUser): Promise<User[]> {
+  public async find(auth: AuthUser, filter: FindUsersFilterDto): Promise<User[]> {
     const permission = auth.read(null, AccessResource.USER);
     if (!permission.granted) throw new ForbiddenException();
 
-    const result = await this.user.find({});
+    const result = await this.user.find(filter);
 
     return permission.filter(result);
   }

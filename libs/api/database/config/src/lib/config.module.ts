@@ -9,7 +9,7 @@ import * as Joi from 'joi';
     ConfigModule.forRoot({
       load: [configuration],
       validationSchema: Joi.object({
-        DATABASE_HOST: Joi.string().required(),
+        DATABASE_HOST: Joi.string().default('postgres'),
         DATABASE_PORT: Joi.number().required(),
         DATABASE_USERNAME: Joi.string().required(),
         DATABASE_PASSWORD: Joi.string().required(),
