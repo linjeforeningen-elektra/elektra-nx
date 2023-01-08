@@ -19,6 +19,7 @@ export class User extends CoreEntity implements UserModel {
   @Column({ type: 'enum', enum: AccessRole, array: true, enumName: 'AccessRole', default: [AccessRole.USER] })
   roles: AccessRole[];
 
+  @Field(() => Date)
   @Column({ name: 'last_signed_in', type: 'timestamp with time zone', default: 'NOW()' })
   lastSignedIn: Date;
 }

@@ -3,7 +3,7 @@ import { UpdateUserDto } from '@elektra-nx/api/shared/dto';
 import { AuthUser } from '@elektra-nx/api/auth/utils';
 import { UserService } from '../services';
 import { User } from '@elektra-nx/api/user/models';
-import { AccessResource } from '@elektra-nx/shared/models';
+import { AccessResource, AccessRole } from '@elektra-nx/shared/models';
 import { FindUsersFilterDto } from '@elektra-nx/api/user/utils';
 
 @Injectable()
@@ -33,6 +33,11 @@ export class UserAclAdapter {
     if (!permission.granted) throw new ForbiddenException();
 
     const filteredDto: UpdateUserDto = permission.filter(dto);
+
+    if (filteredDto.roles?.includes(AccessRole.SUPER_ADMIN)) {
+      throw new ForbiddenException(`There can be only one SUPER_ADMIN.`);
+    }
+
     const result = await this.user.updateOne(user, filteredDto);
 
     return { ...user, ...result };

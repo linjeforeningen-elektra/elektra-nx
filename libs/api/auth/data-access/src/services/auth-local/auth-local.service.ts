@@ -113,6 +113,8 @@ export class AuthLocalService {
     const user = await this.user.findOneBy({ id: found.userId });
     if (!user) throw new InternalServerErrorException('AuthLocal has no user.');
 
+    await this.user.save({ ...user, lastSignedIn: moment().utc(false) });
+
     return { user, email };
   }
 
