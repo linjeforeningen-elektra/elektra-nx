@@ -37,6 +37,10 @@ export class AuthLocalService {
     private jwt: JwtService,
   ) {}
 
+  public async findAuthLocalFromUserRelation(userId: string) {
+    return this.authLocal.findOneBy({ userId });
+  }
+
   public async resetPasswordByHash(hash: string, password: string): Promise<string> {
     const passwordReset = await this.passwordReset.findOneBy({ hash });
 

@@ -10,12 +10,12 @@ import { User } from '@elektra-nx/api/user/models';
 import { Card } from '@elektra-nx/api/card/models';
 import { Membership } from '@elektra-nx/api/membership/models';
 import { FindUsersFilterDto } from '@elektra-nx/api/user/utils';
-import { AuthLocal } from '@elektra-nx/api/auth/data-access';
+import { AuthLocal, AuthLocalAclAdapter } from '@elektra-nx/api/auth/data-access';
 
 @Resolver(User)
 @UseGuards(GraphqlGuard)
 export class UserResolver {
-  constructor(private user: UserAclAdapter, private membership: MembershipAclAdapter, private card: CardAclAdapter) {}
+  constructor(private user: UserAclAdapter, private membership: MembershipAclAdapter, private card: CardAclAdapter, private auth: AuthLocalAclAdapter) {}
 
   @Query(() => [User], { nullable: true, name: 'users' })
   public findUsers(@GQLAuth() auth: AuthUser, @Args('filter', { nullable: true }) filter: FindUsersFilterDto = {}) {
@@ -52,5 +52,7 @@ export class UserResolver {
   }
 
   @ResolveField(() => AuthLocal, { nullable: true, name: 'auth_local' })
-  public findAuthLocalFromUserRelation(@GQLAuth() auth: AuthUser) {}
+  public findAuthLocalFromUserRelation(@GQLAuth() auth: AuthUser) {
+    return this.auth.
+  }
 }

@@ -1,6 +1,7 @@
 import { AuthUser } from '@elektra-nx/api/auth/utils';
 import { MembershipService } from '@elektra-nx/api/membership/data-access';
 import { ConfirmEmailDto, LoginWithAuthLocalDto, RegisterWithAuthLocalDto } from '@elektra-nx/api/shared/dto';
+import { User } from '@elektra-nx/api/user/models';
 import { AccessRole } from '@elektra-nx/shared/models';
 import { Injectable } from '@nestjs/common';
 import { AuthLocalService, AuthService } from '../services';
@@ -37,5 +38,11 @@ export class AuthLocalAclAdapter {
 
   public async resetPasswordByHash(auth: AuthUser, hash: string, password: string) {
     return this.authLocal.resetPasswordByHash(hash, password);
+  }
+
+  public async findAuthLocalFromUserRelation(auth: AuthUser, user: User) {
+    const authLocal = await this.authLocal.findAuthLocalFromUserRelation(user.id);
+
+    // const permission = auth.read(authLocal, AccessResource.USER);
   }
 }
