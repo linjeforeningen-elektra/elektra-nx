@@ -45,7 +45,7 @@ services:
     container_name: redis
     image: redis:7
     restart: always
-    ports:
+    expose:
       - ${REDIS_PORT}:${REDIS_PORT}
     command: redis-server --save 20 1 --loglevel warning
     volumes:
