@@ -1,5 +1,6 @@
 export enum AccessResource {
   USER = 'USER',
+  AUTH = 'AUTH',
   MEMBERSHIP = 'MEMBERSHIP',
   CARD = 'CARD',
   CARD_ACCESSS = 'CARD_ACCESS',

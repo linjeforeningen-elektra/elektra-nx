@@ -2,8 +2,8 @@ import { AuthUser } from '@elektra-nx/api/auth/utils';
 import { MembershipService } from '@elektra-nx/api/membership/data-access';
 import { ConfirmEmailDto, LoginWithAuthLocalDto, RegisterWithAuthLocalDto } from '@elektra-nx/api/shared/dto';
 import { User } from '@elektra-nx/api/user/models';
-import { AccessRole } from '@elektra-nx/shared/models';
-import { Injectable } from '@nestjs/common';
+import { AccessResource, AccessRole } from '@elektra-nx/shared/models';
+import { ForbiddenException, Injectable } from '@nestjs/common';
 import { AuthLocalService, AuthService } from '../services';
 
 @Injectable()
@@ -43,6 +43,11 @@ export class AuthLocalAclAdapter {
   public async findAuthLocalFromUserRelation(auth: AuthUser, user: User) {
     const authLocal = await this.authLocal.findAuthLocalFromUserRelation(user.id);
 
-    // const permission = auth.read(authLocal, AccessResource.USER);
+    const permission = auth.read(authLocal, AccessResource.AUTH);
+    if (!permission.granted) {
+      throw new ForbiddenException();
+    }
+
+    return authLocal ? permission.filter(authLocal) : undefined;
   }
 }
