@@ -112,10 +112,11 @@ export class CardAccessService {
         : CardAccessStatus.EXPIRED_WAITING;
     }
     //ACTIVE
-    if (found.some((a) => a.sent == true && this.NOW < a.expiration)) {
-      return found.some(
-        (a) => a.sent == true && this.NOW > new Date(a.expiration.getTime() - ONE_MONTH) && this.NOW < a.expiration,
-      )
+    if (found.filter((e) => e.sent && this.NOW < e.expiration).length > 0) {
+      console.log(found.filter((e) => e.sent && this.NOW < e.expiration));
+      return found
+        .filter((e) => e.sent && this.NOW < e.expiration)
+        .every((e) => this.NOW > new Date(e.expiration.getTime() - ONE_MONTH))
         ? CardAccessStatus.RENEWABLE
         : CardAccessStatus.ACTIVE;
     }
