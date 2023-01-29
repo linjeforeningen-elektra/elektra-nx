@@ -20,7 +20,7 @@ export class Membership extends CoreEntity implements MembershipModel {
   postal_code: string;
 
   @Column({ nullable: true })
-  @Field(() => String)
+  @Field(() => String, { nullable: true })
   gender?: string;
 
   @Column({ nullable: true })
