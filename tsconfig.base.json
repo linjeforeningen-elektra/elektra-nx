@@ -102,6 +102,7 @@
       "@elektra-nx/web/layout/feature/navdrawer": ["libs/web/layout/feature/navdrawer/src/index.ts"],
       "@elektra-nx/web/layout/feature/navigation-list": ["libs/web/layout/feature/navigation-list/src/index.ts"],
       "@elektra-nx/web/layout/feature/shell": ["libs/web/layout/feature/shell/src/index.ts"],
+      "@elektra-nx/web/layout/ui/dialog": ["libs/web/layout/ui/dialog/src/index.ts"],
       "@elektra-nx/web/layout/ui/fade-text": ["libs/web/layout/ui/fade-text/src/index.ts"],
       "@elektra-nx/web/layout/ui/footer": ["libs/web/layout/ui/footer/src/index.ts"],
       "@elektra-nx/web/layout/ui/spin-button": ["libs/web/layout/ui/spin-button/src/index.ts"],
@@ -113,13 +114,6 @@
       "@elektra-nx/web/shared/ui/spinner": ["libs/web/shared/ui/spinner/src/index.ts"],
       "@elektra-nx/web/shared/utils": ["libs/web/shared/utils/src/index.ts"],
       "@elektra-nx/web/shell/feature": ["libs/web/shell/feature/src/index.ts"],
-      "@elektra-nx/web/shell/ui/dialog": ["libs/web/shell/ui/dialog/src/index.ts"],
-      "@elektra-nx/web/shell/ui/fade-text": ["libs/web/shell/ui/fade-text/src/index.ts"],
-      "@elektra-nx/web/shell/ui/layout": ["libs/web/shell/ui/layout/src/index.ts"],
-      "@elektra-nx/web/shell/ui/navbar": ["libs/web/shell/ui/navbar/src/index.ts"],
-      "@elektra-nx/web/shell/ui/navdrawer": ["libs/web/shell/ui/navdrawer/src/index.ts"],
-      "@elektra-nx/web/shell/ui/navdrawer-links": ["libs/web/shell/ui/navdrawer-links/src/index.ts"],
-      "@elektra-nx/web/shell/ui/spin-button": ["libs/web/shell/ui/spin-button/src/index.ts"],
       "@elektra-nx/web/shell/utils": ["libs/web/shell/utils/src/index.ts"]
     }
   },

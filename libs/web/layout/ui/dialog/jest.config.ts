@@ -1,6 +1,6 @@
 /* eslint-disable */
 export default {
-  displayName: 'web-shell-ui-navdrawer-links',
+  displayName: 'web-layout-ui-dialog',
   preset: '../../../../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
   globals: {
@@ -9,7 +9,7 @@ export default {
       stringifyContentPathRegex: '\\.(html|svg)$',
     },
   },
-  coverageDirectory: '../../../../../coverage/libs/web/shell/ui/navdrawer-links',
+  coverageDirectory: '../../../../../coverage/libs/web/layout/ui/dialog',
   transform: {
     '^.+\\.(ts|mjs|js|html)$': 'jest-preset-angular',
   },

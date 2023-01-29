@@ -1,7 +1,7 @@
 import { Overlay, OverlayRef } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
 import { Injectable, Injector } from '@angular/core';
-import { DialogComponent } from '@elektra-nx/web/shell/ui/dialog';
+import { DialogComponent } from '@elektra-nx/web/layout/ui/dialog';
 import { Subscription } from 'rxjs';
 import { DialogDataToken } from '../../tokens';
 
