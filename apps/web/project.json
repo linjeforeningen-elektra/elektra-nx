@@ -184,7 +184,7 @@
       "options": {
         "commands": [
           "source-map-explorer dist/apps/web/browser/**/*.js --html dist/web/sourcemap.html",
-          "firefox dist/web/sourcemap.html"
+          "firefox dist/apps/web/sourcemap.html"
         ]
       }
     },
