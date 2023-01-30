@@ -4,7 +4,7 @@ import { JobsDetailComponent } from './jobs-detail.component';
 import { RouterModule } from '@angular/router';
 import { JobsItemModule } from '@elektra-nx/web/jobs/ui/job-item';
 import { MarkdownModule } from 'ngx-markdown';
-import { MatButtonModule } from '@angular/material/button';
+import { MatLegacyButtonModule as MatButtonModule } from '@angular/material/legacy-button';
 
 @NgModule({
   imports: [
