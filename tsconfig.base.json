@@ -113,6 +113,7 @@
       "@elektra-nx/web/shared/ui/expandable-section": ["libs/web/shared/ui/expandable-section/src/index.ts"],
       "@elektra-nx/web/shared/ui/spinner": ["libs/web/shared/ui/spinner/src/index.ts"],
       "@elektra-nx/web/shared/utils": ["libs/web/shared/utils/src/index.ts"],
+      "@elektra-nx/web/shell/data-access": ["libs/web/shell/data-access/src/index.ts"],
       "@elektra-nx/web/shell/feature": ["libs/web/shell/feature/src/index.ts"],
       "@elektra-nx/web/shell/utils": ["libs/web/shell/utils/src/index.ts"]
     }

@@ -5,6 +5,9 @@ import {
   WebNavbarService,
   WebAuthService,
   WebSnackbarService,
+  WebIsAdminGuard,
+  WebIsSuperAdminGuard,
+  IsLoggedInGuard,
 } from '@elektra-nx/web/shared/data-access';
 import { RouterModule } from '@angular/router';
 
@@ -21,6 +24,7 @@ import { ApolloLink, InMemoryCache } from '@apollo/client/core';
 import { setContext } from '@apollo/client/link/context';
 import { lastValueFrom, take } from 'rxjs';
 import { WebLayoutShellModule } from '@elektra-nx/web/layout/feature/shell';
+import { WebRoutesService } from '@elektra-nx/web/shell/data-access';
 
 @NgModule({
   imports: [
@@ -37,12 +41,17 @@ import { WebLayoutShellModule } from '@elektra-nx/web/layout/feature/shell';
     WebAuthService,
     WebNavbarService,
     WebSnackbarService,
+    WebRoutesService,
+    WebIsAdminGuard,
+    WebIsSuperAdminGuard,
+    IsLoggedInGuard,
     {
       provide: APP_INITIALIZER,
-      useFactory: (auth: WebAuthService) => () => {
+      useFactory: (auth: WebAuthService, routes: WebRoutesService) => () => {
         auth.init();
+        routes.attachRoutes();
       },
-      deps: [WebAuthService],
+      deps: [WebAuthService, WebRoutesService],
       multi: true,
     },
     {
