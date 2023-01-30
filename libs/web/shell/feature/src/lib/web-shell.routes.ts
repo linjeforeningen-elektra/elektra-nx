@@ -19,10 +19,10 @@ export const WEB_SHELL_ROUTES: Route[] = [
         path: WebRoutes.ACCOUNT,
         loadChildren: async () => (await import('@elektra-nx/web/account/feature/shell')).AccountShellModule,
       },
-      // {
-      //   path: 'admin',
-      //   loadChildren: async () => (await import('@elektra-nx/web/admin/feature/shell')).AdminShellModule,
-      // },
+      {
+        path: 'admin',
+        loadChildren: async () => (await import('@elektra-nx/web/admin/feature/shell')).AdminShellModule,
+      },
       {
         path: WebRoutes.CONTACT,
         loadChildren: async () => (await import('@elektra-nx/web/contact/feature')).ContactModule,

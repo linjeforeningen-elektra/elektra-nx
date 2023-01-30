@@ -1,6 +1,5 @@
 import { BaseFilter } from '@elektra-nx/api/database/utils';
-import { User } from '@elektra-nx/api/user/models';
-import { AccessRole } from '@elektra-nx/shared/models';
+import { AccessRole, FindUserFilterModel, UserModel } from '@elektra-nx/shared/models';
 import { Field, InputType } from '@nestjs/graphql';
 import { Transform } from 'class-transformer';
 import { IsOptional, IsString } from 'class-validator';
@@ -8,7 +7,7 @@ import { IsOptional, IsString } from 'class-validator';
 const nullable = true;
 
 @InputType()
-export class FindUsersFilterDto extends BaseFilter<User> {
+export class FindUsersFilterDto extends BaseFilter<UserModel> implements FindUserFilterModel {
   @IsOptional()
   @IsString()
   @Transform((p) => String(p.value).toLowerCase())

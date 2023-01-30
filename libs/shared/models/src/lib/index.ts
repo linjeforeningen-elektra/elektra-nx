@@ -1,6 +1,7 @@
 export * from './access-resource.enum';
 export * from './access-role.enum';
 export * from './auth-local.model';
+export * from './base-filter.model';
 export * from './bearer-token.interface';
 export * from './block-revision.model';
 export * from './block.model';
@@ -10,4 +11,5 @@ export * from './card.model';
 export * from './core.model';
 export * from './job.model';
 export * from './membership.model';
+export * from './password-reset.model';
 export * from './user.model';

@@ -42,7 +42,7 @@ export class WebRoutesService {
           admin
             ? [
                 { path: '/admin', icon: 'dashboard', name: 'Admin', group: 'Administrator' },
-                { path: '/admin/users', icon: 'people', name: 'Brukere', group: 'Administrator' },
+                { path: '/admin/brukere', icon: 'people', name: 'Brukere', group: 'Administrator' },
               ]
             : [],
         ),
