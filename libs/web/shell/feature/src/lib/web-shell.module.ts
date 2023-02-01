@@ -25,6 +25,7 @@ import { setContext } from '@apollo/client/link/context';
 import { lastValueFrom, take } from 'rxjs';
 import { WebLayoutShellModule } from '@elektra-nx/web/layout/feature/shell';
 import { WebRoutesService } from '@elektra-nx/web/shell/data-access';
+import { UserModel } from '@elektra-nx/shared/models';
 
 @NgModule({
   imports: [
@@ -57,7 +58,7 @@ import { WebRoutesService } from '@elektra-nx/web/shell/data-access';
     {
       provide: APOLLO_OPTIONS,
       useFactory: (httpLink: HttpLink, authService: WebAuthService) => {
-        const auth = setContext(async (operation, context) => {
+        const auth = setContext(async () => {
           const token = await lastValueFrom(authService.token$.pipe(take(1)));
 
           if (!token) {
@@ -72,7 +73,21 @@ import { WebRoutesService } from '@elektra-nx/web/shell/data-access';
         });
 
         const link = ApolloLink.from([auth, httpLink.create({ uri: '/graphql' })]);
-        const cache = new InMemoryCache();
+        const cache = new InMemoryCache({
+          typePolicies: {
+            Query: {
+              fields: {
+                users: {
+                  // ...offsetLimitPagination(['pagination']),
+                  keyArgs: ['pagination'],
+                  merge: (existing = [] as UserModel[], incoming = [] as UserModel[]) => {
+                    return [...existing, ...incoming];
+                  },
+                },
+              },
+            },
+          },
+        });
 
         return {
           link,

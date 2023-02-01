@@ -2,29 +2,29 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { WebAdminFeatureUserListComponent } from './web-admin-feature-user-list.component';
 import { RouterModule } from '@angular/router';
-import { MatLegacyInputModule as MatInputModule } from '@angular/material/legacy-input';
-import { MatLegacyAutocompleteModule as MatAutocompleteModule } from '@angular/material/legacy-autocomplete';
-import { MatLegacyButtonModule as MatButtonModule } from '@angular/material/legacy-button';
-import { MatLegacyMenuModule as MatMenuModule } from '@angular/material/legacy-menu';
 import { MatIconModule } from '@angular/material/icon';
-import { MatLegacyChipsModule as MatChipsModule } from '@angular/material/legacy-chips';
+import { MatButtonModule } from '@angular/material/button';
+import { MatMenuModule } from '@angular/material/menu';
 import { WebAdminUiUserListItemModule } from '@elektra-nx/web/admin/ui/user-list-item';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
+import { WebSharedUiIsVisibleModule } from '@elektra-nx/web/shared/ui/is-visible';
+import { MatChipsModule } from '@angular/material/chips';
 
 @NgModule({
   imports: [
     CommonModule,
     RouterModule.forChild([{ path: '', component: WebAdminFeatureUserListComponent }]),
     MatInputModule,
-    MatAutocompleteModule,
+    MatIconModule,
+    MatMenuModule,
     MatButtonModule,
     MatChipsModule,
-    MatMenuModule,
-    MatIconModule,
     WebAdminUiUserListItemModule,
     ScrollingModule,
     ReactiveFormsModule,
+    WebSharedUiIsVisibleModule,
   ],
   declarations: [WebAdminFeatureUserListComponent],
 })

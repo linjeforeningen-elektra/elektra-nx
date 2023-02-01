@@ -92,10 +92,12 @@
     "web-shared-assets": "libs/web/shared/assets",
     "web-shared-data-access": "libs/web/shared/data-access",
     "web-shared-ui-expandable-section": "libs/web/shared/ui/expandable-section",
+    "web-shared-ui-is-visible": "libs/web/shared/ui/is-visible",
     "web-shared-ui-spinner": "libs/web/shared/ui/spinner",
     "web-shared-utils": "libs/web/shared/utils",
     "web-shell-data-access": "libs/web/shell/data-access",
     "web-shell-feature": "libs/web/shell/feature",
     "web-shell-utils": "libs/web/shell/utils"
-  }
+  },
+  "defaultProject": "web"
 }

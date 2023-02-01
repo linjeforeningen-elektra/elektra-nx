@@ -3,22 +3,32 @@
     <form [formGroup]="nameFormGroup">
       <mat-form-field>
         <mat-label>Navn</mat-label>
-        <input #n="matInput" type="text" matInput formControlName="name">
+        <input #n="matInput" type="text" matInput formControlName="name" autocomplete="off">
+        <button mat-icon-button matSuffix>
+          <mat-icon>filter_list</mat-icon>
+        </button>
         <button *ngIf="n.value" mat-icon-button matSuffix (click)="nameFormGroup.reset()">
           <mat-icon>clear</mat-icon>
         </button>
       </mat-form-field>
-      <!-- <mat-chip-row></mat-chip-row> -->
     </form>
   </div>
 
-  <ng-container *ngIf="(usersQuery$ | async) as q">
-    <p class="count">Viser: {{ q.data.users.length }}</p>
 
+    <p class="count">Viser: {{ users.length }}</p>
     <ul class="user-list">
-      <li class="user" *ngFor="let user of q.data.users">
+      <li class="user" *ngFor="let user of users">
         <elektra-nx-web-admin-user-list-item [user]="user"></elektra-nx-web-admin-user-list-item>
       </li>
     </ul>
-  </ng-container>
+    <div class="more">
+      <button mat-button (click)="loadMore()" *ngIf="more; else nomore">
+        <mat-icon>refresh</mat-icon>
+        Hent flere
+      </button>
+    </div>
 </div>
+
+<ng-template #nomore>
+  <b>No more results.</b>
+</ng-template>

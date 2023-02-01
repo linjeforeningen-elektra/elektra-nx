@@ -4,7 +4,12 @@ export interface BaseFilterModel<T> {
     direction: 'ASC' | 'DESC';
   };
   pagination?: {
-    page: number;
-    page_size: number;
+    limit: number;
+    offset: number;
   };
+}
+
+export interface PaginationOptionsModel {
+  limit: number;
+  offset: number;
 }

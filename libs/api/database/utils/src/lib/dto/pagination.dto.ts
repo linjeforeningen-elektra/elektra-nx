@@ -6,10 +6,10 @@ import { IsInt, IsOptional } from 'class-validator';
 export class PaginationOptions {
   @Field(() => Int)
   @IsInt()
-  page: number;
+  offset: number;
   @Field(() => Int)
   @IsInt()
-  page_size: number;
+  limit: number;
 }
 
 @InputType({ isAbstract: true })

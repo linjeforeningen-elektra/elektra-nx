@@ -10,7 +10,20 @@
     display: flex;
     align-items: center;
     mat-form-field, form {
-      width: 100%;
+      // width: 100%;
+    }
+
+    // .chips {
+    //   font-size: 12px;
+    //   .mat-chip {
+    //     display: flex;
+    //     align-items: center;
+    //   }
+    // }
+    .filters {
+      display: flex;
+      justify-content: flex-end;
+      list-style: none;
     }
   }
 
@@ -29,6 +42,26 @@
     gap: 2px;
     li {
       list-style: none;
+      overflow: hidden;
+      width: 100%;
+    }
+  }
+
+  .more {
+    padding: 16px 0;
+    display: flex;
+    justify-content: center;
+  }
+
+  @media screen and (min-width: 700px) {
+    .user-list {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media screen and (min-width: 1200px) {
+    .user-list {
+      grid-template-columns: repeat(4, 1fr);
     }
   }
 }
