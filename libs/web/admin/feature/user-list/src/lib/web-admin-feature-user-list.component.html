@@ -18,7 +18,7 @@
     <p class="count">Viser: {{ users.length }}</p>
     <ul class="user-list">
       <li class="user" *ngFor="let user of users">
-        <elektra-nx-web-admin-user-list-item [user]="user"></elektra-nx-web-admin-user-list-item>
+        <elektra-nx-web-admin-user-list-item [routerLink]="user.id" [user]="user"></elektra-nx-web-admin-user-list-item>
       </li>
     </ul>
     <div class="more">

@@ -66,6 +66,7 @@
     "web-admin-data-access": "libs/web/admin/data-access",
     "web-admin-feature-dashboard": "libs/web/admin/feature/dashboard",
     "web-admin-feature-shell": "libs/web/admin/feature/shell",
+    "web-admin-feature-user-detail": "libs/web/admin/feature/user-detail",
     "web-admin-feature-user-list": "libs/web/admin/feature/user-list",
     "web-admin-ui-user-list-item": "libs/web/admin/ui/user-list-item",
     "web-auth-data-access": "libs/web/auth/data-access",

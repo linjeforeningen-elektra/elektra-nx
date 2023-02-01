@@ -29,7 +29,7 @@ export class UserResolver {
 
   @Query(() => User, { name: 'user' })
   public findOneUser(@GQLAuth() auth: AuthUser, @Args('userId', { type: () => String }) userId: string) {
-    return this.user.findOne(auth, userId);
+    return this.user.findOne(auth, userId, true);
   }
 
   @Query(() => User, { name: 'loggedInUser' })

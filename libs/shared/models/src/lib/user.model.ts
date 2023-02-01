@@ -12,6 +12,7 @@ export interface UserModel extends CoreModel {
   name: string;
   slug?: string;
   roles: string[];
+  lastSignedIn: Date;
 }
 
 export interface CreateUserModel {
