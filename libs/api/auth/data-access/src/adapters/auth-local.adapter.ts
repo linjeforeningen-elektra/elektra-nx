@@ -2,7 +2,7 @@ import { AuthUser } from '@elektra-nx/api/auth/utils';
 import { MembershipService } from '@elektra-nx/api/membership/data-access';
 import { ConfirmEmailDto, LoginWithAuthLocalDto, RegisterWithAuthLocalDto } from '@elektra-nx/api/shared/dto';
 import { User } from '@elektra-nx/api/user/models';
-import { AccessResource, AccessRole } from '@elektra-nx/shared/models';
+import { AccessResource } from '@elektra-nx/shared/models';
 import { ForbiddenException, Injectable } from '@nestjs/common';
 import { AuthLocalService, AuthService } from '../services';
 
@@ -12,7 +12,7 @@ export class AuthLocalAclAdapter {
 
   public async loginWithAuthLocal(auth: AuthUser, dto: LoginWithAuthLocalDto): Promise<{ access_token: string }> {
     const { user, email } = await this.authLocal.loginWithAuthLocal(dto);
-    const roles = [AccessRole.USER].concat(user.roles);
+    const roles = user.roles;
     return this.auth.login(user.id, email, roles);
   }
 
@@ -23,7 +23,7 @@ export class AuthLocalAclAdapter {
   public async confirmEmail(auth: AuthUser, dto: ConfirmEmailDto) {
     const { code, email } = dto;
     const { user } = await this.authLocal.confirmEmail(email, code);
-    const roles = [AccessRole.USER].concat(user.roles);
+    const roles = user.roles;
 
     return this.auth.login(user.id, email, roles);
   }

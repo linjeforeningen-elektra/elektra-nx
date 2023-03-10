@@ -3,7 +3,7 @@ import { AuthUser } from '@elektra-nx/api/auth/utils';
 import { UseGuards } from '@nestjs/common';
 import { Args, Mutation, Parent, Query, ResolveField, Resolver } from '@nestjs/graphql';
 import { UserAclAdapter } from '../adapters';
-import { UpdateUserDto } from '@elektra-nx/api/shared/dto';
+import { AddOneUserRoleDto, RemoveOneUserRoleDto, UpdateUserDto } from '@elektra-nx/api/shared/dto';
 import { CardAclAdapter } from '@elektra-nx/api/card/data-access';
 import { MembershipAclAdapter } from '@elektra-nx/api/membership/data-access';
 import { User } from '@elektra-nx/api/user/models';
@@ -44,6 +44,24 @@ export class UserResolver {
     @Args('body') body: UpdateUserDto,
   ) {
     return this.user.updateOne(auth, userId, body);
+  }
+
+  @Mutation(() => User)
+  public addOneUserRole(
+    @GQLAuth() auth: AuthUser,
+    @Args('userId', { type: () => String }) userId: string,
+    @Args('body') body: AddOneUserRoleDto,
+  ) {
+    return this.user.addOneRole(auth, userId, body);
+  }
+
+  @Mutation(() => User)
+  public removeOneUserRole(
+    @GQLAuth() auth: AuthUser,
+    @Args('userId', { type: () => String }) userId: string,
+    @Args('body') body: RemoveOneUserRoleDto,
+  ) {
+    return this.user.removeOneRole(auth, userId, body);
   }
 
   @ResolveField(() => Membership, { nullable: true, name: 'membership' })

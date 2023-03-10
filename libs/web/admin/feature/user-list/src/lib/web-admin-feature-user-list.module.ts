@@ -11,6 +11,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { WebSharedUiIsVisibleModule } from '@elektra-nx/web/shared/ui/is-visible';
 import { MatChipsModule } from '@angular/material/chips';
+import { MatSelectModule } from '@angular/material/select';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 @NgModule({
   imports: [
@@ -21,6 +23,8 @@ import { MatChipsModule } from '@angular/material/chips';
     MatMenuModule,
     MatButtonModule,
     MatChipsModule,
+    MatSelectModule,
+    MatSlideToggleModule,
     WebAdminUiUserListItemModule,
     ScrollingModule,
     ReactiveFormsModule,

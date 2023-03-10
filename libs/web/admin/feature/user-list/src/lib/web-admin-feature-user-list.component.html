@@ -4,13 +4,30 @@
       <mat-form-field>
         <mat-label>Navn</mat-label>
         <input #n="matInput" type="text" matInput formControlName="name" autocomplete="off">
-        <button mat-icon-button matSuffix>
+        <!-- <button mat-icon-button matSuffix>
           <mat-icon>filter_list</mat-icon>
-        </button>
+        </button> -->
         <button *ngIf="n.value" mat-icon-button matSuffix (click)="nameFormGroup.reset()">
           <mat-icon>clear</mat-icon>
         </button>
       </mat-form-field>
+      <!-- <button mat-button>
+        Filters
+        <mat-icon>filter_list</mat-icon>
+      </button> -->
+
+
+      <div class="filters">
+        <form [formGroup]="rolesFormGroup">
+          <mat-chip-listbox multiple="true" formControlName="roles">
+            <mat-chip-option *ngFor="let role of roles">{{ role }}</mat-chip-option>
+          </mat-chip-listbox>
+          <div class="invert">
+            <mat-slide-toggle formControlName="invert" color="primary">Inverter</mat-slide-toggle>
+          </div>
+        </form>
+      </div>
+
     </form>
   </div>
 

@@ -1,8 +1,8 @@
 import { Apollo } from 'apollo-angular';
-import { AfterViewInit, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { UserListQuery, UserListQueryResult } from '@elektra-nx/web/admin/data-access';
 import { FormBuilder, FormControl } from '@angular/forms';
-import { FindUserFilterModel, PaginationOptionsModel } from '@elektra-nx/shared/models';
+import { AccessRole, FindUserFilterModel, PaginationOptionsModel } from '@elektra-nx/shared/models';
 import { debounceTime, Subscription } from 'rxjs';
 import { isApolloError } from '@apollo/client/errors';
 import { BreakpointObserver } from '@angular/cdk/layout';
@@ -14,6 +14,7 @@ type Filter = Omit<FindUserFilterModel, 'pagination'> & { pagination: Pagination
   selector: 'elektra-nx-web-admin-feature-user-list',
   templateUrl: './web-admin-feature-user-list.component.html',
   styleUrls: ['./web-admin-feature-user-list.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class WebAdminFeatureUserListComponent implements OnInit, OnDestroy, AfterViewInit {
   constructor(
@@ -34,6 +35,8 @@ export class WebAdminFeatureUserListComponent implements OnInit, OnDestroy, Afte
     return 10;
   }
 
+  roles = Object.values(AccessRole).filter((e) => e !== AccessRole.ANONYMOUS);
+
   get sort_str(): string {
     return `${this.filter.orderBy?.prop}`;
   }
@@ -43,7 +46,12 @@ export class WebAdminFeatureUserListComponent implements OnInit, OnDestroy, Afte
   }
 
   nameFormGroup = this.fb.group({
-    name: new FormControl('', { nonNullable: true }),
+    name: new FormControl<string>('', { nonNullable: true }),
+  });
+
+  rolesFormGroup = this.fb.group({
+    roles: new FormControl<string[]>([], { nonNullable: true }),
+    invert: new FormControl<boolean>(false, { nonNullable: true }),
   });
 
   private filter: Filter = {
@@ -79,21 +87,46 @@ export class WebAdminFeatureUserListComponent implements OnInit, OnDestroy, Afte
       }
     }
 
-    this.cdr.markForCheck();
+    this.cdr.detectChanges();
   });
 
-  nameFormGroupSub = this.nameFormGroup.valueChanges.pipe(debounceTime(40)).subscribe(() => {
+  nameFormGroupSub = this.nameFormGroup.valueChanges.pipe(debounceTime(200)).subscribe(() => {
+    this.update();
+  });
+
+  rolesFormGroupSub = this.rolesFormGroup.valueChanges.subscribe(() => {
+    this.update();
+  });
+
+  public update(): void {
     const name = this.nameFormGroup.controls.name.value;
+    const roles = this.rolesFormGroup.controls.roles.value as AccessRole[];
+    const invert = this.rolesFormGroup.controls.invert.value;
+
+    this.filter.pagination.offset = 0;
 
     if (name != undefined) {
       this.filter.name = name;
-      this.usersQuery.refetch({
-        filter: this.filter,
-      });
     }
-  });
 
-  public async loadMore() {
+    if (roles != undefined) {
+      if (invert) {
+        delete this.filter.roles;
+        this.filter._roles = roles;
+      } else {
+        delete this.filter._roles;
+        this.filter.roles = roles;
+      }
+    }
+
+    this.usersQuery.refetch({
+      filter: this.filter,
+    });
+
+    this.cdr.detectChanges();
+  }
+
+  public loadMore() {
     const offset = this.users.length;
     this.filter.pagination.offset = offset;
 
@@ -101,8 +134,7 @@ export class WebAdminFeatureUserListComponent implements OnInit, OnDestroy, Afte
       variables: { filter: this.filter },
     });
 
-    // console.log('load');
-    // console.log(offset);
+    this.cdr.detectChanges();
   }
 
   ngOnInit(): void {}
@@ -112,5 +144,7 @@ export class WebAdminFeatureUserListComponent implements OnInit, OnDestroy, Afte
   ngOnDestroy(): void {
     this.layer.release();
     this.querySub.unsubscribe();
+    this.nameFormGroupSub.unsubscribe();
+    this.rolesFormGroupSub.unsubscribe();
   }
 }

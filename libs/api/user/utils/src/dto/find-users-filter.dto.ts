@@ -24,4 +24,9 @@ export class FindUsersFilterDto extends BaseFilter<UserModel> implements FindUse
   @IsString({ each: true })
   @Field(() => [String], { nullable })
   roles?: AccessRole[];
+
+  @IsOptional()
+  @IsString({ each: true })
+  @Field(() => [String], { nullable })
+  _roles?: AccessRole[];
 }
