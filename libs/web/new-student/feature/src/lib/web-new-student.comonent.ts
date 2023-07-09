@@ -18,12 +18,12 @@ export class WebNewStudentComponent implements OnDestroy {
       { name: 'description', content: _description },
       { name: 'og:description', content: _description },
       { name: 'og:image', content: '/assets/images/common/elektra_og.png' },
-      { name: 'og:url', content: 'https://elektra.io/kontakt' },
+      { name: 'og:url', content: 'https://elektra.io/ny-student' },
     ]);
   }
 
   private layer = this.navbar.registerNavbarLayer({
-    title: 'Kontakt',
+    title: 'Ny student',
   });
 
   ngOnDestroy(): void {
