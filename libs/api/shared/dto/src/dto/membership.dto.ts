@@ -95,9 +95,4 @@ export class UpdateMembershipDto implements UpdateMembershipModel {
   @IsEnum(Specialisation)
   @Field(() => String, { nullable: true })
   specialisation?: Specialisation;
-
-  @IsOptional()
-  @IsBoolean()
-  @Field(() => Boolean, { nullable: true })
-  confirmed?: boolean;
 }

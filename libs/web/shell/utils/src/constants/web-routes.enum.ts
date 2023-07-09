@@ -4,4 +4,5 @@ export enum WebRoutes {
   ACCOUNT = 'konto',
   CONTACT = 'kontakt',
   JOBS = 'stillingsannonser',
+  NEW_STUDENT = 'ny-student'
 }

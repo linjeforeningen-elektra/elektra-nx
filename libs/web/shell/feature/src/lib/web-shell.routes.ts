@@ -28,6 +28,10 @@ export const WEB_SHELL_ROUTES: Route[] = [
         loadChildren: async () => (await import('@elektra-nx/web/contact/feature')).ContactModule,
       },
       {
+        path: WebRoutes.NEW_STUDENT,
+        loadChildren: async () => (await import('@elektra-nx/web/new-student/feature')).WebNewStudentFeatureModule,
+      },
+      {
         path: WebRoutes.JOBS,
         loadChildren: async () => (await import('@elektra-nx/web/jobs/feature/shell')).JobsShellModule,
       },

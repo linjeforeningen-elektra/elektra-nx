@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormControl } from '@angular/forms';
-import { UpdateUserModel } from '@elektra-nx/shared/models';
+import { AccessRole, UpdateUserModel } from '@elektra-nx/shared/models';
 import { AccountUserSlice } from '@elektra-nx/web/account/utils';
 
 @Component({
@@ -18,6 +18,10 @@ export class AccountUserComponent implements OnInit, OnDestroy, OnChanges {
 
   @Input()
   user?: AccountUserSlice | null;
+
+  get confirmed(): string {
+    return this.user?.roles?.includes(AccessRole.MEMBER) ? 'Godkjent bruker' : 'Venter godkjenning';
+  }
 
   @Output()
   readonly update = new EventEmitter<{ name?: string; slug?: string }>();

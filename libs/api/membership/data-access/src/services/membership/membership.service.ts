@@ -97,27 +97,12 @@ export class MembershipService {
   }
 
   public async isMember(user: User): Promise<AccessRole | null> {
-    const membership = await this.findOneFromUserRelation(user);
-    if (!membership || !membership?.confirmed) return null;
-    return AccessRole.MEMBER;
+    return user.roles.includes(AccessRole.MEMBER) ? AccessRole.MEMBER : null;
   }
 
   public async updateOne(membership: Membership, dto: UpdateMembershipDto): Promise<Membership> {
     return this.em.transaction(async (em) => {
       const _membership = await em.save(Membership, { ...membership, ...dto });
-
-      if (_membership.confirmed !== membership.confirmed) {
-        const user = await em.findOne(User, { where: { id: _membership.userId } });
-
-        if (!user) {
-          throw new InternalServerErrorException(`Error finding user for updating role.`);
-        }
-
-        const roles = user.roles.filter((r) => r !== AccessRole.MEMBER);
-
-        await em.save(User, { ...user, roles: _membership.confirmed ? roles.concat(AccessRole.MEMBER) : roles });
-      }
-
       return _membership;
     });
   }

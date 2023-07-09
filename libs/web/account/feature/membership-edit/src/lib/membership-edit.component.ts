@@ -62,14 +62,17 @@ export class MembershipEditComponent implements OnDestroy {
       if (data?.phone) this.formGroup.controls['phone'].setValue(data.phone);
       if (data?.gender) this.formGroup.controls['gender'].setValue(data.gender);
       if (data?.memberyear) {
+
         const semesters = this.memberYears.flatMap((y) => y.semesters);
-        const found = semesters.find((s) => s.value.toDateString() == new Date(data.memberyear).toDateString());
+        console.log(new Date(data.memberyear))
+        console.log(semesters[11].value)
+        const found = semesters.find((s) => s.value.toLocaleString() == new Date(data.memberyear).toUTCString());
         if (found) this.formGroup.controls['memberyear'].setValue(found.value);
       }
       if (data?.immatriculation) {
         const semesters = this.immatriculationYears.flatMap((y) => y.semesters);
         const found = semesters.find(
-          (s) => s.value.toDateString() == new Date(<Date>data.immatriculation).toDateString(),
+          (s) => s.value.getTime() == new Date(<Date>data.immatriculation).getTime(),
         );
         if (found) this.formGroup.controls['immatriculation'].setValue(found.value);
       }

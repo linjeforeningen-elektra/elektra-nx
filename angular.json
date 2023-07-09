@@ -89,6 +89,7 @@
     "web-jobs-ui-job-item": "libs/web/jobs/ui/job-item",
     "web-layout-ui-dialog": "libs/web/layout/ui/dialog",
     "web-layout-ui-footer": "libs/web/layout/ui/footer",
+    "web-new-student-feature": "libs/web/new-student/feature",
     "web-not-found-feature": "libs/web/not-found/feature",
     "web-shared-assets": "libs/web/shared/assets",
     "web-shared-data-access": "libs/web/shared/data-access",
