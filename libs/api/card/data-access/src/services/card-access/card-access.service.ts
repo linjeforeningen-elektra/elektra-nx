@@ -71,34 +71,43 @@ export class CardAccessService {
 
   // i want to die
   public getNextExpiry(): Date {
-    const Y = this.NOW.getUTCFullYear();
-    const AUTUMN = new Date(Y, 7, 15, 12, 0, 0);
-    const SPRING = new Date(Y, 0, 15, 12, 0, 0);
-    const SPRING_NEXT = new Date(Y + 1, 0, 15, 12, 0, 0);
-    const AUTUMN_NEXT = new Date(Y + 1, 7, 15, 12, 0, 0);
+    const y = this.NOW.getUTCFullYear();
+    const d = this.NOW;
 
-    const diff_aug = AUTUMN.getTime() - this.NOW.getTime();
-    const diff_jan = SPRING.getTime() - this.NOW.getTime();
-    const diff_jan_next = SPRING_NEXT.getTime() - this.NOW.getTime();
+    d.setFullYear(y + 1);
+    d.setHours(12, 0, 0, 0);
 
-    if (diff_aug > 0) {
-      if (diff_jan > 0) {
-        // zone 1
-        return AUTUMN;
-      }
-      // zone 2
-      if (diff_aug <= ONE_MONTH) {
-        return SPRING_NEXT;
-      }
-      return AUTUMN;
-    } else {
-      // zone 3
-      if (diff_jan_next <= ONE_MONTH) {
-        return AUTUMN_NEXT;
-      }
-      return SPRING_NEXT;
-    }
+    return d;
   }
+  // public getNextExpiry(): Date {
+  //   const Y = this.NOW.getUTCFullYear();
+  //   const AUTUMN = new Date(Y, 7, 15, 12, 0, 0);
+  //   const SPRING = new Date(Y, 0, 15, 12, 0, 0);
+  //   const SPRING_NEXT = new Date(Y + 1, 0, 15, 12, 0, 0);
+  //   const AUTUMN_NEXT = new Date(Y + 1, 7, 15, 12, 0, 0);
+
+  //   const diff_aug = AUTUMN.getTime() - this.NOW.getTime();
+  //   const diff_jan = SPRING.getTime() - this.NOW.getTime();
+  //   const diff_jan_next = SPRING_NEXT.getTime() - this.NOW.getTime();
+
+  //   if (diff_aug > 0) {
+  //     if (diff_jan > 0) {
+  //       // zone 1
+  //       return AUTUMN;
+  //     }
+  //     // zone 2
+  //     if (diff_aug <= ONE_MONTH) {
+  //       return SPRING_NEXT;
+  //     }
+  //     return AUTUMN;
+  //   } else {
+  //     // zone 3
+  //     if (diff_jan_next <= ONE_MONTH) {
+  //       return AUTUMN_NEXT;
+  //     }
+  //     return SPRING_NEXT;
+  //   }
+  // }
 
   public async getCardActivityStatus(cardId: string) {
     const found = await this.cardAccessRepo.findBy({ cardId });
