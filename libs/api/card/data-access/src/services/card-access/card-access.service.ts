@@ -71,20 +71,18 @@ export class CardAccessService {
 
   // i want to die
   public getNextExpiry(): Date {
-    const y = this.NOW.getUTCFullYear();
-    const d = this.NOW;
+    const Y = this.NOW.getUTCFullYear();
+    const AUTUMN_NEXT = new Date(Y + 1, 7, 15, 12, 0, 0);
 
-    d.setFullYear(y + 1);
-    d.setHours(12, 0, 0, 0);
-
-    return d;
+    return AUTUMN_NEXT;
   }
+
   // public getNextExpiry(): Date {
   //   const Y = this.NOW.getUTCFullYear();
   //   const AUTUMN = new Date(Y, 7, 15, 12, 0, 0);
+  // const AUTUMN_NEXT = new Date(Y + 1, 7, 15, 12, 0, 0);
   //   const SPRING = new Date(Y, 0, 15, 12, 0, 0);
   //   const SPRING_NEXT = new Date(Y + 1, 0, 15, 12, 0, 0);
-  //   const AUTUMN_NEXT = new Date(Y + 1, 7, 15, 12, 0, 0);
 
   //   const diff_aug = AUTUMN.getTime() - this.NOW.getTime();
   //   const diff_jan = SPRING.getTime() - this.NOW.getTime();
