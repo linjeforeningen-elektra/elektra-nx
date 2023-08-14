@@ -20,7 +20,6 @@ export const UpdateMembershipMutation = gql<UpdateMembershipResult, UpdateMember
       memberyear
       immatriculation
       graduation
-      confirmed
       specialisation
       gender
       id
