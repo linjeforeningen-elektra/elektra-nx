@@ -1,0 +1,25 @@
+@use 'layout/mixins' as mixins;
+
+.web-admin-ui-user-list-item {
+  position: relative;
+  width: 100%;
+  background-color: var(--background-card);
+  box-sizing: border-box;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  p {
+    margin: 0;
+    font-size: .8rem;
+    color: var(--secondary-text);
+  }
+
+  p, b {
+    // width: 230px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+}

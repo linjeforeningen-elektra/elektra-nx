@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ApolloQueryResult } from '@apollo/client/core';
 import { BlockQueryResult, BlockService } from '@elektra-nx/web/block/data-access';
-import { Observable } from 'rxjs';
+import { Observable, catchError, of } from 'rxjs';
 
 @Component({
   selector: 'elektra-nx-block',
@@ -22,7 +22,8 @@ export class BlockComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.id) {
-      this.query$ = this.block.loadBlock(this.id);
+      // @ts-ignore
+      this.query$ = this.block.loadBlock(this.id).pipe(catchError((e) => of({ data: { block: { latest: null } } })));
     }
   }
 }

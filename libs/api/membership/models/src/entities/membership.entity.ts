@@ -23,21 +23,17 @@ export class Membership extends CoreEntity implements MembershipModel {
   @Field(() => String, { nullable: true })
   gender?: string;
 
-  @Column({ nullable: true })
+  @Column({ type: 'timestamp without time zone', nullable: true })
   @Field(() => Date, { nullable: true })
   immatriculation?: Date;
 
-  @Column()
+  @Column({ type: 'timestamp without time zone' })
   @Field(() => Date)
   memberyear: Date;
 
-  @Column({ nullable: true })
+  @Column({ type: 'timestamp without time zone', nullable: true })
   @Field(() => Date, { nullable: true })
   graduation?: Date;
-
-  @Column({ default: false })
-  @Field(() => Boolean)
-  confirmed: boolean;
 
   @Column({ type: 'enum', enum: Specialisation, enumName: 'Specialization', nullable: true })
   @Field(() => String, { nullable: true })

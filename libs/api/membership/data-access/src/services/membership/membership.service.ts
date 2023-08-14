@@ -1,6 +1,6 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { EntityManager, Repository } from 'typeorm';
 import { CreateMembershipDto, UpdateMembershipDto } from '@elektra-nx/api/shared/dto';
 import { Membership } from '@elektra-nx/api/membership/models';
 import { User } from '@elektra-nx/api/user/models';
@@ -8,7 +8,10 @@ import { AccessRole } from '@elektra-nx/shared/models';
 
 @Injectable()
 export class MembershipService {
-  constructor(@InjectRepository(Membership) private membershipRepo: Repository<Membership>) {}
+  constructor(
+    @InjectRepository(Membership) private membershipRepo: Repository<Membership>,
+    private em: EntityManager,
+  ) {}
 
   public async findUserMembership(user: User): Promise<Membership | undefined> {
     return this.membershipRepo.findOneBy({ userId: user.id });
@@ -94,13 +97,14 @@ export class MembershipService {
   }
 
   public async isMember(user: User): Promise<AccessRole | null> {
-    const membership = await this.findOneFromUserRelation(user);
-    if (!membership || !membership?.confirmed) return null;
-    return AccessRole.MEMBER;
+    return user.roles.includes(AccessRole.MEMBER) ? AccessRole.MEMBER : null;
   }
 
-  public async updateOne(membership: Membership, dto: UpdateMembershipDto) {
-    return this.membershipRepo.save({ ...membership, ...dto });
+  public async updateOne(membership: Membership, dto: UpdateMembershipDto): Promise<Membership> {
+    return this.em.transaction(async (em) => {
+      const _membership = await em.save(Membership, { ...membership, ...dto });
+      return _membership;
+    });
   }
 
   public async delete(id: string): Promise<{ id: string }> {

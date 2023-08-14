@@ -38,7 +38,7 @@
             {
               "type": "initial",
               "maximumWarning": "500kb",
-              "maximumError": "1mb"
+              "maximumError": "2mb"
             },
             {
               "type": "anyComponentStyle",
@@ -132,7 +132,21 @@
           "extractLicenses": false
         }
       },
-      "defaultConfiguration": "production"
+      "defaultConfiguration": "production",
+      "production": {
+        "outputHashing": "media",
+        "fileReplacements": [
+          {
+            "replace": "apps/web/src/environments/environment.ts",
+            "with": "apps/web/src/environments/environment.prod.ts"
+          }
+        ]
+      },
+      "development": {
+        "optimization": false,
+        "sourceMap": true,
+        "extractLicenses": false
+      }
     },
     "serve-ssr": {
       "executor": "@nguniversal/builders:ssr-dev-server",
@@ -184,7 +198,7 @@
       "options": {
         "commands": [
           "source-map-explorer dist/apps/web/browser/**/*.js --html dist/web/sourcemap.html",
-          "firefox dist/web/sourcemap.html"
+          "firefox dist/apps/web/sourcemap.html"
         ]
       }
     },

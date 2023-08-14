@@ -6,7 +6,7 @@ import { RouterModule } from '@angular/router';
 import { MatDividerModule } from '@angular/material/divider';
 import { WebLayoutNavdrawerModule } from '@elektra-nx/web/layout/feature/navdrawer';
 import { WebFooterModule } from '@elektra-nx/web/layout/ui/footer';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatLegacySnackBarModule as MatSnackBarModule } from '@angular/material/legacy-snack-bar';
 
 @NgModule({
   imports: [

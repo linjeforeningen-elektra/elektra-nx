@@ -6,6 +6,7 @@ export interface AccountResponse {
     id: string;
     name: string;
     slug?: string;
+    roles: string[];
     membership?: Omit<MembershipModel, 'ownerId' | 'updatedAt' | 'createdAt'>;
     card?: Pick<CardModel, 'id' | 'student_number'> & { status: CardAccessStatus };
   };
@@ -17,6 +18,7 @@ export const AccountGQLQuery = gql<AccountResponse, null>`
       id
       name
       slug
+      roles
       membership {
         id
         phone
@@ -25,7 +27,6 @@ export const AccountGQLQuery = gql<AccountResponse, null>`
         memberyear
         immatriculation
         graduation
-        confirmed
         specialisation
         gender
       }

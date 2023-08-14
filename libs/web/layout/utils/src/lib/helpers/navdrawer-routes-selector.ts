@@ -13,9 +13,7 @@ export function navdrawerRoutesSelector(loggedIn: boolean) {
   return loggedIn ? [...LOGGED_IN_ROUTES, ...DEFAULT_ROUTES] : DEFAULT_ROUTES;
 }
 
-export function routeSerializer(loggedIn: boolean) {
-  const routes = navdrawerRoutesSelector(loggedIn);
-
+export function routeSerializer(routes: NavdrawerRoute[]) {
   return routes.reduce((acc, cur) => {
     if (cur.group) {
       const groupIndex = acc.findIndex((g) => g.group === cur.group);

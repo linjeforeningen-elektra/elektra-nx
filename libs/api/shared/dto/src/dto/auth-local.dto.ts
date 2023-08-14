@@ -1,4 +1,4 @@
-import { Type } from 'class-transformer';
+import { Transform, Type } from 'class-transformer';
 import { IsEmail, IsNotEmpty, IsNumberString, IsString, ValidateNested } from 'class-validator';
 import {
   ConfirmEmailModel,
@@ -14,6 +14,7 @@ export class LoginWithAuthLocalDto implements LoginWithAuthLocalModel {
   @IsNotEmpty()
   @IsString()
   @Field(() => String)
+  @Transform((p) => (<string>p.value).toLowerCase())
   email: string;
 
   @IsNotEmpty()
@@ -27,6 +28,7 @@ export class CreateAuthLocalDto implements CreateAuthLocalModel {
   @IsNotEmpty()
   @IsEmail()
   @Field(() => String)
+  @Transform((p) => (<string>p.value).toLowerCase())
   email: string;
 
   @IsNotEmpty()
@@ -59,5 +61,6 @@ export class ConfirmEmailDto implements ConfirmEmailModel {
   @IsNotEmpty()
   @IsEmail()
   @Field(() => String)
+  @Transform((p) => (<string>p.value).toLowerCase())
   email: string;
 }

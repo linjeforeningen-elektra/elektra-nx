@@ -1,0 +1,51 @@
+<div class="admin-user-list">
+  <div class="toolbar">
+    <form [formGroup]="nameFormGroup">
+      <mat-form-field>
+        <mat-label>Navn</mat-label>
+        <input #n="matInput" type="text" matInput formControlName="name" autocomplete="off">
+        <!-- <button mat-icon-button matSuffix>
+          <mat-icon>filter_list</mat-icon>
+        </button> -->
+        <button *ngIf="n.value" mat-icon-button matSuffix (click)="nameFormGroup.reset()">
+          <mat-icon>clear</mat-icon>
+        </button>
+      </mat-form-field>
+      <!-- <button mat-button>
+        Filters
+        <mat-icon>filter_list</mat-icon>
+      </button> -->
+
+
+      <div class="filters">
+        <form [formGroup]="rolesFormGroup">
+          <mat-chip-listbox multiple="true" formControlName="roles">
+            <mat-chip-option *ngFor="let role of roles">{{ role }}</mat-chip-option>
+          </mat-chip-listbox>
+          <div class="invert">
+            <mat-slide-toggle formControlName="invert" color="primary">Inverter</mat-slide-toggle>
+          </div>
+        </form>
+      </div>
+
+    </form>
+  </div>
+
+
+    <p class="count">Viser: {{ users.length }}</p>
+    <ul class="user-list">
+      <li class="user" *ngFor="let user of users">
+        <elektra-nx-web-admin-user-list-item [routerLink]="user.id" [user]="user"></elektra-nx-web-admin-user-list-item>
+      </li>
+    </ul>
+    <div class="more">
+      <button mat-button (click)="loadMore()" *ngIf="more; else nomore">
+        <mat-icon>refresh</mat-icon>
+        Hent flere
+      </button>
+    </div>
+</div>
+
+<ng-template #nomore>
+  <b>No more results.</b>
+</ng-template>

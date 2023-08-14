@@ -1,15 +1,6 @@
 import { CreateMembershipModel, Specialisation, UpdateMembershipModel } from '@elektra-nx/shared/models';
 import { Field, InputType } from '@nestjs/graphql';
-import {
-  IsBoolean,
-  IsDate,
-  IsEnum,
-  IsNotEmpty,
-  IsNumberString,
-  IsOptional,
-  IsPhoneNumber,
-  IsString,
-} from 'class-validator';
+import { IsDate, IsEnum, IsNotEmpty, IsNumberString, IsOptional, IsPhoneNumber, IsString } from 'class-validator';
 
 @InputType()
 export class CreateMembershipDto implements CreateMembershipModel {
@@ -95,9 +86,4 @@ export class UpdateMembershipDto implements UpdateMembershipModel {
   @IsEnum(Specialisation)
   @Field(() => String, { nullable: true })
   specialisation?: Specialisation;
-
-  @IsOptional()
-  @IsBoolean()
-  @Field(() => Boolean, { nullable: true })
-  confirmed?: boolean;
 }

@@ -1,33 +1,23 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, map } from 'rxjs';
-import { NavdrawerReducer } from '../../helpers';
-import { NavdrawerLink } from '../../interfaces';
-
-export const LINKS: NavdrawerLink[] = [
-  { title: 'Hjem', icon: 'home', path: '/hjem', group: '' },
-  { title: 'Stillingsannonser', path: '/stillingsannonser', icon: 'work', group: '' },
-  // { title: 'News', icon: 'feed', path: '/feed', group: '' },
-];
+import { NavdrawerRoute, routeSerializer } from '@elektra-nx/web/layout/utils';
+import { BehaviorSubject, combineLatest, map, Observable, of, switchMap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class NavdrawerService {
-  private opened: BehaviorSubject<boolean> = new BehaviorSubject(<boolean>false);
-  public readonly state$ = this.opened.asObservable();
+  private list = new BehaviorSubject<Observable<NavdrawerRoute[]>[]>([]);
 
-  private links: BehaviorSubject<NavdrawerLink[]> = new BehaviorSubject(<NavdrawerLink[]>LINKS);
-  public readonly groups$ = this.links.asObservable().pipe(map((links) => NavdrawerReducer(links)));
+  routes$ = this.list.pipe(
+    switchMap((list) => combineLatest(list)),
+    map((list) => routeSerializer(list.flat())),
+  );
 
-  public setLinks(links: NavdrawerLink[]): void {
-    this.links.next(links);
-  }
+  public registerRoutes(routes: NavdrawerRoute[]): void;
+  public registerRoutes(routes: Observable<NavdrawerRoute[]>): void;
+  public registerRoutes(routes: NavdrawerRoute[] | Observable<NavdrawerRoute[]>): void {
+    const value = this.list.value;
 
-  open(): void {
-    this.opened.next(true);
-  }
-
-  close(): void {
-    this.opened.next(false);
+    this.list.next([...value, routes instanceof Observable ? routes : of(routes)]);
   }
 }

@@ -1,5 +1,11 @@
-import { AccessRole, UserModel } from '@elektra-nx/shared/models';
-import type { PickPartial } from '@elektra-nx/shared/util/types';
+import {
+  AccessRole,
+  AddManyUserRoleModel,
+  AddOneUserRoleModel,
+  RemoveOneUserRoleModel,
+  UpdateUserModel,
+  UserModel,
+} from '@elektra-nx/shared/models';
 import { Field, InputType } from '@nestjs/graphql';
 import { IsEnum, IsLowercase, IsNotEmpty, IsOptional, IsString } from 'class-validator';
 
@@ -18,7 +24,7 @@ export class CreateUserDto implements Pick<UserModel, 'name' | 'slug'> {
 }
 
 @InputType()
-export class UpdateUserDto implements PickPartial<UserModel, 'name' | 'slug' | 'roles'> {
+export class UpdateUserDto implements UpdateUserModel {
   @IsOptional()
   @IsString()
   @Field(() => String, { nullable: true })
@@ -28,11 +34,6 @@ export class UpdateUserDto implements PickPartial<UserModel, 'name' | 'slug' | '
   @IsString()
   @Field(() => String, { nullable: true })
   slug?: string;
-
-  @IsOptional()
-  @IsEnum(AccessRole, { each: true })
-  @Field(() => [String], { nullable: true })
-  roles?: AccessRole[];
 }
 
 @InputType()
@@ -41,4 +42,33 @@ export class DeleteUserDto implements Pick<UserModel, 'id'> {
   @IsString()
   @Field(() => String)
   id: string;
+}
+
+@InputType()
+export class AddOneUserRoleDto implements AddOneUserRoleModel {
+  @IsNotEmpty()
+  @IsEnum(AccessRole)
+  @Field(() => String)
+  role: AccessRole;
+}
+
+@InputType()
+export class RemoveOneUserRoleDto implements RemoveOneUserRoleModel {
+  @IsNotEmpty()
+  @IsEnum(AccessRole)
+  @Field(() => String)
+  role: AccessRole;
+}
+
+@InputType()
+export class AddManyUserRoleDto implements AddManyUserRoleModel {
+  @IsNotEmpty()
+  @IsString({ each: true })
+  @Field(() => [String])
+  userIds: string[];
+
+  @IsNotEmpty()
+  @IsEnum(AccessRole)
+  @Field(() => String)
+  role: AccessRole;
 }

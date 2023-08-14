@@ -4,7 +4,7 @@ import { LayoutNavdrawerComponent } from './layout-navdrawer.component';
 
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button';
+import { MatLegacyButtonModule as MatButtonModule } from '@angular/material/legacy-button';
 import { WebLayoutNavbarModule } from '@elektra-nx/web/layout/feature/navbar';
 import { RouterModule } from '@angular/router';
 import { NavigationListModule } from '@elektra-nx/web/layout/feature/navigation-list';

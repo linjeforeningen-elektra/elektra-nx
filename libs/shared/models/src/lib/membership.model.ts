@@ -13,7 +13,6 @@ export interface MembershipModel extends CoreModel {
   memberyear: Date;
   immatriculation?: Date;
   graduation?: Date;
-  confirmed?: boolean;
   specialisation?: Specialisation;
   gender?: string;
 }
@@ -37,6 +36,5 @@ export interface UpdateMembershipModel {
   immatriculation?: Date;
   graduation?: Date;
   specialisation?: Specialisation;
-  confirmed?: boolean;
   gender?: string;
 }

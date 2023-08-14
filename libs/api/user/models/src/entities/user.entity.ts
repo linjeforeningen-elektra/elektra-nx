@@ -1,4 +1,3 @@
-// import { AuthLocalEntity } from '@elektra-nx/api/auth/data-access';
 import { CoreEntity } from '@elektra-nx/api/database/utils';
 import { AccessRole, UserModel } from '@elektra-nx/shared/models';
 import { Field, ObjectType } from '@nestjs/graphql';
@@ -17,6 +16,10 @@ export class User extends CoreEntity implements UserModel {
   name: string;
 
   @Field(() => [String])
-  @Column({ type: 'enum', enum: AccessRole, array: true, enumName: 'AccessRole', default: [] })
+  @Column({ type: 'enum', enum: AccessRole, array: true, enumName: 'AccessRole', default: [AccessRole.USER] })
   roles: AccessRole[];
+
+  @Field(() => Date)
+  @Column({ name: 'last_signed_in', type: 'timestamp with time zone', default: 'NOW()' })
+  lastSignedIn: Date;
 }

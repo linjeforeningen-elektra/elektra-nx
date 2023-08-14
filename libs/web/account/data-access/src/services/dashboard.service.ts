@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { isApolloError } from '@apollo/client/errors';
 import {
   CreateCardModel,
   CreateMembershipModel,
@@ -7,7 +8,7 @@ import {
 } from '@elektra-nx/shared/models';
 import { WebSnackbarService } from '@elektra-nx/web/shared/data-access';
 import { Apollo } from 'apollo-angular';
-import { tap } from 'rxjs';
+import { catchError, EMPTY, tap } from 'rxjs';
 import {
   AccountGQLQuery,
   AccountResponse,
@@ -56,7 +57,16 @@ export class DashboardService {
           };
         },
       })
-      .pipe(tap({ next: () => this.snackBar.open('User updated.') }))
+      .pipe(
+        tap({ next: () => this.snackBar.open('User updated.') }),
+        catchError((error) => {
+          if (isApolloError(error)) {
+            // const transformed = transformApolloError(error);
+            alert(error.message);
+          }
+          return EMPTY;
+        }),
+      )
       .subscribe();
   }
 
@@ -90,7 +100,17 @@ export class DashboardService {
           store.writeQuery({ query: AccountGQLQuery, data: { account } });
         },
       })
-      .pipe(tap({ next: () => this.snackBar.open('Membership created.') }))
+      .pipe(
+        tap({ next: () => this.snackBar.open('Membership created.'), error: (err) => console.error(err) }),
+        catchError((error) => {
+          if (isApolloError(error)) {
+            // const transformed = transformApolloError(error);
+
+            alert(error.message);
+          }
+          return EMPTY;
+        }),
+      )
       .subscribe();
   }
 
@@ -128,7 +148,18 @@ export class DashboardService {
           store.writeQuery({ query: AccountGQLQuery, data: account });
         },
       })
-      .pipe(tap({ next: () => this.snackBar.open('Membership updated.') }))
+      .pipe(
+        tap({ next: () => this.snackBar.open('Membership updated.') }),
+
+        catchError((error) => {
+          if (isApolloError(error)) {
+            // const transformed = transformApolloError(error);
+            // alert(error.networkError);
+            alert(error.message);
+          }
+          return EMPTY;
+        }),
+      )
       .subscribe();
   }
 

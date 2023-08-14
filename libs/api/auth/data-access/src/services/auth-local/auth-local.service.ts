@@ -37,6 +37,10 @@ export class AuthLocalService {
     private jwt: JwtService,
   ) {}
 
+  public async findAuthLocalFromUserRelation(userId: string) {
+    return this.authLocal.findOneBy({ userId });
+  }
+
   public async resetPasswordByHash(hash: string, password: string): Promise<string> {
     const passwordReset = await this.passwordReset.findOneBy({ hash });
 
@@ -112,6 +116,8 @@ export class AuthLocalService {
 
     const user = await this.user.findOneBy({ id: found.userId });
     if (!user) throw new InternalServerErrorException('AuthLocal has no user.');
+
+    await this.user.save({ ...user, lastSignedIn: moment().utc(false) });
 
     return { user, email };
   }

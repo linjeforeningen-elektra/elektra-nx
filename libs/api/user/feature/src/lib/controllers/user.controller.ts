@@ -10,7 +10,7 @@ export class UserController {
 
   @Get()
   public async find(@GetAuth() auth: AuthUser) {
-    return this.user.find(auth);
+    return this.user.find(auth, {});
   }
 
   @Get(':id')
