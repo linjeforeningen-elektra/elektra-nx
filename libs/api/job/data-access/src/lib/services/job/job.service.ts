@@ -29,7 +29,7 @@ export class JobService {
         }),
       )
       .subscribe(({ data }) => {
-        this.setJobs(data);
+        this.setJobs(data.filter((e) => e.id != undefined));
         this.init.next(true);
       });
   }
